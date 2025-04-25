@@ -1,0 +1,29 @@
+@use 'sass:list' as list;
+@use './variables.scss' as var;
+@use './templates.scss' as *;
+
+@mixin flex-col($gap) {
+   @extend %flex-col;
+   gap: $gap;
+}
+
+@mixin flex($wrap, $gap...) {
+   @extend %d-flex;
+
+   @if ($wrap == wrap) {
+      @extend %flex-wrap;
+   } @else {
+      flex-wrap: $wrap;
+   }
+
+   @if (list.length($gap) > 0) {
+      gap: $gap;
+   }
+}
+
+@mixin abs($top: 0, $left: 0, $index: 1) {
+   @extend %abs;
+   top: $top;
+   left: $left;
+   z-index: $index;
+}
