@@ -4,7 +4,464 @@
 @use './templates.scss' as *;
 @use './mixins.scss' as mix;
 
+.text1 {
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+}
 
+.text2 {
+  font-family: 'Roboto';
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+}
+
+.text3 {
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.text4 {
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+.text5 {
+  font-family: 'Roboto';
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.text6 {
+  font-family: 'Roboto';
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 70px;
+}
+
+.text7 {
+  font-family: 'Roboto';
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 52px;
+}
+
+.text8 {
+  font-family: 'Roboto';
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 23px;
+}
+
+.text9 {
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.text10 {
+  font-family: 'Roboto';
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.navbar {
+
+  &__top, &__bottom {
+    @include mix.flex(wrap, 15px 48.5px);
+    @extend %ali-cen;
+    @extend %rel;
+    padding: 20px 0px 21px 0px;
+
+    &::after {
+      content: '';
+      @extend %abs;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: var.$green;
+    }
+  }
+
+  &__bottom {
+    @extend %jus-bet;
+    padding: 0px;
+    gap: 0px 30px;
+  }
+
+  @at-root
+  .company-logo {
+    @include mix.flex-col(10px);
+    width: 124px;
+
+    &__icon {
+      @extend %shrink0;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &__company-logo {
+    @extend %rel;
+    top: 1px;
+    left: 1px;
+  }
+
+  @at-root
+  .nav-links {
+    @include mix.flex(wrap, 7px 24.6px);
+    max-width: 593.5px;
+
+    &__link {
+      padding: 5px 0;
+      color: var.$black;
+    }
+  }
+
+  &__nav-links {
+    margin: 5px 0 0 0;
+  }
+
+  @at-root
+  .tel-block {
+    @include mix.flex(wrap, 21px);
+    @extend %ali-cen;
+
+    &__main {
+      @include mix.flex-col(4px);
+      margin: 4px 0 0 0;
+      max-width: 190.5px;
+    }
+
+    &__link {
+      @include mix.flex(nowrap, 4px);
+      @extend %ali-cen;
+      color: var.$black;
+
+      &::before {
+        content: '';
+        @extend %shrink0;
+        background: url(../images/icons/call.svg) 0 0 / contain no-repeat;
+        width: 17px;
+        height: 17px;
+        margin: 1px 0 0 0;
+      }
+    }
+
+    &__info {
+      color: var.$black;
+    }
+
+    &__buttons {
+      @include mix.flex-col(8px);
+    }
+
+    &__button-outline {
+      width: 172px;
+    }
+  }
+
+  &__tel-block {
+    margin: 0 0 0 -2px;
+    gap: 24.5px;
+  }
+
+  @at-root
+  .button-outline {
+    @extend %flex-cen;
+    border: 1px solid var.$green;
+    border-radius: 4px;
+    color: var.$green;
+    padding: 12.5px 15px;
+  }
+
+  @at-root
+  .drop-list {
+    @include mix.flex(wrap, 0px);
+    max-width: 1000px;
+
+    &__item {
+      @include mix.flex(nowrap, 0px);
+      @extend %rel;
+    }
+
+    &__button {
+      @extend %flex-cen;
+      gap: 5px;
+      width: 200px;
+      padding: 24px 15px 25px 15px;
+    }
+
+    &__icon {
+      @extend %shrink0;
+      fill: none;
+      stroke: var.$black;
+      stroke-width: 2px;
+      width: 14px;
+      height: 8px;
+      margin: 0 3px 0 0;
+    }
+
+    &__content {
+      @include mix.flex-col(7px);
+      @extend %abs;
+      width: 100%;
+      background: var.$white;
+      top: 100%;
+      left: 0;
+      box-shadow: 0px 3px 10px var.$silver;
+      padding: 25px 15px;
+      z-index: 1;
+      display: none;
+    }
+
+    &__link {
+      color: var.$black;
+      padding: 13px 15px 11px 15px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+  }
+
+  @at-root
+  .lang-btn {
+    @include mix.flex(nowrap, 0px);
+    border: 1px solid var.$green;
+    border-radius: 4px;
+
+    &__variant {
+      @extend %rel;
+      padding: 8px 15.5px 7px 15.5px;
+      color: var.$green;
+
+      &:not(:last-child)::after {
+        content: '';
+        @extend %d-block;
+        @extend %abs;
+        @extend %py-cen;
+        right: -2px;
+        width: 2px;
+        height: 25px;
+        background: var.$green;
+        z-index: 1;
+      }
+
+      &.active {
+        color: var.$black;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__lang-btn {
+    margin: 10px 1px 10px 0;
+  }
+}
+
+.marked-text {
+  padding: 0px 10px;
+  background: var.$green;
+  border-radius: 10px;
+  color: var.$white;
+  font-size: 58px;
+  box-decoration-break: clone;
+  line-height: 130%;
+}
+
+.benefits {
+  @include mix.flex(wrap, 24.5px 42px);
+
+  @at-root
+  .benefit {
+    @include mix.flex-col(10px);
+    width: 185px;
+
+    &__icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    &__text {
+      color: var.$black;
+    }
+  }
+}
+
+.calculator {
+  @include mix.flex-col(29px);
+  padding: 37.5px 0px 41px 0px;
+  background: var.$white;
+  border-radius: 7px;
+  width: 461px;
+
+  &__title {
+    color: var.$black;
+    text-transform: uppercase;
+    margin: 0 0 0 1px;
+    padding: 0px 28px;
+  }
+
+  &__body {
+    @include mix.flex-col(18.5px);
+    padding: 0px 28px;
+  }
+
+  &__section {
+    @extend %rel;
+    padding: 0px 0px 19px 0px;
+
+    &:last-child {
+      padding: 0;
+    }
+
+    &:not(:last-child)::after {
+      content: '';
+      @extend %abs;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var.$silver2;
+    }
+  }
+
+  .ass {
+    width: 1px;
+    height: 15px;
+  }
+
+  &__section-title {
+    color: var.$gray;
+    margin: 0 0 18.5px 0;
+  }
+
+  &__section-content {
+    @include mix.flex(wrap, 9px 30px);
+  }
+
+  &__section-column {
+    @include mix.flex-col(9px);
+    width: 41.5%;
+  }
+
+  &__section-row {
+    @include mix.flex(wrap, 9px 24.5px);
+  }
+
+  &__inputs {
+    @extend %abs;
+    @extend %vis0;
+  }
+
+  &__footer {
+    @include mix.flex-col(21px);
+    @extend %w-100;
+    padding: 0px 28px;
+  }
+
+  &__summary {
+    @include mix.flex(wrap, 20px 33px); 
+    background: var.$white2;
+    padding: 17px 33px;
+    margin: 0px -28px;
+  }
+
+  &__summary-item {
+    @include mix.flex-col(2px);
+    width: 170px;
+    color: var.$blue;
+  }
+
+  &__section-phone {
+    @include mix.flex(wrap, 14px);
+    @extend %ali-cen;
+    margin: -5px 0 0 0;
+  }
+
+  &__section--phone {
+    padding: 0;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &__phone-input {
+    width: 204px;
+    height: 40px;
+    border: 1px solid var.$white3;
+    padding: 10px 12px;
+
+    &::placeholder {
+      color: var.$gray;
+    }
+  }
+
+  @at-root
+  .button {
+    padding: 13px 27px;
+    border-radius: 4px;
+    background: var.$green;
+    color: var.$white;
+  }
+
+  @at-root
+  .custom-radio {
+    @include mix.flex(nowrap, 10px);
+    @extend %ali-cen;
+    width: fit-content;
+    cursor: pointer;
+
+    &__input {
+      @extend %flex-cen;
+      @extend %shrink0;
+      width: 18px;
+      height: 18px;
+      background: var.$white2;
+      border-radius: 50%;
+      border: 2px solid var.$white3;
+
+      &::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background: var.$blue2;
+        border-radius: 50%;
+        display: none;
+      }
+    }
+
+    &__text {
+      color: var.$gray;
+      cursor: pointer;
+    }
+
+    &.active {
+
+      .custom-radio__input {
+        border-color: var.$blue2;
+
+        &::after {
+          display: block;
+        }
+      }
+
+      .custom-radio__text {
+        color: var.$blue2;
+      }
+    }
+  }
+}
 
 // MEDIA QUERIES
 

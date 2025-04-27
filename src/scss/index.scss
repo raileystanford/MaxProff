@@ -5,7 +5,48 @@
 @use './mixins.scss' as mix;
 @use './common.scss' as *;
 
+.header {
+  @include mix.flex-col(32px);
+  padding: 5px 0px;
 
+  &__intro {
+    @extend %d-flex;
+    @extend %jus-cen;
+    @extend %rel;
+    @extend %px-cen;
+    width: 100vw;
+    padding: 12px 0;
+    background: url(../images/backgrounds/overlay.png) 0 0 / 85% 100% no-repeat, url(../images/backgrounds/background1.jpg) 0 0 / cover no-repeat;
+  }
+
+  &__intro-inner {
+    @include mix.flex(wrap, 50px);
+    @extend %jus-bet;
+    width: 1200px;
+  }
+
+  &__info {
+    @include mix.flex-col(82px);
+    max-width: 560px;
+    margin: 19px 0 0 0;
+  }
+
+  &__info-text {
+    @include mix.flex-col(14px)
+  }
+
+  &__title, &__subtitle {
+    color: var.$black;
+  }
+
+  &__subtitle {
+    word-spacing: -5px;
+  }
+
+  &__calculator {
+    margin: 0 1px 0 0;
+  }
+}
 
 // MEDIA QUERIES
 

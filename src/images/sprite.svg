@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 
-  <symbol id="arrow" viewBox="0 0 14 8">
-    
+  <symbol id="arrow-small" viewBox="0 0 14.0082 8.00391">
+    <path d="M1 1L7 7L13 1" stroke-linejoin="round" stroke-linecap="round"/>
   </symbol>
 
 </svg>

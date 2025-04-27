@@ -21,9 +21,8 @@
    }
 }
 
-@mixin abs($top: 0, $left: 0, $index: 1) {
+@mixin abs($top: 0, $left: 0) {
    @extend %abs;
    top: $top;
    left: $left;
-   z-index: $index;
 }

@@ -1,2 +1,189 @@
 @use './variables.scss' as var;
 @use './templates.scss' as *;
+
+.company-logo {
+  @extend %will;
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.nav-links__link {
+  @extend %d-block;
+  transition: all 0.2s, transform 0.1s;
+
+  &:hover, &:focus {
+    color: var.$blue2;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+.tel-block__link {
+  transition: all 0.2s, transform 0.1s;
+
+  &:hover, &:focus {
+    color: var.$blue2;
+  }
+}
+
+.button-outline {
+  @extend %will;
+  transition: all 0.2s, transform 0.1s;
+
+  &:hover, &:focus {
+    background: var.$green;
+    color: var.$white;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.drop-list__button {
+  transition: all 0.2s;
+
+  .drop-list__icon {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+    background: var.$green;
+    color: var.$white;
+
+    .drop-list__icon {
+      stroke: var.$white;
+    }
+  }
+}
+
+.drop-list__link {
+  @extend %will;
+  transition: all 0.2s, transform 0.1s;
+
+  &:hover, &:focus {
+    border-color: var.$green;
+    color: var.$blue2;
+  }
+
+  &:active {
+    transform: translateY(3px);
+  }
+}
+
+.lang-btn__variant {
+  transition: all 0.1s;
+
+  &:hover, &:focus {
+    background: var.$green;
+    color: var.$white;
+  }
+
+  &:active {
+    background: var.$white;
+    color: var.$green;
+  }
+}
+
+.calculator {
+  @extend %will;
+  transition: all 0.2s;
+
+  * {
+    @extend %will;
+  }
+
+  &__title {
+    transition: all 0.2s;
+  }
+
+
+  &:hover {
+    box-shadow: 0 0 10px var.$gray;
+    transform: translateY(2px);
+
+    .calculator__title {
+      color: var.$green;
+    }
+  }
+}
+
+.calculator__section:not(.calculator__section--phone) {
+
+  .calculator__section-title {
+    @extend %rel;
+    transition: all 0.2s;
+
+    &::after {
+      content: '';
+      @extend %d-block;
+      @extend %abs;
+      transition: all 0.15s;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: var.$black;
+    }
+  }
+
+  &:hover {
+
+    .calculator__section-title {
+      color: var.$black;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.custom-radio {
+
+  .custom-radio__input, .custom-radio__text {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+    outline: none;
+
+    .custom-radio__input {
+      border-color: var.$blue2;
+    }
+
+    .custom-radio__text {
+      color: var.$blue2;
+    }
+  }
+}
+
+.calculator__phone-input {
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    border-color: var.$black;
+  }
+}
+
+.button {
+  @extend %will;
+  transition: all 0.2s, transform 0.1s;
+
+  &:hover, &:focus {
+    background: var.$green2;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
