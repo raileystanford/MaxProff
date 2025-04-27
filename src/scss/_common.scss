@@ -76,7 +76,7 @@
 
 .navbar {
 
-  &__top, &__bottom {
+  &__top, &__bottom, &__middle {
     @include mix.flex(wrap, 15px 48.5px);
     @extend %ali-cen;
     @extend %rel;
@@ -134,7 +134,7 @@
 
   @at-root
   .tel-block {
-    @include mix.flex(wrap, 21px);
+    @include mix.flex(wrap, 24.5px);
     @extend %ali-cen;
 
     &__main {
@@ -173,7 +173,6 @@
 
   &__tel-block {
     margin: 0 0 0 -2px;
-    gap: 24.5px;
   }
 
   @at-root
@@ -265,6 +264,20 @@
 
   &__lang-btn {
     margin: 10px 1px 10px 0;
+  }
+
+  &--tablet {
+    display: none;
+  }
+}
+
+.nav-socials {
+  @include mix.flex(wrap, 5px 17px);
+  @extend %ali-cen;
+
+  &__icon {
+    width: 26px;
+    height: 26px;
   }
 }
 
@@ -462,13 +475,3 @@
     }
   }
 }
-
-// MEDIA QUERIES
-
-@media (max-width: 1200px) {}
-
-@media (max-width: 1024px) {}
-
-@media (max-width: 768px) {}
-
-@media (max-width: 565px) {}
