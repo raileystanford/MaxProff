@@ -76,7 +76,7 @@
 
 .navbar {
 
-  &__top, &__bottom {
+  &__top, &__bottom, &__middle {
     @include mix.flex(wrap, 15px 48.5px);
     @extend %ali-cen;
     @extend %rel;
@@ -134,7 +134,7 @@
 
   @at-root
   .tel-block {
-    @include mix.flex(wrap, 21px);
+    @include mix.flex(wrap, 24.5px);
     @extend %ali-cen;
 
     &__main {
@@ -173,7 +173,6 @@
 
   &__tel-block {
     margin: 0 0 0 -2px;
-    gap: 24.5px;
   }
 
   @at-root
@@ -266,6 +265,54 @@
   &__lang-btn {
     margin: 10px 1px 10px 0;
   }
+
+  &--tablet, &--mobile {
+    display: none;
+  }
+}
+
+.nav-socials {
+  @include mix.flex(wrap, 5px 17px);
+  @extend %ali-cen;
+
+  &__icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.nav-sidebar {
+  @include mix.flex-col(31px);
+  @extend %abs;
+  height: 100vh;
+  width: 325px;
+  padding: 23px 20px;
+  top: 0;
+  right: 0;
+  background: var.$white;
+  overflow: auto;
+  z-index: 10;
+  display: none;
+
+  &__buttons {
+    @include mix.flex-col(11px);
+    @extend %ali-start;
+  }
+
+  &__button {
+    @extend %w-100;
+  }
+}
+
+.burger-overlay {
+  width: 100vw;
+  height: 100vh;
+  background: var.$black3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  display: none;
 }
 
 .marked-text {
@@ -409,6 +456,7 @@
 
   @at-root
   .button {
+    @extend %flex-cen;
     padding: 13px 27px;
     border-radius: 4px;
     background: var.$green;
@@ -462,13 +510,3 @@
     }
   }
 }
-
-// MEDIA QUERIES
-
-@media (max-width: 1200px) {}
-
-@media (max-width: 1024px) {}
-
-@media (max-width: 768px) {}
-
-@media (max-width: 565px) {}
