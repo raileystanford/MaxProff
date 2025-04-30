@@ -132,6 +132,10 @@
       gap: 12px 14px;
     }
 
+    .navbar__bottom {
+      gap: 0px 10px;
+    }
+
     .company-logo {
       width: 124px;
     }
@@ -490,4 +494,325 @@
   }
 }
 
-@media (max-width: 670px) {}                                  
+@media (max-width: 671px) {
+
+  .page-wrapper {
+    width: 500px;
+  }
+
+  .header {
+    padding: 100px 0px 0px 0px;
+    gap: 25px;
+
+    .navbar--tablet {
+      display: none;
+    }
+
+    .navbar--mobile {
+      display: block;
+      background: var.$white;
+      padding: 25px 15px;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+
+      .navbar__close-btn {
+        display: flex;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 20px;
+        z-index: 10;
+        display: none;
+      }
+
+      .navbar__close-icon {
+        width: 100%;
+        height: 100%;
+      }
+
+      .navbar__controls {
+        display: flex;
+        gap: 15px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar__burger-btn {
+        width: 35px;
+        height: 20px;
+      }
+
+      .navbar__burger-icon {
+        flex-shrink: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .navbar__call-btn {
+        width: 60px;
+        height: 41px;
+        padding: 0;
+      }
+
+      .navbar__call-icon {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: white;
+        stroke-width: 1px;
+      }
+
+      .navbar__drop-list {
+        flex-direction: column;
+      }
+
+      .drop-list__item {
+        flex-direction: column;
+      }
+
+      .drop-list__button {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 10px 0px;
+      }
+
+      .drop-list__icon {
+        transform: rotate(90deg);
+      }
+
+      .drop-list__content {
+        box-shadow: none;
+        // outline: 1px solid black;
+        padding: 0px 0px 0px 20px;
+        position: static;
+        width: 100%;
+        height: 0px;
+        overflow: hidden;
+      }
+
+      .drop-list__content.ass {
+        display: flex;
+      }
+
+      .navbar__nav-links {
+        flex-direction: column;
+        gap: 10px;
+        margin: 0px 0px 0px 25px;
+        order: 0;
+      }
+
+      .nav-links__item {
+        display: flex;
+      }
+
+      .navbar__tel-block {
+        margin: 0px 0px 0px 25px;
+      }
+    }
+
+    .header__intro-inner {
+      width: 500px;
+    }
+
+    .calculator {
+      width: 100%;
+
+      .calculator__section {
+        width: 100%;
+        order: 0; 
+
+        &:nth-child(2) {
+          padding: 0px 0px 23px 0px;
+          
+          &::after {
+            display: block;
+          }
+        }
+      }
+
+      .calculator__body {
+        gap: 20px;
+      }
+
+      .calculator__summary {
+        gap: 15px 100px;
+      }
+
+      .calculator__section--phone {
+        padding: 0 !important;
+
+        .calculator__phone-input {
+          width: 100%;
+        }
+
+        .calculator__button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}  
+
+@media (max-width: 501px) {
+
+  .page-wrapper {
+    width: 384px;
+  }
+
+  .header {
+    padding: 78px 0px 0px 0px;
+
+    .navbar--mobile {
+      padding: 18.5px 15px;
+    }
+
+    .nav-sidebar {
+      width: 290px;
+    }
+
+    .header__intro {
+      padding: 45px 0;
+      background: url(../images/backgrounds/overlay.png) -1px 0 / 120% 100% no-repeat, url(../images/backgrounds/background1.jpg) 100% 0 / 300% 687px no-repeat;
+    }
+
+    .header__intro-inner {
+      width: 384px;
+      gap: 32px;
+    }
+
+    .header__info {
+      gap: 46px;
+    }
+
+    .header__info-text {
+      gap: 19px;
+    }
+
+    .header__title {
+      font-size: 34px;
+      line-height: 40px;
+      max-width: 320px;
+    }
+
+    .navbar__benefits {
+      gap: 23px 13px;
+      margin: 0px;
+    }
+
+    .benefit {
+      gap: 18px;
+    }
+
+    .calculator {
+      margin: 0;
+      gap: 27px;
+      padding: 28px 0px 22px 0px;
+
+      &__title {
+        margin: 0px;
+        padding: 0px 18px;
+      }
+
+      .calculator__body {
+        padding: 0px 18px;
+        gap: 19px;
+      }
+
+      .calculator__section {
+        padding: 0px 0px 19px 0px;
+        width: 345px;
+
+        &:last-child {
+          padding: 0 !important;
+        }
+      }
+
+      .calculator__section-title {
+        margin: 0 0 18px 0;
+      }
+
+      &__section-content {
+        gap: 9px 47px;
+      }
+
+      .calculator__summary {
+        padding: 18px 20px 16px 20px;
+        gap: 15px 46px;
+        margin: 0px -20px;
+      }
+
+      .calculator__footer {
+        padding: 0px 20px;
+      }
+
+      .calculator__section-phone {
+        margin: 0px;
+        gap: 9px;
+      }
+    }
+  }
+}
+
+@media (max-width: 385px) {
+
+  .page-wrapper {
+    width: 290px;
+  }
+
+  .header {
+
+    .navbar--mobile {
+
+      .nav-sidebar {
+        width: 240px;
+        padding: 18px 10px;
+      }
+  
+      .navbar__close-btn {
+        width: 40px;
+        height: 40px;
+        left: 15px;
+      }
+    }
+
+    .header__intro {
+      background: url(../images/backgrounds/overlay.png) -1px 0 / 120% 100% no-repeat, url(../images/backgrounds/background1.jpg) 100% 0 / 400% 900px no-repeat;
+    }
+
+    .header__intro-inner {
+      width: 290px;
+    }
+
+    .header__title {
+      font-size: 32px;
+    }
+
+    .marked-text {
+      font-size: 45px;
+    }
+
+    .header__calculator {
+      
+      .calculator__section--phone {
+        width: 100%;
+      }
+
+      .calculator__summary {
+        padding: 18px 12px 16px 12px;
+        gap: 15px 2px;
+      }
+
+      .calculator__summary-item {
+        width: 132px;
+      }
+    }
+  }
+}

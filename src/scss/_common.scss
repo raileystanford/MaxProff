@@ -266,7 +266,7 @@
     margin: 10px 1px 10px 0;
   }
 
-  &--tablet {
+  &--tablet, &--mobile {
     display: none;
   }
 }
@@ -279,6 +279,40 @@
     width: 26px;
     height: 26px;
   }
+}
+
+.nav-sidebar {
+  @include mix.flex-col(31px);
+  @extend %abs;
+  height: 100vh;
+  width: 325px;
+  padding: 23px 20px;
+  top: 0;
+  right: 0;
+  background: var.$white;
+  overflow: auto;
+  z-index: 10;
+  display: none;
+
+  &__buttons {
+    @include mix.flex-col(11px);
+    @extend %ali-start;
+  }
+
+  &__button {
+    @extend %w-100;
+  }
+}
+
+.burger-overlay {
+  width: 100vw;
+  height: 100vh;
+  background: var.$black3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  display: none;
 }
 
 .marked-text {
@@ -422,6 +456,7 @@
 
   @at-root
   .button {
+    @extend %flex-cen;
     padding: 13px 27px;
     border-radius: 4px;
     background: var.$green;
