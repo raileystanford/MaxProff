@@ -39,6 +39,10 @@
     color: var.$black;
   }
 
+  &__title {
+    text-transform: uppercase;
+  }
+
   &__subtitle {
     word-spacing: -5px;
   }
@@ -51,10 +55,6 @@
 // MEDIA QUERIES
 
 @media (max-width: 1231px) {
-
-  .page-wrapper {
-    width: 1024px;
-  }
 
   .header {
 
@@ -114,16 +114,10 @@
     .header__info {
       max-width: 450px;
     }
-
   }
-
 }
 
 @media (max-width: 1024px) {
-
-  .page-wrapper {
-    width: 768px;
-  }
 
   .header {
 
@@ -252,10 +246,6 @@
 }
 
 @media (max-width: 768px) {
-
-  .page-wrapper {
-    width: 670px;
-  }
 
   .header {
     padding: 0px;
@@ -496,12 +486,8 @@
 
 @media (max-width: 671px) {
 
-  .page-wrapper {
-    width: 500px;
-  }
-
   .header {
-    padding: 100px 0px 0px 0px;
+    padding: 91px 0px 0px 0px;
     gap: 25px;
 
     .navbar--tablet {
@@ -511,13 +497,11 @@
     .navbar--mobile {
       display: block;
       background: var.$white;
-      padding: 25px 15px;
       width: 100vw;
       position: fixed;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 10;
 
       .navbar__close-btn {
         display: flex;
@@ -537,10 +521,13 @@
       }
 
       .navbar__controls {
+        position: relative;
         display: flex;
         gap: 15px;
         justify-content: space-between;
         align-items: center;
+        padding: 25px 15px;
+        z-index: 8;
       }
 
       .navbar__burger-btn {
@@ -663,19 +650,15 @@
 
 @media (max-width: 501px) {
 
-  .page-wrapper {
-    width: 384px;
-  }
-
   .header {
     padding: 78px 0px 0px 0px;
 
-    .navbar--mobile {
-      padding: 18.5px 15px;
-    }
-
     .nav-sidebar {
       width: 290px;
+    }
+
+    .navbar--mobile .navbar__controls {
+      padding: 18px 15px;
     }
 
     .header__intro {
@@ -762,10 +745,6 @@
 }
 
 @media (max-width: 385px) {
-
-  .page-wrapper {
-    width: 290px;
-  }
 
   .header {
 

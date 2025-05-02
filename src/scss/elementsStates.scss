@@ -1,6 +1,62 @@
 @use './variables.scss' as var;
 @use './templates.scss' as *;
 
+.popup {
+  @extend %will;
+  transition: all 0.2s;
+  box-shadow: 0 0 0 var.$green;
+
+  &:hover {
+    transform: translate(-50%, calc(-50% + 3px)) scale(1) !important;
+    box-shadow: 9px 9px 0 var.$green;
+  }
+}
+
+.popup__close {
+  @extend %will;
+  transition: all 0.2s, transform 0.1s;
+
+  .popup__close-icon {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+    
+    .popup__close-icon {
+      stroke: var.$red;
+      fill: var.$red;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.popup__input {
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    border-color: var.$black;
+  }
+}
+
+.popup__agree:not(.active) {
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    outline-color: var.$green2;
+  }
+}
+
+.popup__link {
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    color: var.$blue2;
+  }
+}
+
 .company-logo {
   @extend %will;
   transition: all 0.2s;
@@ -80,17 +136,25 @@
   }
 }
 
-.lang-btn__variant {
+.lang-btn__variant:not(.active) {
   transition: all 0.1s;
 
   &:hover, &:focus {
     background: var.$green;
     color: var.$white;
+
+    &::after {
+      height: 100%;
+    }
   }
 
   &:active {
     background: var.$white;
     color: var.$green;
+
+    &::after {
+      height: 25px;
+    }
   }
 }
 

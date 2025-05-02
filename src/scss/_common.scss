@@ -79,6 +79,7 @@
   &__top, &__bottom, &__middle {
     @include mix.flex(wrap, 15px 48.5px);
     @extend %ali-cen;
+    @extend %jus-bet;
     @extend %rel;
     padding: 20px 0px 21px 0px;
 
@@ -94,7 +95,6 @@
   }
 
   &__bottom {
-    @extend %jus-bet;
     padding: 0px;
     gap: 0px 30px;
   }
@@ -150,11 +150,24 @@
 
       &::before {
         content: '';
+        @extend %will;
         @extend %shrink0;
         background: url(../images/icons/call.svg) 0 0 / contain no-repeat;
         width: 17px;
         height: 17px;
         margin: 1px 0 0 0;
+      }
+
+      &:hover::before {
+        animation: phone-move 0.4s;
+      } 
+
+      @keyframes phone-move {
+        0%{transform: rotate(0deg);}
+        25%{transform: rotate(30deg);}
+        50%{transform: rotate(0deg);}
+        75%{transform: rotate(30deg);}
+        100%{transform: rotate(0deg);}
       }
     }
 
@@ -198,7 +211,7 @@
       @extend %flex-cen;
       gap: 5px;
       width: 200px;
-      padding: 24px 15px 25px 15px;
+      padding: 24px 10px 25px 10px;
     }
 
     &__icon {
@@ -248,6 +261,7 @@
         @extend %d-block;
         @extend %abs;
         @extend %py-cen;
+        transition: all 0.1s;
         right: -2px;
         width: 2px;
         height: 25px;
@@ -302,17 +316,6 @@
   &__button {
     @extend %w-100;
   }
-}
-
-.burger-overlay {
-  width: 100vw;
-  height: 100vh;
-  background: var.$black3;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9;
-  display: none;
 }
 
 .marked-text {
@@ -509,4 +512,302 @@
       }
     }
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.popup {
+  @include mix.flex-col(40px);
+  @extend %p-cen;
+  @extend %ali-cen;
+  @extend %opa0;
+  @extend %vis0;
+  width: 650px;
+  padding: 15px 20px 22px 20px;
+  background: var.$white;
+  border-radius: 6px;
+  position: fixed;
+  z-index: 10;
+  transform: translate(-50%, -50%) scale(0.8);
+
+  &.active {
+    @extend %d-flex;
+    @extend %vis1;
+    @extend %opa1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &__header {
+    @include mix.flex-col(10px);
+    @extend %rel;
+    @extend %w-100;
+    padding: 0px 0px 20px 0px;
+
+    &::after {
+      content: '';
+      @extend %abs;
+      @extend %px-cen;
+      width: 100%;
+      height: 1px;
+      background: var.$black;
+      bottom: 0;
+    }
+  }
+
+  &__header-line {
+    @include mix.flex(wrap, 30px);
+    @extend %jus-bet;
+    @extend %ali-cen;
+  }
+
+  &__company-logo {
+    margin: 0 0 0 5px;
+  }
+
+  &__close {
+    @extend %flex-cen;
+    width: 40px;
+    height: 40px;
+  }
+
+  &__close-icon {
+    @extend %wh-100;
+    stroke-width: 2px;
+    stroke: var.$black;
+  }
+
+  &__intro {
+    @include mix.flex-col(5px);
+    @extend %ali-cen;
+  }
+
+  &__title {
+    color: var.$green;
+    text-align: center;
+  }
+
+  &__subtitle {
+    color: var.$black;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  &__body {
+    @include mix.flex-col(20px);
+    @extend %ali-cen;
+    width: 84.5%;
+  }
+
+  &__inputs {
+    @include mix.flex(wrap, 15px);
+  }
+
+  &__input-area {
+    @include mix.flex-col(5px);
+  }
+
+  &__label {
+    font-size: 18px;
+  }
+
+  &__input {
+    width: 250px;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid var.$silver;
+  }
+
+  &__terms {
+    @include mix.flex(nowrap, 12px);
+  }
+
+  &__checkbox {
+    @extend %vis0;
+    @extend %abs;
+  }
+
+  &__agree {
+    @extend %shrink0;
+    @extend %rel;
+    width: 20px;
+    height: 20px;
+    outline: 1px solid var.$silver;
+    outline-offset: -1px;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      @include mix.abs();
+      @extend %wh-100;
+      @extend %d-block;
+      background: url(../images/icons/done-icon.png) 0 0 / cover no-repeat;
+      display: none;
+    }
+
+    &.active::after {
+     display: block;
+    }
+  }
+
+  &__link {
+    color: var.$green;
+    text-decoration: underline;
+  }
+}
+
+.popup--answer {
+  padding: 15px 20px 60px 20px;
+  
+  .popup__header {
+    gap: 25px;
+    padding: 0;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .popup__intro {
+    gap: 10px;
+  }
+}
+
+.overlay {
+  @extend %opa0;
+  @extend %vis0;
+  width: 100vw;
+  height: 100vh;
+  background: var.$black3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  transition: all 0.2s;
+  // display: none;
+
+  &.active {
+    @extend %vis1;
+    @extend %opa1;
+    // display: block;
+  }
+}
+
+// MEDIA QUERIES
+
+@media (max-width: 1231px) {
+
+  .page-wrapper {
+    width: 1024px;
+  }
+
+}
+
+@media (max-width: 1024px) {
+
+  .page-wrapper {
+    width: 768px;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .page-wrapper {
+    width: 670px;
+  }
+
+}
+
+@media (max-width: 671px) {
+
+  .page-wrapper {
+    width: 500px;
+  }
+
+  .popup {
+    width: 450px;
+    gap: 30px;
+
+    &__header {
+      gap: 15px;
+    }
+
+    &__intro {
+      gap: 10px;
+    }
+
+    &__title {
+      font-size: 35px;
+      line-height: 100%;
+    }
+
+    &__body {
+      width: 100%;
+    }
+
+    &__input {
+      width: 197px;
+    }
+  }
+
+  .popup--answer {
+    padding: 15px 20px 40px 20px;
+
+    .popup__intro {
+      gap: 20px;
+    }
+  }
+
+}
+
+@media (max-width: 501px) {
+
+  .page-wrapper {
+    width: 384px;
+  }
+
+  .popup {
+    width: 380px;
+
+    &__input-area, &__input {
+      width: 100%;
+    }
+  }
+
+}
+
+@media (max-width: 385px) {
+
+  .page-wrapper {
+    width: 290px;
+  }
+
+  .popup {
+    width: 290px;
+    padding: 10px 10px 15px 10px;
+
+    &__input-area, &__input {
+      width: 100%;
+    }
+  }
+
+  .popup--answer {
+    padding: 15px 10px 22px 10px;
+  }
+
 }
