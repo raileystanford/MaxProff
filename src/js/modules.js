@@ -220,4 +220,265 @@ class ChangeLanguage {
   }
 }
 
-export { Popup, ChangeLanguage };
+
+class DropdownMenu {
+
+  constructor(params) {
+    this.params = params;
+    this.containers = Array.from(document.querySelectorAll(this.params.container));
+    this.hoverTimeouts = new Map();
+    this.activeDropdown = null;
+    this.ownMethodsBinder();
+    this.switchActivationType();
+    this.setEventListeners();
+  }
+
+  setEventListeners() {
+
+    this.containers.forEach((container) => {
+
+      const buttons = Array.from(container.querySelectorAll(this.params.triggerBtn));
+
+      buttons.forEach((button) => {
+
+        const triggerType = button.dataset.dropdown || 'click';
+
+        if (triggerType === 'hover') {
+          button.addEventListener('mouseenter', this.handleHoverOpen);
+          button.addEventListener('mouseleave', this.handleHoverClose);
+
+          const subMenu = button.nextElementSibling;
+          if (subMenu) {
+            subMenu.addEventListener('mouseenter', () => clearTimeout(this.hoverTimeouts.get(button)));
+            subMenu.addEventListener('mouseleave', () => this.handleHoverClose({ currentTarget: button }));
+          }
+
+        } else {
+          button.addEventListener('click', this.handleClickOpen);
+        }
+
+      });
+
+      container.addEventListener('click', (event) => {
+          if (event.target.matches(this.params.link)) {
+          this.closeAllSubMenus();
+        }
+      });
+
+    });
+
+    document.addEventListener('click', (event) => {
+
+      const isDropdownButton = event.target.matches(this.params.triggerBtn);
+
+      const isInsideAnyDropdown = this.containers.some(container => 
+        container.contains(event.target)
+      );
+
+      if (!isInsideAnyDropdown && !isDropdownButton) {
+        this.closeAllSubMenus();
+      }
+
+    });
+
+  }
+
+  handleClickOpen(event) {
+
+    const button = event.currentTarget;
+    const container = button.closest(this.params.container);
+    this.setActiveDropdown(container);
+
+    const subMenu = button.nextElementSibling;
+    
+    event.stopPropagation();
+    event.preventDefault();
+    
+    this.closeSiblingMenus(button);
+    
+    const isOpening = !subMenu.classList.contains('active');
+    
+    if (isOpening) {
+      this.addActiveClasses(button, subMenu);
+    } else {
+      this.removeActiveClasses(button, subMenu);
+    }
+
+  }
+
+  handleHoverOpen(event) {
+
+    const button = event.currentTarget;
+    const container = button.closest(this.params.container);
+    this.setActiveDropdown(container);
+
+    clearTimeout(this.hoverTimeouts.get(button));
+    
+    const subMenu = button.nextElementSibling;
+    if (!subMenu) return;
+
+    const parentMenu = button.closest(this.params.inner) || container;
+    const dropInners = Array.from(parentMenu.querySelectorAll(this.params.inner));
+
+    dropInners.forEach(menu => {
+      if (menu !== subMenu) {
+        this.closeSubMenu(menu);
+      }
+    });
+
+    this.addActiveClasses(button, subMenu);
+    
+    const grandParent = button.closest(this.params.inner);
+
+    if (grandParent) {
+      grandParent.classList.add('active');
+    }
+
+  }
+
+  addActiveClasses(button, subMenu) {
+
+    button.classList.add('active');
+    subMenu.classList.add('active');
+    
+    let parentButton = button.closest(this.params.inner)?.previousElementSibling;
+
+    while (parentButton && parentButton.matches(this.params.triggerBtn)) {
+      parentButton.classList.add('active');
+      parentButton = parentButton.closest(this.params.inner)?.previousElementSibling;
+    }
+
+  }
+
+  removeActiveClasses(button, subMenu) {
+
+    button.classList.remove('active');
+    subMenu.classList.remove('active');
+    
+    subMenu.querySelectorAll(`${this.params.triggerBtn}, ${this.params.inner}`).forEach(el => {
+      el.classList.remove('active');
+    });
+  }
+
+  setActiveDropdown(container) {
+
+    if (this.activeDropdown && this.activeDropdown !== container) {
+      this.closeAllSubMenusInContainer(this.activeDropdown);
+    }
+
+    this.activeDropdown = container;
+  }
+
+  closeAllSubMenusInContainer(container) {
+
+    const dropInners = Array.from(container.querySelectorAll(this.params.inner));
+    const buttons = Array.from(container.querySelectorAll(this.params.triggerBtn));
+    
+    dropInners.forEach(menu => {
+      menu.classList.remove('active');
+    });
+    
+    buttons.forEach(button => {
+      button.classList.remove('active');
+    });
+  }
+
+  handleHoverClose(event) {
+
+    const button = event.currentTarget;
+    const subMenu = button.nextElementSibling;
+    let delay = this.params.delay ?? 100;
+    
+    const timeoutId = setTimeout(() => {
+
+      if (!subMenu.matches(':hover') && !button.matches(':hover')) {
+        this.removeActiveClasses(button, subMenu);
+      }
+
+    }, delay);
+    
+    this.hoverTimeouts.set(button, timeoutId);
+
+  }
+
+  closeSubMenu(subMenu) {
+    if (!subMenu) return;
+    
+    const button = subMenu.previousElementSibling;
+    this.removeActiveClasses(button, subMenu);
+  }
+
+  closeAllSubMenus(exceptMenu = null) {
+
+    this.containers.forEach(container => {
+
+      const dropInners = Array.from(container.querySelectorAll(this.params.inner));
+      const buttons = Array.from(container.querySelectorAll(this.params.triggerBtn));
+      
+      dropInners.forEach(menu => {
+        if (menu !== exceptMenu) {
+          menu.classList.remove('active');
+        }
+      });
+      
+      buttons.forEach(button => {
+        if (exceptMenu && button.nextElementSibling !== exceptMenu) {
+          button.classList.remove('active');
+        } else if (!exceptMenu) {
+          button.classList.remove('active');
+        }
+      });
+
+    });
+
+  }
+
+  closeSiblingMenus(currentButton) {
+
+    const parentMenu = currentButton.closest('ul') || currentButton.closest(this.params.container);
+    const dropInners = parentMenu.querySelectorAll(this.params.inner);
+    const buttons = parentMenu.querySelectorAll(this.params.triggerBtn);
+
+    dropInners.forEach(menu => {
+
+      if (menu !== currentButton.nextElementSibling) {
+        menu.classList.remove('active');
+      }
+
+    });
+
+    buttons.forEach(button => {
+
+      if (button !== currentButton) {
+        button.classList.remove('active');
+      }
+
+    });
+  }
+
+  switchActivationType() {
+
+    let media = this.params.mobileModeOn ?? 768;
+    let isMatchMedia = window.matchMedia(`(max-width: ${media}px)`).matches;
+    
+    if (isMatchMedia) {
+      let btns = Array.from(document.querySelectorAll('[data-dropdown="hover"]'));
+      btns.forEach((button) => button.setAttribute('data-dropdown', 'click'));
+    }
+
+  }
+
+  ownMethodsBinder() {
+
+    const prototype = Object.getPrototypeOf(this);
+    const ownMethods = Object.getOwnPropertyNames(prototype);
+
+    for (let item of ownMethods) {
+      if (item !== 'constructor') prototype[item] = prototype[item].bind(this);
+    }
+
+  }
+}
+
+
+export { Popup, ChangeLanguage, DropdownMenu };
