@@ -74,6 +74,13 @@
   line-height: 21px;
 }
 
+.text11 {
+  font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
 .navbar {
 
   &__top, &__bottom, &__middle {
@@ -158,7 +165,7 @@
         margin: 1px 0 0 0;
       }
 
-      &:hover::before {
+      &:hover::before, &:focus::before {
         animation: phone-move 0.4s;
       } 
 
@@ -412,11 +419,6 @@
     }
   }
 
-  .ass {
-    width: 1px;
-    height: 15px;
-  }
-
   &__section-title {
     color: var.$gray;
     margin: 0 0 18.5px 0;
@@ -438,6 +440,77 @@
   &__inputs {
     @extend %abs;
     @extend %vis0;
+  }
+
+  @at-root
+  .range {
+    @include mix.flex(nowrap, 23px);
+    @extend %ali-cen;
+    @extend %w-100;
+
+    &__line {
+      width: 333px;
+      height: 6px;
+      border-radius: 4px;
+      background: var.$white2;
+      margin: 0px 11px;
+
+      &::before, &::after {
+        content: '';
+        @extend %abs;
+        @extend %h-100;
+        top: 0;
+        left: -11px;
+        background: var.$blue2;
+        width: 20px;
+        border-radius: 4px;
+      }
+
+      &::after {
+        content: '';
+        @extend %abs;
+        left: auto;
+        right: -11px;
+        background: var.$white2;
+        z-index: -1;
+      }
+    }
+
+    &__subline {
+      background: var.$blue2;
+      border-radius: 4px;
+    }
+
+    &__button {
+      width: 23px;
+      height: 23px;
+      background: transparent;
+
+      &::after {
+        content: '';
+        @extend %abs;
+        @extend %d-block;
+        @extend %wh-100;
+        top: -2px;
+        left: -2px;
+        background: var.$blue2;
+        border-radius: 50%;
+        border: 2px solid var.$white;
+      }
+    }
+
+    &__input {
+      @extend %abs;
+      @extend %vis0;
+    }
+
+    &__output {
+      color: var.$gray;
+    }
+  }
+
+  &__range {
+    margin: -3px 0 0 0;
   }
 
   &__footer {
@@ -775,6 +848,18 @@
 
   }
 
+  .calculator {
+
+    .range {
+
+      &__line {
+        width: 241px;
+      }
+
+    }
+
+  }
+
 }
 
 @media (max-width: 1024px) {
@@ -1090,6 +1175,15 @@
     }
   }
 
+  .calculator .range {
+    gap: 8px;
+
+    &__line {
+      width: 163px;
+    }
+
+  }
+
 }
 
 @media (max-width: 671px) {
@@ -1174,6 +1268,10 @@
 
     .drop-list__item {
       flex-direction: column;
+    }
+
+    .drop-list__link {
+      padding: 10px 0px 9px 5px;
     }
 
     .drop-list__icon {
@@ -1267,6 +1365,14 @@
       .calculator__button {
         width: 100%;
       }
+    }
+
+    .range {
+
+      &__line {
+        width: 400px;
+      }
+
     }
   }
 
@@ -1375,6 +1481,18 @@
       margin: 0px;
       gap: 9px;
     }
+
+    .range {
+
+      &__line {
+        width: 291px;
+      }
+
+      &__button {
+        width: 25px;
+        height: 25px;
+      }
+    }
   }
 
   .popup {
@@ -1428,6 +1546,13 @@
 
     .calculator__summary-item {
       width: 132px;
+    }
+
+    .range {
+
+      &__line {
+        width: 200px;
+      }
     }
   }
 

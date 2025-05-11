@@ -481,4 +481,283 @@ class DropdownMenu {
 }
 
 
-export { Popup, ChangeLanguage, DropdownMenu };
+class CustomRange {
+
+  constructor(params) {
+    this.params = params;
+    this.buttons = Array.from(document.querySelectorAll('[data-range] button'));
+
+    if (this.buttons.length > 0) {
+      this.ownMethodsBinder();
+      this.setInitialStylesForButtons();
+      this.showInitialButtonsValues();
+      this.realTimeButtonsValuesUpdate();
+      this.setInitialButtonsPosition();
+      this.setEventListeners();
+    }
+  }
+
+  setEventListeners() {
+    
+    document.addEventListener('pointerdown', (event) => {
+      let target = event.target;
+
+      if (target.matches('[data-range] button')) {
+
+        this.button = target;
+        let pointerId = event.pointerId;
+
+        this.info = this.getButtonInfo(this.button);
+        this.rangeInfo = this.info.range.getBoundingClientRect();
+        
+        this.button.classList.add('active');
+        this.button.setPointerCapture(pointerId);
+
+        this.button.addEventListener('pointerup', (event) => {
+          this.button.classList.remove('active');
+          this.button.releasePointerCapture(pointerId);
+          document.removeEventListener('pointermove', this.pointermoveHandler);
+        }, { once: true });
+
+        document.addEventListener('pointermove', this.pointermoveHandler);
+
+      }
+    });
+
+    if (this.params.moveButtonToClick) {
+
+      document.addEventListener('click', (event) => {
+        let target = event.target;
+
+        if (target.closest('[data-range]') && !target.closest('button')) {
+
+          let range = target.closest('[data-range]');
+          let [ nearestButton, buttonsCount ] = this.getNearestButton(range, event.clientX);
+          let rangeX = event.clientX - range.getBoundingClientRect().x;
+
+          this.moveButtons(nearestButton, rangeX, event.clientX);
+
+        }
+
+      });
+
+    }
+
+  }
+
+  pointermoveHandler(event) {
+    if (this.button.matches('.active')) {
+      let button = this.button;
+      let x = event.clientX - this.rangeInfo.x;
+      this.moveButtons(button, x, event.clientX);
+    }
+  }
+
+  getNearestButton(range, clientX) {
+    let box = [];
+    let buttons = Array.from(range.querySelectorAll('button'));
+
+    buttons.forEach((button) => {
+      let halfButton = button.offsetWidth / 2;
+      let info = button.getBoundingClientRect();
+      let difference = Math.abs((info.x + halfButton) - clientX);
+      box.push({item: button, dif: difference});
+    })
+
+    box.sort((a, b) => a.dif - b.dif);
+
+    return [ box[0].item, buttons.length ];
+  }
+
+  getDistanceBetwenButtons(button, clientX) {
+
+    if (this.buttons.length > 1) {
+
+      let buttonInfo = this.getButtonInfo(button);
+      let otherButton;
+
+      if (buttonInfo.side === 'left') {
+        otherButton = buttonInfo.range.querySelector('[data-range-right] button');
+      } else {
+        otherButton = buttonInfo.range.querySelector('[data-range-left] button');
+      }
+
+      let otherButtonX = otherButton ? otherButton.getBoundingClientRect().x : null;
+      let distance;
+
+      if (buttonInfo.side === 'left') {
+        distance = -((clientX - buttonInfo.halfButton) - otherButtonX);
+      } else {
+        distance = (clientX - buttonInfo.halfButton) - otherButtonX;
+      }
+
+      return distance;
+
+    } else {
+      return 1e6;
+    }
+
+  }
+
+  setInitialButtonsPosition() {
+    this.buttons.forEach((button) => {
+      if (button.hasAttribute('data-range-start')) {
+
+        let startPosition = +button.dataset.rangeStart;
+        let buttonInfo = this.getButtonInfo(button);
+        let cord = (startPosition * buttonInfo.range.offsetWidth) / (buttonInfo.input.max - buttonInfo.input.min);
+        let clientX = cord + buttonInfo.range.getBoundingClientRect().x;
+
+        this.moveButtons(button, cord, clientX);
+      }
+    })
+  }
+
+  moveButtons(button, x, clientX) {
+
+    let subline = button.parentElement;
+    let side = subline.hasAttribute('data-range-left') ? 'left' : 'right';
+    let rangeWidth = button.closest('[data-range]').offsetWidth;
+    let distanceBetweenButtons = this.getDistanceBetwenButtons(button, clientX);
+    let offset = this.params.minOffsetBetweenButtons;
+
+    if (offset) {
+      offset < 0 ? offset = 0 : offset;
+    } else {
+      offset = button.offsetWidth;
+    }
+
+    if (distanceBetweenButtons > offset) {
+
+      if (x <= rangeWidth && x >= 0) {
+
+        if (side === 'left') {
+          button.style.transform = `translate(${x}px, -50%)`;
+          subline.style.width = x + 'px';
+        } else {
+          button.style.transform = `translate(${x - rangeWidth}px, -50%)`;
+          subline.style.width = rangeWidth - x + 'px';
+        }
+
+      } else {
+
+        let input = button.parentElement.querySelector('input');
+
+        if (x < 1) {
+
+          if (side === 'left') {
+            button.style.transform = `translate(${0}px, -50%)`;
+            subline.style.width = '0px';
+            this.transferValueDataFromButton(input, input.min);
+          } else {
+            button.style.transform = `translate(-${rangeWidth}px, -50%)`;
+            subline.style.width = rangeWidth + 'px';
+            this.transferValueDataFromButton(input, input.min);
+          }
+
+        } else if (x > rangeWidth) {
+
+          if (side === 'left') {
+            button.style.transform = `translate(${rangeWidth}px, -50%)`;
+            subline.style.width = rangeWidth + 'px';
+            this.transferValueDataFromButton(input, input.max - 1);
+          } else {
+            button.style.transform = `translate(${0}px, -50%)`;
+            subline.style.width = '0px';
+            this.transferValueDataFromButton(input, input.max - 1);
+          }
+
+        }
+
+      }
+
+    }
+  }
+
+  realTimeButtonsValuesUpdate() {
+
+    let observer = new MutationObserver((list, observer) => {
+
+      list.forEach((item) => {
+        let button = item.target;
+        let info = this.getButtonInfo(button);
+        this.transferValueDataFromButton(info.input, info.value);
+      })
+      
+    });
+
+    this.buttons.forEach((button) => observer.observe(button, { attributes: true }));
+
+  }
+
+  showInitialButtonsValues() {
+    this.buttons.forEach((button) => {
+      let info = this.getButtonInfo(button);
+      this.transferValueDataFromButton(info.input, info.value);
+    })
+  }
+
+  transferValueDataFromButton(input, value) {
+    let output = document.querySelector(`[data-range-show="${input.id}"]`);
+    input.value = value;
+    output.textContent = input.value;
+  }
+
+  getButtonInfo(button) {
+    let range = button.closest('[data-range]');
+    let halfButton = button.offsetWidth / 2;
+    let buttonInfo = button.getBoundingClientRect();
+    let rangeInfo = range.getBoundingClientRect();
+    let input = button.parentElement.querySelector('input');
+    let min = input.min, max = input.max;
+    let subline = button.parentElement;
+    let side = subline.hasAttribute('data-range-left') ? 'left' : 'right';
+
+    let clientX = buttonInfo.x + halfButton;
+    let rangeX = clientX - rangeInfo.x;
+
+    let percent = (rangeX * 100) / rangeInfo.width;
+    let value = Math.round(max - min) * (percent / 100);
+
+    return {
+      clientX: clientX, 
+      rangeX: rangeX, 
+      percent: percent, 
+      value: value, 
+      halfButton: halfButton,
+      input: input,
+      subline: subline,
+      side: side,
+      range: range
+    };
+  }
+
+  setInitialStylesForButtons() {
+    this.buttons.forEach((button) => {
+
+      let info = this.getButtonInfo(button);
+
+      info.range.style.cssText = 'position: relative';
+
+      if (info.side === 'left') {
+        info.subline.style.cssText = 'position: absolute; top: 0; left: 0; width: 0px;  height: 100%;';
+        button.style.cssText = `position: absolute; top: 50%; left: -${info.halfButton}px; transform: translateY(-50%)`;
+      } else {
+        info.subline.style.cssText = 'position: absolute; top: 0; right: 0; width: 0px;  height: 100%;';
+        button.style.cssText = `position: absolute; top: 50%; right: -${info.halfButton}px; transform: translateY(-50%)`;
+      }
+    })
+  }
+
+  ownMethodsBinder() {
+    let prototype = Object.getPrototypeOf(this);
+    let ownMethods = Object.getOwnPropertyNames(prototype);
+    for (let item of ownMethods) {
+      if (item !== 'constructor') prototype[item] = prototype[item].bind(this);
+    }
+  }
+
+}
+
+
+export { Popup, ChangeLanguage, DropdownMenu, CustomRange };

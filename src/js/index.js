@@ -3,7 +3,8 @@ import { dictionary } from "./dictionary.js";
 import { 
   Popup,
   ChangeLanguage,
-  DropdownMenu
+  DropdownMenu,
+  CustomRange
 } from "./modules.js";
 
 new Popup({
@@ -27,6 +28,10 @@ new DropdownMenu ({
   delay: 100,
   mobileModeOn: 768,
 });
+
+new CustomRange({
+  moveButtonToClick: true,
+})
 
 
 function focusStateFix() {
@@ -73,6 +78,56 @@ function smoothDropMenuMobile(query) {
 }
 
 
+function calculatorHandler() {
+
+  let calculator = document.querySelector('.calculator');
+
+  calculator.addEventListener('submit', (event) => {
+
+    event.preventDefault();
+    getValues();
+
+  })
+
+  calculator.addEventListener('click', (event) => {
+
+    let target = event.target;
+
+    if (target.closest('.custom-radio')) {
+      let element = target.closest('.custom-radio');
+      activateVariant(element);
+    }
+
+  })
+
+  function activateVariant(item) {
+    diactivateOtherVariants(item);
+    item.classList.add('active');
+  }
+
+  function diactivateOtherVariants(element) {
+    let fieldset = element.closest('.calculator__section');
+    let variants = Array.from(fieldset.querySelectorAll('.custom-radio'));
+
+    variants.forEach((item) => item.classList.remove('active'));
+  }
+
+  function getValues() {
+    let box = {};
+    let activeInputs = Array.from(calculator.querySelectorAll('input:checked'));
+
+    activeInputs.forEach((item) => {
+      console.log(item);
+      box[item.name] = item.value;
+    })
+
+    return box;
+  }
+
+}
+
+
 
 focusStateFix();
 smoothDropMenuMobile(671);
+calculatorHandler();

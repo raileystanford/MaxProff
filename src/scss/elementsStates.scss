@@ -170,10 +170,9 @@
     transition: all 0.2s;
   }
 
-
   &:hover {
     box-shadow: 0 0 10px var.$gray;
-    transform: translateY(2px);
+    transform: translateY(2.5px);
 
     .calculator__title {
       color: var.$green;
@@ -209,6 +208,32 @@
         width: 100%;
       }
     }
+  }
+}
+
+.range__button {
+  
+  &::after {
+    @extend %will;
+    transition: all 0.2s
+  }
+
+  &:hover, &:focus {
+    
+    &::after {
+      background: var.$green;
+      cursor: grab;
+    }
+  }
+
+  &:active {
+    cursor: grabbing;
+
+    &::after {
+      transform: scale(0.88);
+      
+    }
+    
   }
 }
 
