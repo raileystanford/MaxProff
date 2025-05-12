@@ -81,47 +81,129 @@ function smoothDropMenuMobile(query) {
 function calculatorHandler() {
 
   let calculator = document.querySelector('.calculator');
+  let langButton = document.querySelector('[data-lang-controls]');
 
-  calculator.addEventListener('submit', (event) => {
+  if (calculator) {
 
-    event.preventDefault();
-    getValues();
-
-  })
-
-  calculator.addEventListener('click', (event) => {
-
-    let target = event.target;
-
-    if (target.closest('.custom-radio')) {
-      let element = target.closest('.custom-radio');
-      activateVariant(element);
-    }
-
-  })
-
-  function activateVariant(item) {
-    diactivateOtherVariants(item);
-    item.classList.add('active');
-  }
-
-  function diactivateOtherVariants(element) {
-    let fieldset = element.closest('.calculator__section');
-    let variants = Array.from(fieldset.querySelectorAll('.custom-radio'));
-
-    variants.forEach((item) => item.classList.remove('active'));
-  }
-
-  function getValues() {
-    let box = {};
-    let activeInputs = Array.from(calculator.querySelectorAll('input:checked'));
-
-    activeInputs.forEach((item) => {
-      console.log(item);
-      box[item.name] = item.value;
+    calculator.addEventListener('submit', (event) => {
+      event.preventDefault();
+      getValues();
     })
 
-    return box;
+    calculator.addEventListener('click', (event) => {
+      let target = event.target;
+
+      if (target.closest('.custom-radio')) {
+        let element = target.closest('.custom-radio');
+        activateVariant(element);
+      }
+    })
+
+    calculator.addEventListener('input', (event) => {
+      calculation();
+    })
+
+    if (langButton) langButton.addEventListener('click', () => setTimeout(calculation));
+
+    function calculation() {
+
+      let info = getValues();
+      let renType = info.renType;
+      let homeType = info.homeType;
+      let rooms = +info.rooms;
+      let square = +info.square;
+
+      let constants = {
+
+        renType: {
+          'cosmetic': 0.02,
+          'key': 0.03,
+          'capital': 0.04,
+          'design': 0.05,
+        },
+
+        homeType: {
+          'new': 0.05,
+          'old': 0.08,
+        },
+
+        rooms: {
+          '1': 0.01,
+          '2': 0.02,
+          '3': 0.03,
+          '4': 0.04,
+          '5': 0.05,
+          '6': 0.06,
+        },
+
+        basePrise: 1500,
+
+      }
+
+      let price = Math.round(square * (constants.basePrise * (1 + constants.renType[renType] + constants.homeType[homeType] + constants.rooms[rooms])));
+      let duration = Math.trunc(price / 11000);
+
+      duration < 1 ? duration = 1 : duration;
+
+      showResults(duration, price);
+      
+    }
+
+    function showResults(duration, price) {
+      let lang = document.documentElement.lang;
+      let durationOutput = document.querySelector('.calc-duration');
+      let priceOutput = document.querySelector('.calc-price');
+
+      let formater = new Intl.NumberFormat('uk-UA', { style: 'decimal', useGrouping: true });
+      price = formater.format(price);
+
+      if (durationOutput && priceOutput) {
+
+        if (lang === 'ru') {
+          if (duration > 1) {
+            durationOutput.textContent = `до ${duration} дней`;
+          } else {
+            durationOutput.textContent = `до ${duration} дня`;
+          }
+        } else if (lang === 'ua') {
+          if (duration > 1) {
+            durationOutput.textContent = `до ${duration} днiв`;
+          } else {
+            durationOutput.textContent = `до ${duration} дня`;
+          }
+        }
+
+        priceOutput.textContent = price + ' грн';
+
+      }
+
+    }
+
+    function activateVariant(item) {
+      diactivateOtherVariants(item);
+      item.classList.add('active');
+    }
+
+    function diactivateOtherVariants(element) {
+      let fieldset = element.closest('.calculator__section');
+      let variants = Array.from(fieldset.querySelectorAll('.custom-radio'));
+
+      variants.forEach((item) => item.classList.remove('active'));
+    }
+
+    function getValues() {
+      let box = {};
+      let activeInputs = Array.from(calculator.querySelectorAll('input'));
+
+      activeInputs.forEach((item) => {
+        if (item.matches(':checked') || item.type === 'range') {
+          box[item.name] = item.value;
+        }
+      })
+
+      return box;
+    }
+
   }
 
 }

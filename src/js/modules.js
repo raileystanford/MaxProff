@@ -173,6 +173,8 @@ class ChangeLanguage {
         }
       }
 
+      document.documentElement.lang = language;
+
     });
   }
 
@@ -682,6 +684,8 @@ class CustomRange {
         let button = item.target;
         let info = this.getButtonInfo(button);
         this.transferValueDataFromButton(info.input, info.value);
+        let event = new InputEvent('input', { bubbles: true });
+        info.input.dispatchEvent(event);
       })
       
     });
