@@ -939,7 +939,7 @@
 
           </div>
 
-          <form action="#" method="post" enctype="text/plain" class="calculator header__calculator">
+          <form action="#" method="post" enctype="text/plain" class="calculator header__calculator" data-validate-form>
 
             <h2 class="calculator__title text8" data-lang="title_2">Рассчитайте стоимость ремонта</h2>
 
@@ -1086,7 +1086,7 @@
 
                     <div class="range__line" data-range>
                       <div class="range__subline" data-range-left>
-                        <button class="range__button" data-range-start="72"></button>
+                        <button class="range__button" type="button" data-range-start="72"></button>
                         <input type="range" id="square" name="square" min="1" max="301" class="range__input">
                       </div>
                     </div>
@@ -1122,7 +1122,10 @@
                 <legend class="calculator__section-title text9" data-lang="legend_5">Введите номер телефона</legend>
                 
                 <div class="calculator__section-phone">
-                  <input type="tel" class="calculator__phone-input text10" placeholder="+38">
+                  <div class="calculator__input-area">
+                    <input type="tel" class="calculator__phone-input text10" id="calcTel" autocomplete="off" data-validate>
+                    <span class="calculator__warning text1" data-validate-warn="calcTel"></span>
+                  </div>
                   <button class="button calculator__button text2" type="submit" data-lang="button_3">Заказать</button>
                 </div>
 
@@ -1144,7 +1147,7 @@
 
   </div>
 
-  <div class="popup popup--ask">
+  <form class="popup popup--ask" data-validate-form>
 
     <div class="popup__header">
 
@@ -1154,7 +1157,7 @@
           <img src="./images/icons/logo.png" alt="MaxProff" class="company-logo__icon">
         </a>
 
-        <button class="popup__close" data-popup-close>
+        <button class="popup__close" type="button" data-popup-close>
           <svg class="popup__close-icon">
             <use xlink:href="./images/sprite.svg#close"></use>
           </svg>
@@ -1171,31 +1174,33 @@
 
     <div class="popup__body">
 
-      <div class="popup__inputs">
+      <fieldset class="popup__inputs">
 
         <div class="popup__input-area">
           <label for="popup-name" class="popup__label text4" data-lang="label_7">Ваше имя</label>
-          <input type="text" id="popup-name" class="popup__input text10">
+          <input type="text" id="popup-name" class="popup__input text10" autocomplete="off" data-validate>
+          <span class="popup__warning text1" data-validate-warn="popup-name">asdasd asdasdas asdasdasdasd asdasdasd</span>
         </div>
 
         <div class="popup__input-area">
           <label for="popup-tel" class="popup__label text4" data-lang="label_8">Телефон</label>
-          <input type="tel" id="popup-tel" class="popup__input text10" placeholder="+38">
+          <input type="tel" id="popup-tel" class="popup__input text10" autocomplete="off" data-validate>
+          <span class="popup__warning text1" data-validate-warn="popup-tel">asdasd</span>
         </div>
 
-      </div>
+      </fieldset>
 
-      <div class="popup__terms">
-        <input type="checkbox" name="popup-terms" id="popup-terms" class="popup__checkbox">
+      <fieldset class="popup__terms">
+        <input type="checkbox" name="popup-terms" id="popup-terms" class="popup__checkbox" data-validate>
         <label for="popup-terms" class="popup__agree" tabindex="0"></label>
         <p class="popup__info text1" data-lang="warn_1*">Даю согласие на обработку и хранение моих персональных данных. <a href="#" class="popup__link" target="_blank">Политика конфиденциальности</a></p>
-      </div>
+      </fieldset>
 
-      <button class="button text4" data-popup="popup--answer" data-lang="button_4">Оставить заявку</button>
+      <button class="popup__button button text4" data-lang="button_4" type="submit">Оставить заявку</button>
 
     </div>
 
-  </div>
+  </form>
 
   <div class="popup popup--answer">
 

@@ -58,6 +58,19 @@ class Popup {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
     }, delay);
+
+    if (FormValidator) {
+      let inputs = popup.querySelectorAll('input');
+      inputs.forEach((input) => {
+        let agree = popup.querySelector('.popup__agree');
+        FormValidator.prototype.removeWarning(input);
+        FormValidator.prototype.cleanAllFields();
+        if (agree) {
+          if (agree.matches('.active')) agree.click();
+          agree.classList.remove('invalid');
+        }
+      })
+    }
   }
 
   getButton(event) {
@@ -176,6 +189,15 @@ class ChangeLanguage {
       document.documentElement.lang = language;
 
     });
+
+    if (FormValidator) {
+      let calculator = document.querySelector('.calculator');
+      if (calculator) {
+        if (calculator.querySelector('.invalid')) {
+          FormValidator.prototype.workOperator(calculator);
+        }
+      }
+    }
   }
 
   getLanguages() {
@@ -764,4 +786,227 @@ class CustomRange {
 }
 
 
-export { Popup, ChangeLanguage, DropdownMenu, CustomRange };
+class FormValidator {
+
+  constructor(params) {
+    this.params = params;
+    this.ownMethodsBinder();
+    this.getMaskCode();
+    this.setEventListeners();
+  }
+
+  async getMaskCode() { 
+    let code = await import('https://unpkg.com/imask');
+    this.setPhoneMask();
+  }
+
+  setPhoneMask() {
+    let telInputs = Array.from(document.querySelectorAll('[data-validate][type="tel"]'));
+
+    if (telInputs.length > 0 && this.params.phoneMask) {
+      this.masks = {};
+      let opt = this.params.phoneMask;
+      telInputs.forEach((input) => {
+        let mask = IMask(input, { ...opt });
+        this.masks[input.id] = mask;
+      })
+    }
+  }
+
+  setEventListeners() {
+
+    if (this.params.realTimeCheck) {
+      window.addEventListener('input', (event) => {
+        let form = event.target.form;
+        this.workOperator(form, event.target);
+      })
+    }
+
+    if (this.params.hideWarningOnClick) {
+      window.addEventListener('click', (event) => {
+        if (event.target.matches('[data-validate]')) {
+          this.removeWarning(event.target);
+        } 
+      })
+    }
+
+    window.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let form = event.target;
+      this.workOperator(form);
+    })
+  }
+
+  workOperator(form, currentInput) {
+
+    let inputs = form.querySelectorAll('[data-validate]');
+
+    if (currentInput) {
+      this.validateTextFields(currentInput);
+      this.validatePhoneFields(currentInput);
+      this.validateCheckboxFields(currentInput);
+    } else {
+
+      inputs.forEach((input) => {
+        this.validateTextFields(input);
+        this.validatePhoneFields(input);
+        this.validateCheckboxFields(input);
+      });
+
+    }
+
+    let validInputsCount = form.querySelectorAll('[data-validate].valid').length;
+
+    if (inputs.length === validInputsCount && !currentInput) {
+      this.cleanAllFields();
+      this.openFinalPopup(form);
+
+      if (form.matches('.calculator') && this.params.resetCalculator) this.params.resetCalculator(form);
+      if (form.matches('.popup--ask')) {
+        let label = form.querySelector('.popup__agree');
+        label.click();
+      }
+    }
+
+  }
+
+  openFinalPopup(form) {
+    let submitButton = form.querySelector('[type="submit"]');
+    submitButton.setAttribute('data-popup', 'popup--answer');
+    submitButton.click();
+    submitButton.removeAttribute('data-popup');
+  }
+
+  validatePhoneFields(input) {
+
+    if (input.type === 'tel' && this.params.phoneMask) {
+
+      let lang = document.documentElement.lang;
+      let opt = this.params.phoneMask;
+      let value = input.value.trim();
+      let cleanValue = value ? value.match(/\d/g).join('') : '';
+      let digitsCount = opt.mask.match(/\d/g).join('').length;
+      let phoneCodeLength = opt.mask.match(/\{\d+\}/)[0].length - 2;
+      
+      let totalCheck = new RegExp(`\\d{${digitsCount}}`, '');
+      let isEmpty = cleanValue.length === phoneCodeLength ? true : false;
+
+      if (totalCheck.test(cleanValue)) {
+
+        this.removeWarning(input);
+        input.classList.add('valid');
+
+      } else {
+
+        if (isEmpty) {
+          let text = lang === 'ru' ? 'Введите номер телефона' : 'Введiть номер телефону';
+          this.showErrorWarning(input, text);
+        } else if (!totalCheck.test(cleanValue)) {
+          let text = lang === 'ru' ? 'Введите номер полностью' : 'Введiть номер повнiстю';
+          this.showErrorWarning(input, text);
+        }
+
+      }
+
+    }
+  }
+
+  validateTextFields(input) {
+
+    if (input.type === 'text' || input.tagName === 'TEXTAREA') {
+
+      let value = input.value.trim();
+      let lang = document.documentElement.lang;
+
+      let minSymbolsCount = 2;
+      let isEmpty = value.length > 0 ? false : true;
+      let forbiddenSymbols = /[0-9\!@#\$%\^&\*\(\)\-_\+\=\/\.\?\>\<";:\[\]\{\}\|]/i;
+
+      if (isEmpty) {
+        let text = lang === 'ru' ? 'Введите имя' : 'Введiть ім\'я';
+        this.showErrorWarning(input, text);
+      } else if (forbiddenSymbols.test(value)) {
+        let text = lang === 'ru' ? 'Запрещенный символ' : 'Заборонений символ';
+        this.showErrorWarning(input, text);
+      } else if (value.length < minSymbolsCount) {
+        let text = lang === 'ru' ? 'Минимум 2 буквы' : 'Мiнiмум 2 букви';
+        this.showErrorWarning(input, text);
+      }  else if (value) {
+        this.removeWarning(input);
+        input.classList.add('valid');
+      }
+
+    }
+  }
+
+  validateCheckboxFields(input) {
+
+    if (input.type === 'checkbox') {
+
+      let label = input.form.querySelector(`[for="${input.id}"]`);
+
+      if (!input.checked) {
+        label.classList.add('invalid');
+        input.classList.add('invalid');
+      } else {
+        label.classList.remove('invalid');
+        input.classList.remove('invalid');
+        input.classList.add('valid');
+      }
+
+    }
+
+  }
+
+  cleanAllFields() {
+    let fields = Array.from(document.querySelectorAll('[data-validate]'));
+
+    fields.forEach((field) => {
+      field.classList.remove('valid');
+      if (field.type === 'tel') {
+        this.masks[field.id].value = ''; 
+      } else {
+        field.value = '';
+      }
+      
+    })
+  }
+
+  showErrorWarning(item, text) {
+    let warningField = this.getWarningField(item);
+    item.classList.remove('valid');
+    item.classList.add('invalid');
+    if (warningField) {
+      warningField.classList.add('active');
+      warningField.textContent = text;
+    }
+  }
+
+  removeWarning(item) {
+    let warningField = this.getWarningField(item);
+    if (warningField) {
+      item.classList.remove('invalid');
+      warningField.classList.remove('active');
+      warningField.textContent = '';
+    }
+  }
+
+  getWarningField(item) {
+    let form = item.form;
+    let id = item.id;
+    let warningField = form.querySelector(`[data-validate-warn="${id}"]`);
+    return warningField;
+  }
+
+  ownMethodsBinder() {
+    let prototype = Object.getPrototypeOf(this);
+    let ownMethods = Object.getOwnPropertyNames(prototype);
+    for (let item of ownMethods) {
+      if (item !== 'constructor') prototype[item] = prototype[item].bind(this);
+    }
+  }
+
+}
+
+
+export { Popup, ChangeLanguage, DropdownMenu, CustomRange, FormValidator };

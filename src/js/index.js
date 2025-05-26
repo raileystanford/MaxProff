@@ -4,7 +4,8 @@ import {
   Popup,
   ChangeLanguage,
   DropdownMenu,
-  CustomRange
+  CustomRange, 
+  FormValidator,
 } from "./modules.js";
 
 new Popup({
@@ -33,6 +34,16 @@ new CustomRange({
   moveButtonToClick: true,
 })
 
+new FormValidator({
+  hideWarningOnClick: true,
+  phoneMask: {
+    mask: '+{38} (000) 000-00-00',
+    lazy: false,
+    placeholderChar: '_',
+  },
+  resetCalculator: resetCalculatorValues,
+});
+
 
 function focusStateFix() {
 
@@ -48,7 +59,6 @@ function focusStateFix() {
   }
 
 }
-
 
 function smoothDropMenuMobile(query) {
 
@@ -76,7 +86,6 @@ function smoothDropMenuMobile(query) {
   }
 
 }
-
 
 function calculatorHandler() {
 
@@ -208,8 +217,65 @@ function calculatorHandler() {
 
 }
 
+function formAgreeButtonStateController(...names) {
 
+  let labels = [];
+  names.forEach((name) => {
+    let label = document.querySelector(`label[for="${name}"]`);
+    labels.push(label);
+  })
+
+  labels.forEach((label) => {
+    label.addEventListener('click', (event) => {
+      let target = event.target;
+      target.classList.remove('invalid');
+      target.classList.toggle('active');
+    })
+  })
+
+}
+
+function saveInitialCalculatorValues() {
+
+  let calculator = document.querySelector('.calculator');
+
+  if (calculator) {
+    let radioInputs = calculator.querySelectorAll('input[type="radio"]:checked');
+
+    radioInputs.forEach((item) => {
+      item.initial = true;
+    })
+  }
+}
+
+function resetCalculatorValues(form) {
+
+  let radioInputs = form.querySelectorAll('input[type="radio"]');
+
+  radioInputs.forEach((item) => {
+    if (item.initial) {
+
+      let label = form.querySelector(`[for=${item.id}]`);
+      let fieldset = label.closest('fieldset');
+      let labels = fieldset.querySelectorAll('label');
+
+      labels.forEach((item) => {
+        item.classList.remove('active');
+        item.blur();
+      });
+
+      item.click();
+      label.classList.add('active');
+      
+    }
+  })
+
+  if (CustomRange) CustomRange.prototype.setInitialButtonsPosition();
+  
+}
 
 focusStateFix();
 smoothDropMenuMobile(671);
 calculatorHandler();
+formAgreeButtonStateController('popup-terms');
+saveInitialCalculatorValues();

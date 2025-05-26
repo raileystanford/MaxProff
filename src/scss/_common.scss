@@ -383,7 +383,7 @@
 
 .calculator {
   @include mix.flex-col(29px);
-  padding: 37.5px 0px 41px 0px;
+  padding: 37.5px 0px 24px 0px;
   background: var.$white;
   border-radius: 7px;
   width: 461px;
@@ -534,7 +534,7 @@
 
   &__section-phone {
     @include mix.flex(wrap, 14px);
-    @extend %ali-cen;
+    @extend %ali-start;
     margin: -5px 0 0 0;
   }
 
@@ -546,14 +546,37 @@
     }
   }
 
-  &__phone-input {
+  &__input-area {
+    @include mix.flex-col(2px);
+    margin: 3px 0 0 0;
     width: 204px;
+  }
+
+  &__warning {
+    @extend %opa0;
+    transition: all 0.2s;
+    color: var.$red;
+    height: 19px;
+
+    &.active {
+      @extend %opa1;
+    }
+  }
+
+  &__phone-input {
+    @extend %w-100;
+    transition: all 0.2s;
     height: 40px;
     border: 1px solid var.$white3;
     padding: 10px 12px;
+    color: var.$gray;
 
-    &::placeholder {
-      color: var.$gray;
+    &:focus {
+      color: var.$black;
+    }
+
+    &.invalid {
+      border-color: var.$red;
     }
   }
 
@@ -709,10 +732,32 @@
   }
 
   &__input {
+    transition: all 0.2s;
     width: 250px;
     height: 40px;
     padding: 10px 12px;
     border: 1px solid var.$silver;
+    color: var.$gray;
+
+    &:focus, &:hover {
+      color: var.$black;
+    }
+
+    &.invalid {
+      border-color: var.$red;
+    }
+  }
+
+  &__warning {
+    @extend %opa0;
+    transition: all 0.2s;
+    color: var.$red;
+    max-width: 250px;
+    height: 19px;
+
+    &.active {
+      @extend %opa1;
+    }
   }
 
   &__terms {
@@ -744,6 +789,10 @@
 
     &.active::after {
      display: block;
+    }
+
+    &.invalid {
+      outline-color: var.$red;
     }
   }
 
@@ -1038,7 +1087,7 @@
       width: 154px;
     }
 
-    &__phone-input {
+    &__input-area {
       width: 160px;
     }
   }
@@ -1090,7 +1139,7 @@
     width: 640px;
     margin: 0 0 0 -1px !important;
     box-shadow: 0 0 6px var.$black2;
-    padding: 37px 0px 39.5px 0px;
+    padding: 37px 0px 24px 0px;
     gap: 37px;
   }
 
@@ -1165,7 +1214,8 @@
       margin: 0 0 15px 0;
     }
 
-    .calculator__phone-input {
+    .calculator__input-area {
+      margin-top: 6px;
       width: 309px;
     }
 
@@ -1358,8 +1408,9 @@
     .calculator__section--phone {
       padding: 0 !important;
 
-      .calculator__phone-input {
+      .calculator__input-area {
         width: 100%;
+        margin: 0;
       }
 
       .calculator__button {
@@ -1479,7 +1530,15 @@
 
     .calculator__section-phone {
       margin: 0px;
-      gap: 9px;
+      gap: 7px;
+    }
+
+    .calculator__warning {
+      height: 0px;
+
+      &.active {
+        height: auto;
+      }
     }
 
     .range {
