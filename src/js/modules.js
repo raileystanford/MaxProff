@@ -42,6 +42,9 @@ class Popup {
   }
 
   openPopup(popup) {
+
+    if (BurgerMenu) BurgerMenu.prototype.closeBurgerMenu(); 
+
     if (this.previousPopup) this.previousPopup.classList.remove('active');
     this.previousPopup = popup;
     popup.classList.add('active');
@@ -83,7 +86,7 @@ class Popup {
   createBackdrop() {
     if (this.params.backDrop) {
       this.backDrop = document.createElement('div');
-      this.backDrop.classList.add('overlay');
+      this.backDrop.classList.add('popup-overlay');
       document.body.prepend(this.backDrop);
     }
   }
@@ -1009,4 +1012,102 @@ class FormValidator {
 }
 
 
-export { Popup, ChangeLanguage, DropdownMenu, CustomRange, FormValidator };
+class BurgerMenu {
+
+  constructor(params) {
+    this.params = params;
+    this.ownMethodsBinder();
+    this.getElements();
+    this.runMethods();
+  }
+
+  runMethods() {
+    let media = this.params.activationBreakpoint ?? 768;
+    let mediaOk = window.matchMedia(`(max-width: ${media}px)`).matches;
+
+    if (mediaOk && this.openButton && this.content && this.closeButton) {
+      this.createOverlay();
+      this.setEventListeners();
+    }
+  }
+
+  setEventListeners() {
+    document.addEventListener('click', (event) => {
+      let target = event.target;
+
+      if (target.closest('[data-burger-open]')) {
+        this.openBurgerMenu();
+      }
+
+      if (target.closest('a')) {
+        this.closeBurgerMenu();
+      }
+
+      if (target.closest('[data-burger-close]')) {
+        this.closeBurgerMenu();
+      }
+
+      if (!target.closest('[data-burger-content]') && !target.closest('[data-burger-open]') && this.params.closeByClickOutOfMenu) {
+        this.closeBurgerMenu();
+      }
+
+    })
+  }
+
+  openBurgerMenu() {
+    this.openButton.classList.toggle('active');
+    this.content.classList.toggle('active');
+    this.closeButton.classList.toggle('active');
+    this.overlay ? this.overlay.classList.toggle('active') : null;
+    
+    this.handlePageOverflow();
+  }
+
+  closeBurgerMenu() {
+    this.openButton.classList.remove('active');
+    this.content.classList.remove('active');
+    this.closeButton.classList.remove('active');
+    this.overlay ? this.overlay.classList.remove('active') : null;
+
+    this.handlePageOverflow();
+  }
+
+  handlePageOverflow() {
+    let burgerActive = this.content.matches('.active');
+    let scrollOffset = window.innerWidth - document.documentElement.clientWidth;
+
+    if (burgerActive) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = scrollOffset + 'px';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+  } 
+
+  createOverlay() {
+    if (this.params.needOverlay) {
+      this.overlay = document.createElement('div');
+      this.overlay.classList.add('burger-overlay');
+      document.body.append(this.overlay);
+    }
+  }
+
+  getElements() {
+    this.openButton = document.querySelector('[data-burger-open]');
+    this.closeButton = document.querySelector('[data-burger-close]');
+    this.content = document.querySelector('[data-burger-content]');
+  }
+
+  ownMethodsBinder() {
+    let prototype = Object.getPrototypeOf(this);
+    let ownMethods = Object.getOwnPropertyNames(prototype)
+    for (let item of ownMethods) {
+      if (item !== 'constructor') prototype[item] = prototype[item].bind(this);
+    }
+  }
+
+}
+
+
+export { Popup, ChangeLanguage, DropdownMenu, CustomRange, FormValidator, BurgerMenu };

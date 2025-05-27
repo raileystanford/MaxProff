@@ -330,7 +330,7 @@
             </div>
 
             <div class="tel-block__buttons">
-              <button class="button-outline tel-block__button-outline text4" data-lang="button_1">Заказать звонок</button>
+              <button class="button-outline tel-block__button-outline text4" data-popup="popup--ask" data-lang="button_1">Заказать звонок</button>
             </div>
 
           </div>
@@ -601,13 +601,9 @@
 
       <section class="navbar navbar--mobile">
 
-        <button class="navbar__close-btn">
-          <img src="./images/icons/close-icon.png" alt="close" class="navbar__close-icon">
-        </button>
-
         <div class="navbar__controls">
 
-          <button class="navbar__burger-btn">
+          <button class="navbar__burger-btn" data-burger-open>
             <img src="./images/icons/burger-btn.svg" alt="menu" class="navbar__burger-icon">
           </button>
 
@@ -623,284 +619,288 @@
 
         </div>
 
-        <nav class="nav-sidebar">
+      </section>
 
-          <section class="nav-sidebar__buttons">
+      <button class="navbar__close-btn" data-burger-close>
+        <img src="./images/icons/close-icon.png" alt="close" class="navbar__close-icon">
+      </button>
 
-            <button class="button nav-sidebar__button text4" data-lang="button_1">Заказать звонок</button>
+      <nav class="nav-sidebar" data-burger-content>
 
-            <button class="button-outline nav-sidebar__button text4" data-lang="button_2">Калькулятор ремонта</button>
+        <section class="nav-sidebar__buttons">
 
-            <div class="lang-btn nav-sidebar__lang-btn" data-lang-controls>
-              <button class="lang-btn__variant text5 active" data-lang-var="ru">RU</button>
-              <button class="lang-btn__variant text5" data-lang-var="ua">UA</button>
-            </div>
+          <button class="button nav-sidebar__button text4" data-popup="popup--ask" data-lang="button_1">Заказать звонок</button>
 
-          </section>
+          <a href="#" class="button-outline nav-sidebar__button text4" data-lang="button_2">Калькулятор ремонта</a>
 
-          <ul class="drop-list navbar__drop-list">
-
-            <li class="drop-list__item">
-
-              <button class="drop-list__button" data-dropdown="hover">
-                <svg class="drop-list__icon">
-                  <use xlink:href="./images/sprite.svg#arrow-small"></use>
-                </svg>
-                <span class="drop-list__button-text text4" data-lang="drop-btn_1">Ремонт квартир</span>
-              </button>
-
-              <ul class="drop-list__content ass">
-
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_1">Черновой</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_2">Косметический</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_3">Капитальный</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_4">Элитный</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_5">В новостройках</a>
-                </li>
-
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_6">Студии</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_7">Вторичное жилье</a>
-                </li> 
-                
-              </ul>
-
-            </li>
-
-            <li class="drop-list__item">
-
-              <button class="drop-list__button" data-dropdown="hover">
-                <svg class="drop-list__icon">
-                  <use xlink:href="./images/sprite.svg#arrow-small"></use>
-                </svg>
-                <span class="drop-list__button-text text4" data-lang="drop-btn_2">Дизайн интерьера</span>
-              </button>
-
-              <ul class="drop-list__content">
-
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_8">Дизайн кухни</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_9">Дизайн спальни</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_10">Дизайн гостинной</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_11">Дизайн детской</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_12">Дизайн санузла</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_13">Дизайн коридора</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_14">Дизайн балкона</a>
-                </li>
-                
-              </ul>
-              
-            </li>
-
-            <li class="drop-list__item">
-
-              <button class="drop-list__button" data-dropdown="hover">
-                <svg class="drop-list__icon">
-                  <use xlink:href="./images/sprite.svg#arrow-small"></use>
-                </svg>
-                <span class="drop-list__button-text text4" data-lang="drop-btn_3">Ремонт комнат</span>
-              </button>
-
-              <ul class="drop-list__content">
-
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_15">Кухни</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_16">Спальни</a>
-                </li>
-
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_17">Гостинная</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_18">Детские</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_19">Санузлы</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_20">Коридоры</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_21">Балконы</a>
-                </li>
-               
-              </ul>
-
-            </li>
-
-            <li class="drop-list__item">
-
-              <button class="drop-list__button" data-dropdown="hover">
-                <svg class="drop-list__icon">
-                  <use xlink:href="./images/sprite.svg#arrow-small"></use>
-                </svg>
-                <span class="drop-list__button-text text4" data-lang="drop-btn_4">Дома и коттеджи</span> 
-              </button>
-
-              <ul class="drop-list__content">
-
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_22">Озеленение</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_23">Ремонт фасада</a>
-                </li>
-               
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_24">Ремонт крыши</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_25">Ремонт пола</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_26">Замена окон</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_27">Теплоизоляция</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_28">Откосы</a>
-                </li>
-                
-              </ul>
-
-            </li>
-
-            <li class="drop-list__item">
-
-              <button class="drop-list__button" data-dropdown="hover">
-                <svg class="drop-list__icon">
-                  <use xlink:href="./images/sprite.svg#arrow-small"></use>
-                </svg>
-                <span class="drop-list__button-text text4" data-lang="drop-btn_5">Прочие услуги</span>
-              </button>
-
-              <ul class="drop-list__content">
-
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_29">Покраска</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_30">Вывоз мусора</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_31">Электрификация</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_32">Газификация</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_33">Клининг</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_34">Демонтаж</a>
-                </li>
-                
-                <li class="drop-list__item">
-                  <a href="#" class="drop-list__link text1" data-lang="drop-link_35">Страхование</a>
-                </li>
-                
-              </ul>
-
-            </li>
-
-          </ul>
-
-          <ul class="nav-links navbar__nav-links">
-
-            <li class="nav-links__item">
-              <a href="#" class="nav-links__link text1" data-lang="nav-link_1">Цены</a>
-            </li>
-
-            <li class="nav-links__item">
-              <a href="#" class="nav-links__link text1" data-lang="nav-link_2">Услуги</a>
-            </li>
-
-            <li class="nav-links__item">
-              <a href="#" class="nav-links__link text1" data-lang="nav-link_3">Портфолио</a>
-            </li>
-
-            <li class="nav-links__item">
-              <a href="#" class="nav-links__link text1" data-lang="nav-link_4">Акции</a>
-            </li>
-
-            <li class="nav-links__item">
-              <a href="#" class="nav-links__link text1" data-lang="nav-link_5">Преимущества</a>
-            </li>
-
-            <li class="nav-links__item">
-              <a href="#" class="nav-links__link text1" data-lang="nav-link_6">Блог</a>
-            </li>
-
-            <li class="nav-links__item">
-              <a href="#" class="nav-links__link text1" data-lang="nav-link_7">Контакты</a>
-            </li>
-
-          </ul>
-
-          <div class="tel-block navbar__tel-block">
-
-            <div class="tel-block__main">
-              <a href="tel:+380502222222" class="tel-block__link text2">+38 (050) 222-22-22</a>
-              <span class="tel-block__info text3" data-lang="tel-info_1">08:00 - 22:00, без выходных</span>
-            </div>
-
+          <div class="lang-btn nav-sidebar__lang-btn" data-lang-controls>
+            <button class="lang-btn__variant text5 active" data-lang-var="ru">RU</button>
+            <button class="lang-btn__variant text5" data-lang-var="ua">UA</button>
           </div>
 
-        </nav>
+        </section>
 
-      </section>
+        <ul class="drop-list navbar__drop-list">
+
+          <li class="drop-list__item">
+
+            <button class="drop-list__button" data-dropdown="hover">
+              <svg class="drop-list__icon">
+                <use xlink:href="./images/sprite.svg#arrow-small"></use>
+              </svg>
+              <span class="drop-list__button-text text4" data-lang="drop-btn_1">Ремонт квартир</span>
+            </button>
+
+            <ul class="drop-list__content ass">
+
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_1">Черновой</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_2">Косметический</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_3">Капитальный</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_4">Элитный</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_5">В новостройках</a>
+              </li>
+
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_6">Студии</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_7">Вторичное жилье</a>
+              </li> 
+              
+            </ul>
+
+          </li>
+
+          <li class="drop-list__item">
+
+            <button class="drop-list__button" data-dropdown="hover">
+              <svg class="drop-list__icon">
+                <use xlink:href="./images/sprite.svg#arrow-small"></use>
+              </svg>
+              <span class="drop-list__button-text text4" data-lang="drop-btn_2">Дизайн интерьера</span>
+            </button>
+
+            <ul class="drop-list__content">
+
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_8">Дизайн кухни</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_9">Дизайн спальни</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_10">Дизайн гостинной</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_11">Дизайн детской</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_12">Дизайн санузла</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_13">Дизайн коридора</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_14">Дизайн балкона</a>
+              </li>
+              
+            </ul>
+            
+          </li>
+
+          <li class="drop-list__item">
+
+            <button class="drop-list__button" data-dropdown="hover">
+              <svg class="drop-list__icon">
+                <use xlink:href="./images/sprite.svg#arrow-small"></use>
+              </svg>
+              <span class="drop-list__button-text text4" data-lang="drop-btn_3">Ремонт комнат</span>
+            </button>
+
+            <ul class="drop-list__content">
+
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_15">Кухни</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_16">Спальни</a>
+              </li>
+
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_17">Гостинная</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_18">Детские</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_19">Санузлы</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_20">Коридоры</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_21">Балконы</a>
+              </li>
+              
+            </ul>
+
+          </li>
+
+          <li class="drop-list__item">
+
+            <button class="drop-list__button" data-dropdown="hover">
+              <svg class="drop-list__icon">
+                <use xlink:href="./images/sprite.svg#arrow-small"></use>
+              </svg>
+              <span class="drop-list__button-text text4" data-lang="drop-btn_4">Дома и коттеджи</span> 
+            </button>
+
+            <ul class="drop-list__content">
+
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_22">Озеленение</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_23">Ремонт фасада</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_24">Ремонт крыши</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_25">Ремонт пола</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_26">Замена окон</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_27">Теплоизоляция</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_28">Откосы</a>
+              </li>
+              
+            </ul>
+
+          </li>
+
+          <li class="drop-list__item">
+
+            <button class="drop-list__button" data-dropdown="hover">
+              <svg class="drop-list__icon">
+                <use xlink:href="./images/sprite.svg#arrow-small"></use>
+              </svg>
+              <span class="drop-list__button-text text4" data-lang="drop-btn_5">Прочие услуги</span>
+            </button>
+
+            <ul class="drop-list__content">
+
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_29">Покраска</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_30">Вывоз мусора</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_31">Электрификация</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_32">Газификация</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_33">Клининг</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_34">Демонтаж</a>
+              </li>
+              
+              <li class="drop-list__item">
+                <a href="#" class="drop-list__link text1" data-lang="drop-link_35">Страхование</a>
+              </li>
+              
+            </ul>
+
+          </li>
+
+        </ul>
+
+        <ul class="nav-links navbar__nav-links">
+
+          <li class="nav-links__item">
+            <a href="#" class="nav-links__link text1" data-lang="nav-link_1">Цены</a>
+          </li>
+
+          <li class="nav-links__item">
+            <a href="#" class="nav-links__link text1" data-lang="nav-link_2">Услуги</a>
+          </li>
+
+          <li class="nav-links__item">
+            <a href="#" class="nav-links__link text1" data-lang="nav-link_3">Портфолио</a>
+          </li>
+
+          <li class="nav-links__item">
+            <a href="#" class="nav-links__link text1" data-lang="nav-link_4">Акции</a>
+          </li>
+
+          <li class="nav-links__item">
+            <a href="#" class="nav-links__link text1" data-lang="nav-link_5">Преимущества</a>
+          </li>
+
+          <li class="nav-links__item">
+            <a href="#" class="nav-links__link text1" data-lang="nav-link_6">Блог</a>
+          </li>
+
+          <li class="nav-links__item">
+            <a href="#" class="nav-links__link text1" data-lang="nav-link_7">Контакты</a>
+          </li>
+
+        </ul>
+
+        <div class="tel-block navbar__tel-block">
+
+          <div class="tel-block__main">
+            <a href="tel:+380502222222" class="tel-block__link text2">+38 (050) 222-22-22</a>
+            <span class="tel-block__info text3" data-lang="tel-info_1">08:00 - 22:00, без выходных</span>
+          </div>
+
+        </div>
+
+      </nav>
 
       <section class="header__intro">
 

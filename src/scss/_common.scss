@@ -315,7 +315,7 @@
     margin: 10px 1px 10px 0;
   }
 
-  &--tablet, &--mobile {
+  &--tablet, &--mobile, &__close-btn {
     display: none;
   }
 }
@@ -332,14 +332,16 @@
 
 .nav-sidebar {
   @include mix.flex-col(31px);
-  @extend %abs;
+  position: fixed;
   height: 100vh;
   width: 325px;
   padding: 23px 20px;
   top: 0;
-  right: 0;
+  right: -325px;
   background: var.$white;
   overflow: auto;
+  z-index: 11;
+  transition: all 0.2s;
   display: none;
 
   &__buttons {
@@ -349,6 +351,10 @@
 
   &__button {
     @extend %w-100;
+  }
+
+  &.active {
+    right: 0px;
   }
 }
 
@@ -643,6 +649,7 @@
   @extend %ali-cen;
   @extend %opa0;
   @extend %vis0;
+  transition: all 0.2s;
   width: 650px;
   padding: 15px 20px 22px 20px;
   background: var.$white;
@@ -819,7 +826,7 @@
   }
 }
 
-.overlay {
+.popup-overlay, .burger-overlay {
   @extend %opa0;
   @extend %vis0;
   width: 100vw;
@@ -828,14 +835,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 10;
   transition: all 0.2s;
-  // display: none;
 
   &.active {
     @extend %vis1;
     @extend %opa1;
-    // display: block;
   }
 }
 
@@ -1100,6 +1105,22 @@
     width: 670px;
   }
 
+  .popup {
+    width: 600px;
+
+    &__body {
+      width: 90%;
+    }
+
+    &__input-area {
+      width: 244px;
+    }
+
+    &__input {
+      width: 100%;
+    }
+  }
+
   .navbar--tablet {
 
     .tel-block__button-outline {
@@ -1252,29 +1273,11 @@
     width: 100vw;
     position: fixed;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9;
+    left: 0;
+    z-index: 5;
 
     .company-logo {
       width: 124px;
-    }
-
-    .navbar__close-btn {
-      display: flex;
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 20px;
-      z-index: 10;
-      display: none;
-    }
-
-    .navbar__close-icon {
-      width: 100%;
-      height: 100%;
     }
 
     .navbar__controls {
@@ -1289,6 +1292,10 @@
     .navbar__burger-btn {
       width: 35px;
       height: 20px;
+
+      &.active {
+        opacity: 0;
+      }
     }
 
     .navbar__burger-icon {
@@ -1311,73 +1318,99 @@
       stroke: white;
       stroke-width: 1px;
     }
+  }
 
-    .navbar__drop-list {
-      flex-direction: column;
+  .nav-sidebar {
+    display: flex;
+  }
+
+  .navbar__close-btn {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 11;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s;
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
     }
+  }
 
-    .drop-list__item {
-      flex-direction: column;
-    }
+  .navbar__close-icon {
+    width: 100%;
+    height: 100%;
+  }
 
-    .drop-list__link {
-      padding: 10px 0px 9px 5px;
-    }
+  .navbar__drop-list {
+    flex-direction: column;
+  }
 
-    .drop-list__icon {
-      will-change: transform;
-      transition: all 0.2s;
-      transform: rotate(90deg);
-    }
+  .drop-list__item {
+    flex-direction: column;
+  }
 
-    .drop-list__button {
-      width: 100%;
-      justify-content: flex-start;
-      gap: 8px;
-      padding: 10px 10px;
+  .drop-list__link {
+    padding: 10px 0px 9px 5px;
+  }
 
-      &.active {
-        
-        .drop-list__icon {
-          transform: rotate(180deg);
-        }
+  .drop-list__icon {
+    will-change: transform;
+    transition: all 0.2s;
+    transform: rotate(90deg);
+  }
+
+  .drop-list__button {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 10px 10px;
+
+    &.active {
+      
+      .drop-list__icon {
+        transform: rotate(180deg);
       }
     }
+  }
 
-    .drop-list__content { 
-      box-shadow: none;
-      position: static;
-      padding: 0px 0px 0px 30px;
-      gap: 3px;
-      width: 100%;
-      height: 0px;
-      overflow: hidden;
-      transform: none;
-      transition: all 0.3s;
-      background: rgb(243, 243, 243);
-    }
+  .drop-list__content { 
+    box-shadow: none;
+    position: static;
+    padding: 0px 0px 0px 30px;
+    gap: 3px;
+    width: 100%;
+    height: 0px;
+    overflow: hidden;
+    transform: none;
+    transition: all 0.3s;
+    background: rgb(243, 243, 243);
+  }
 
-    .drop-list__content.active {
-      padding: 10px 0px 10px 30px;
-      transition: all 0.3s;
-      transform: none;
-    }
+  .drop-list__content.active {
+    padding: 10px 0px 10px 30px;
+    transition: all 0.3s;
+    transform: none;
+  }
 
-    .navbar__nav-links {
-      flex-direction: column;
-      gap: 10px;
-      margin: 0px 0px 0px 35px;
-      order: 0;
-    }
+  .navbar__nav-links {
+    flex-direction: column;
+    gap: 10px;
+    margin: 0px 0px 0px 35px;
+    order: 0;
+  }
 
-    .nav-links__item {
-      display: flex;
-    }
+  .nav-links__item {
+    display: flex;
+  }
 
-    .navbar__tel-block {
-      margin: 0px 0px 0px 35px;
-    }
-
+  .navbar__tel-block {
+    margin: 0px 0px 0px 35px;
   }
 
   .calculator {
@@ -1446,10 +1479,15 @@
 
     &__body {
       width: 100%;
+      gap: 15px;
     }
 
-    &__input {
-      width: 197px;
+    &__inputs {
+      gap: 5px;
+    }
+
+    &__input-area {
+      width: 100%;
     }
   }
 
@@ -1557,8 +1595,8 @@
   .popup {
     width: 380px;
 
-    &__input-area, &__input {
-      width: 100%;
+    &__title {
+      font-size: 30px;
     }
   }
 
@@ -1570,22 +1608,19 @@
     width: 290px;
   }
 
-  .navbar--mobile {
+  .nav-sidebar {
+    width: 240px;
+    padding: 18px 10px;
+  }
 
-    .nav-sidebar {
-      width: 240px;
-      padding: 18px 10px;
-    }
+  .navbar__close-btn {
+    width: 40px;
+    height: 40px;
+    left: 15px;
+  }
 
-    .navbar__close-btn {
-      width: 40px;
-      height: 40px;
-      left: 15px;
-    }
-
-    .tel-block {
-      margin: 0 0 0 20px;
-    }
+  .tel-block {
+    margin: 0 0 0 20px;
   }
 
   .marked-text {
@@ -1619,6 +1654,7 @@
   .popup {
     width: 290px;
     padding: 10px 10px 15px 10px;
+    gap: 20px;
 
     &__input-area, &__input {
       width: 100%;

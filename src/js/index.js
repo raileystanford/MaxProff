@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   CustomRange, 
   FormValidator,
+  BurgerMenu,
 } from "./modules.js";
 
 new Popup({
@@ -42,6 +43,11 @@ new FormValidator({
     placeholderChar: '_',
   },
   resetCalculator: resetCalculatorValues,
+});
+
+new BurgerMenu({
+  needOverlay: true,
+  closeByClickOutOfMenu: false,
 });
 
 
