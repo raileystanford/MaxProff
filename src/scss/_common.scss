@@ -74,11 +74,19 @@
   line-height: 21px;
 }
 
+.text11 {
+  font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
 .navbar {
 
   &__top, &__bottom, &__middle {
     @include mix.flex(wrap, 15px 48.5px);
     @extend %ali-cen;
+    @extend %jus-bet;
     @extend %rel;
     padding: 20px 0px 21px 0px;
 
@@ -94,7 +102,6 @@
   }
 
   &__bottom {
-    @extend %jus-bet;
     padding: 0px;
     gap: 0px 30px;
   }
@@ -150,11 +157,24 @@
 
       &::before {
         content: '';
+        @extend %will;
         @extend %shrink0;
         background: url(../images/icons/call.svg) 0 0 / contain no-repeat;
         width: 17px;
         height: 17px;
         margin: 1px 0 0 0;
+      }
+
+      &:hover::before, &:focus::before {
+        animation: phone-move 0.4s;
+      } 
+
+      @keyframes phone-move {
+        0%{transform: rotate(0deg);}
+        25%{transform: rotate(30deg);}
+        50%{transform: rotate(0deg);}
+        75%{transform: rotate(30deg);}
+        100%{transform: rotate(0deg);}
       }
     }
 
@@ -196,9 +216,21 @@
 
     &__button {
       @extend %flex-cen;
+      @extend %rel;
+      z-index: 2;
       gap: 5px;
       width: 200px;
-      padding: 24px 15px 25px 15px;
+      padding: 24px 10px 25px 10px;
+
+      &.active {
+        background: var.$green;
+        color: var.$white;
+
+        .drop-list__icon {
+          stroke: var.$white;
+          transform: rotate(180deg);
+        }
+      }
     }
 
     &__icon {
@@ -213,7 +245,10 @@
 
     &__content {
       @include mix.flex-col(7px);
+      @extend %will;
       @extend %abs;
+      @extend %vis0;
+      @extend %opa0;
       width: 100%;
       background: var.$white;
       top: 100%;
@@ -221,12 +256,25 @@
       box-shadow: 0px 3px 10px var.$silver;
       padding: 25px 15px;
       z-index: 1;
-      display: none;
+      transition: all 0.1s;
+      transform: translateY(-20px);
+
+      .drop-list__item {
+        @extend %w-100;
+      }
+
+      &.active {
+        @extend %vis1;
+        @extend %opa1;
+        transition: all 0.3s;
+        transform: translateY(0px);
+      }
     }
 
     &__link {
+      @extend %w-100;
       color: var.$black;
-      padding: 13px 15px 11px 15px;
+      padding: 13px 12px 11px 12px;
       border: 1px solid transparent;
       border-radius: 4px;
     }
@@ -248,6 +296,7 @@
         @extend %d-block;
         @extend %abs;
         @extend %py-cen;
+        transition: all 0.1s;
         right: -2px;
         width: 2px;
         height: 25px;
@@ -266,7 +315,7 @@
     margin: 10px 1px 10px 0;
   }
 
-  &--tablet, &--mobile {
+  &--tablet, &--mobile, &__close-btn {
     display: none;
   }
 }
@@ -283,15 +332,16 @@
 
 .nav-sidebar {
   @include mix.flex-col(31px);
-  @extend %abs;
+  position: fixed;
   height: 100vh;
   width: 325px;
   padding: 23px 20px;
   top: 0;
-  right: 0;
+  right: -325px;
   background: var.$white;
   overflow: auto;
-  z-index: 10;
+  z-index: 11;
+  transition: all 0.2s;
   display: none;
 
   &__buttons {
@@ -302,17 +352,10 @@
   &__button {
     @extend %w-100;
   }
-}
 
-.burger-overlay {
-  width: 100vw;
-  height: 100vh;
-  background: var.$black3;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9;
-  display: none;
+  &.active {
+    right: 0px;
+  }
 }
 
 .marked-text {
@@ -346,7 +389,7 @@
 
 .calculator {
   @include mix.flex-col(29px);
-  padding: 37.5px 0px 41px 0px;
+  padding: 37.5px 0px 24px 0px;
   background: var.$white;
   border-radius: 7px;
   width: 461px;
@@ -382,11 +425,6 @@
     }
   }
 
-  .ass {
-    width: 1px;
-    height: 15px;
-  }
-
   &__section-title {
     color: var.$gray;
     margin: 0 0 18.5px 0;
@@ -410,6 +448,77 @@
     @extend %vis0;
   }
 
+  @at-root
+  .range {
+    @include mix.flex(nowrap, 23px);
+    @extend %ali-cen;
+    @extend %w-100;
+
+    &__line {
+      width: 333px;
+      height: 6px;
+      border-radius: 4px;
+      background: var.$white2;
+      margin: 0px 11px;
+
+      &::before, &::after {
+        content: '';
+        @extend %abs;
+        @extend %h-100;
+        top: 0;
+        left: -11px;
+        background: var.$blue2;
+        width: 20px;
+        border-radius: 4px;
+      }
+
+      &::after {
+        content: '';
+        @extend %abs;
+        left: auto;
+        right: -11px;
+        background: var.$white2;
+        z-index: -1;
+      }
+    }
+
+    &__subline {
+      background: var.$blue2;
+      border-radius: 4px;
+    }
+
+    &__button {
+      width: 23px;
+      height: 23px;
+      background: transparent;
+
+      &::after {
+        content: '';
+        @extend %abs;
+        @extend %d-block;
+        @extend %wh-100;
+        top: -2px;
+        left: -2px;
+        background: var.$blue2;
+        border-radius: 50%;
+        border: 2px solid var.$white;
+      }
+    }
+
+    &__input {
+      @extend %abs;
+      @extend %vis0;
+    }
+
+    &__output {
+      color: var.$gray;
+    }
+  }
+
+  &__range {
+    margin: -3px 0 0 0;
+  }
+
   &__footer {
     @include mix.flex-col(21px);
     @extend %w-100;
@@ -431,7 +540,7 @@
 
   &__section-phone {
     @include mix.flex(wrap, 14px);
-    @extend %ali-cen;
+    @extend %ali-start;
     margin: -5px 0 0 0;
   }
 
@@ -443,14 +552,37 @@
     }
   }
 
-  &__phone-input {
+  &__input-area {
+    @include mix.flex-col(2px);
+    margin: 3px 0 0 0;
     width: 204px;
+  }
+
+  &__warning {
+    @extend %opa0;
+    transition: all 0.2s;
+    color: var.$red;
+    height: 19px;
+
+    &.active {
+      @extend %opa1;
+    }
+  }
+
+  &__phone-input {
+    @extend %w-100;
+    transition: all 0.2s;
     height: 40px;
     border: 1px solid var.$white3;
     padding: 10px 12px;
+    color: var.$gray;
 
-    &::placeholder {
-      color: var.$gray;
+    &:focus {
+      color: var.$black;
+    }
+
+    &.invalid {
+      border-color: var.$red;
     }
   }
 
@@ -509,4 +641,1028 @@
       }
     }
   }
+}
+
+.popup {
+  @include mix.flex-col(40px);
+  @extend %p-cen;
+  @extend %ali-cen;
+  @extend %opa0;
+  @extend %vis0;
+  transition: all 0.2s;
+  width: 650px;
+  padding: 15px 20px 22px 20px;
+  background: var.$white;
+  border-radius: 6px;
+  position: fixed;
+  z-index: 10;
+  transform: translate(-50%, -50%) scale(0.8);
+
+  &.active {
+    @extend %d-flex;
+    @extend %vis1;
+    @extend %opa1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &__header {
+    @include mix.flex-col(10px);
+    @extend %rel;
+    @extend %w-100;
+    padding: 0px 0px 20px 0px;
+
+    &::after {
+      content: '';
+      @extend %abs;
+      @extend %px-cen;
+      width: 100%;
+      height: 1px;
+      background: var.$black;
+      bottom: 0;
+    }
+  }
+
+  &__header-line {
+    @include mix.flex(wrap, 30px);
+    @extend %jus-bet;
+    @extend %ali-cen;
+  }
+
+  &__company-logo {
+    margin: 0 0 0 5px;
+  }
+
+  &__close {
+    @extend %flex-cen;
+    width: 40px;
+    height: 40px;
+  }
+
+  &__close-icon {
+    @extend %wh-100;
+    stroke-width: 2px;
+    stroke: var.$black;
+  }
+
+  &__intro {
+    @include mix.flex-col(5px);
+    @extend %ali-cen;
+  }
+
+  &__title {
+    color: var.$green;
+    text-align: center;
+  }
+
+  &__subtitle {
+    color: var.$black;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  &__body {
+    @include mix.flex-col(20px);
+    @extend %ali-cen;
+    width: 84.5%;
+  }
+
+  &__inputs {
+    @include mix.flex(wrap, 15px);
+  }
+
+  &__input-area {
+    @include mix.flex-col(5px);
+  }
+
+  &__label {
+    font-size: 18px;
+  }
+
+  &__input {
+    transition: all 0.2s;
+    width: 250px;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid var.$silver;
+    color: var.$gray;
+
+    &:focus, &:hover {
+      color: var.$black;
+    }
+
+    &.invalid {
+      border-color: var.$red;
+    }
+  }
+
+  &__warning {
+    @extend %opa0;
+    transition: all 0.2s;
+    color: var.$red;
+    max-width: 250px;
+    height: 19px;
+
+    &.active {
+      @extend %opa1;
+    }
+  }
+
+  &__terms {
+    @include mix.flex(nowrap, 12px);
+  }
+
+  &__checkbox {
+    @extend %vis0;
+    @extend %abs;
+  }
+
+  &__agree {
+    @extend %shrink0;
+    @extend %rel;
+    width: 20px;
+    height: 20px;
+    outline: 1px solid var.$silver;
+    outline-offset: -1px;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      @include mix.abs();
+      @extend %wh-100;
+      @extend %d-block;
+      background: url(../images/icons/done-icon.png) 0 0 / cover no-repeat;
+      display: none;
+    }
+
+    &.active::after {
+     display: block;
+    }
+
+    &.invalid {
+      outline-color: var.$red;
+    }
+  }
+
+  &__link {
+    color: var.$green;
+    text-decoration: underline;
+  }
+}
+
+.popup--answer {
+  padding: 15px 20px 60px 20px;
+  
+  .popup__header {
+    gap: 25px;
+    padding: 0;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .popup__intro {
+    gap: 10px;
+  }
+}
+
+.popup-overlay, .burger-overlay {
+  @extend %opa0;
+  @extend %vis0;
+  width: 100vw;
+  height: 100vh;
+  background: var.$black3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  transition: all 0.2s;
+
+  &.active {
+    @extend %vis1;
+    @extend %opa1;
+  }
+}
+
+// MEDIA QUERIES
+
+@media (max-width: 1231px) {
+
+  .page-wrapper {
+    width: 1024px;
+  }
+
+  .navbar {
+
+    .navbar__top {
+      gap: 15px 14px;
+    }
+  
+    .company-logo {
+      width: 100px;
+    }
+  
+    .nav-links {
+      gap: 7px 10px;
+    }
+  
+    .tel-block {
+      gap: 11px;
+  
+      &__button-outline {
+        width: 160px;
+      }
+    }
+  
+    .navbar__bottom {
+      gap: 0 20px;
+    }
+  
+    .navbar__lang-btn {
+      margin-right: 0;
+    }
+  
+    .drop-list {
+
+      &__button {
+        width: 160px;
+        padding: 15px;
+      }
+  
+      &__content {
+        padding: 20px 8px;
+        gap: 5px;
+      }
+  
+      &__link {
+        padding: 13px 8px 11px 8px;
+      }
+
+    }
+
+  }
+
+  .calculator {
+
+    .range {
+
+      &__line {
+        width: 241px;
+      }
+
+    }
+
+  }
+
+}
+
+@media (max-width: 1024px) {
+
+  .page-wrapper {
+    width: 768px;
+  }
+
+  .navbar {
+    display: none;
+  }
+
+  .navbar--tablet {
+    display: block;
+
+    .navbar__company-logo {
+      position: static;
+    }
+
+    .navbar__top {
+      flex-direction: column;
+      gap: 12px 14px;
+    }
+
+    .navbar__top {
+      padding: 9px 0px 10px 0px;
+      flex-direction: row;
+      gap: 12px 28px;
+    }
+
+    .company-logo {
+      width: 124px;
+    }
+
+    .tel-block {
+      gap: 21px;
+    }
+
+    .tel-block__link {
+      font-size: 15px;
+      line-height: 18px;
+    }
+
+    .tel-block__nav-socials {
+      margin: 5px 0 0 0;
+      max-width: 112px;
+    }
+
+    .tel-block__info {
+      font-size: 12px;
+      line-height: 14px;
+    }
+
+    .tel-block__button-outline {
+      width: 165px;
+      padding: 12.5px 12px;
+    }
+
+    .navbar__middle {
+      justify-content: center;
+      padding: 12px 0px 11px 0px;
+    }
+
+    .nav-links {
+      order: 0;
+      gap: 7px 41px;
+      max-width: 601px;
+      margin: 0;
+
+      &__item {
+        display: flex;
+      }
+    }
+
+    .navbar__drop-list {
+      max-width: 600px;
+    }
+
+    .drop-list__button {
+      width: 120px;
+      padding: 10px 15px;
+      gap: 4px;
+
+      &:first-child {
+        padding: 10px 15px 10px 17px;
+      }
+    }
+
+    .drop-list__button-text {
+      font-size: 14px;
+      line-height: 16px;
+      text-align: left;
+    }
+
+    .drop-list__icon {
+      will-change: transform;
+      transition: all 0.2s;
+    }
+
+    .drop-list__content {
+      width: 130%;
+    }
+
+    .drop-list__link {
+      font-size: 14px;
+      line-height: 17px;
+    }
+
+    .navbar__lang-btn {
+      width: 88px;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .lang-btn__variant {
+      font-size: 20px;
+      line-height: 23px;
+      padding: 7px 9px;
+
+      &::after {
+        content: '';
+        height: 21px;
+        right: -0.5px; 
+      }
+    }
+  }
+
+  .marked-text {
+    font-size: 50px;
+  }
+
+  .benefits {
+    gap: 20px 20px;
+  }
+
+  .benefit {
+    width: 170px;
+  }
+
+  .calculator {
+    width: 350px;
+    padding: 25px 0px;
+    gap: 20px;
+
+    &__title {
+      padding: 0px 20px;
+    }
+
+    &__body {
+      padding: 0px 20px;
+    }
+
+    &__section-content {
+      gap: 9px 20px;
+    }
+
+    &__section-column {
+      width: 46.5%;
+    }
+
+    &__section-row {
+      gap: 9px 18px;
+    }
+
+    &__footer {
+      padding: 0px 20px;
+    }
+
+    &__summary {
+      gap: 15px 2px;
+      padding: 17px 20px;
+      margin: 0 -20px;
+    }
+
+    &__summary-item {
+      width: 154px;
+    }
+
+    &__input-area {
+      width: 160px;
+    }
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .page-wrapper {
+    width: 670px;
+  }
+
+  .popup {
+    width: 600px;
+
+    &__body {
+      width: 90%;
+    }
+
+    &__input-area {
+      width: 244px;
+    }
+
+    &__input {
+      width: 100%;
+    }
+  }
+
+  .navbar--tablet {
+
+    .tel-block__button-outline {
+      margin: 0 0 0 6px;
+    }
+
+    .navbar__drop-list {
+      max-width: 525px;
+    }
+
+    .drop-list__button {
+      width: 105px;
+    }
+
+    .drop-list__content {
+      width: 148%;
+    }
+
+  }
+
+  .marked-text {
+    font-size: 52px;
+    padding: 0px 5px;
+  }
+
+  .navbar__benefits {
+    margin: 0 0 0 2px;
+    gap: 26px 13px;
+  }
+
+  .benefit {
+    width: 185px;
+    gap: 16px;
+  }
+
+  .header__calculator {
+    width: 640px;
+    margin: 0 0 0 -1px !important;
+    box-shadow: 0 0 6px var.$black2;
+    padding: 37px 0px 24px 0px;
+    gap: 37px;
+  }
+
+  .calculator__title {
+    font-size: 22px;
+    line-height: 26px;
+    padding: 0px 22px;
+  }
+
+  .calculator__body {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0px 23px;
+    gap: 15px 63px;
+  }
+
+  .calculator__section {
+    padding: 0px 0px 23px 0px;
+
+    &-content {
+      gap: 9px 17px;
+    }
+
+    &-row {
+      gap: 10px 24px;
+    }
+
+    &-column {
+      width: 145px;
+    }
+
+    &:nth-child(2) {
+      order: 1;
+      padding: 0px;
+      
+      &::after {
+        display: none;
+      }
+    }
+
+    &:nth-child(3) {
+      width: 219px;
+      order: 0;
+    }
+
+    &:nth-child(4) {
+      width: 219px;
+      order: 2;
+      padding: 0px;
+    }
+  }
+
+  .calculator__footer {
+    margin: 14px 0 0 0;
+    gap: 25px;
+    padding: 0px 27px;
+  }
+
+  .calculator__summary {
+    padding: 18px 24px 16px 24px;
+    gap: 15px 216px;
+    margin: 0px -27px;
+  }
+
+  .calculator__section--phone {
+
+    .calculator__section-phone {
+      gap: 14px 27px;
+    }
+
+    .calculator__section-title {
+      margin: 0 0 15px 0;
+    }
+
+    .calculator__input-area {
+      margin-top: 6px;
+      width: 309px;
+    }
+
+    .calculator__button {
+      width: 248px;
+      padding: 15px 27px;
+    }
+  }
+
+  .calculator .range {
+    gap: 8px;
+
+    &__line {
+      width: 163px;
+    }
+
+  }
+
+}
+
+@media (max-width: 671px) {
+
+  .page-wrapper {
+    width: 500px;
+  }
+
+  .navbar--tablet {
+    display: none;
+  }
+
+  .navbar--mobile {
+    display: block;
+    background: var.$white;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+
+    .company-logo {
+      width: 124px;
+    }
+
+    .navbar__controls {
+      position: relative;
+      display: flex;
+      gap: 15px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 15px;
+    }
+
+    .navbar__burger-btn {
+      width: 35px;
+      height: 20px;
+
+      &.active {
+        opacity: 0;
+      }
+    }
+
+    .navbar__burger-icon {
+      flex-shrink: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .navbar__call-btn {
+      width: 60px;
+      height: 41px;
+      padding: 0;
+    }
+
+    .navbar__call-icon {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: white;
+      stroke-width: 1px;
+    }
+  }
+
+  .nav-sidebar {
+    display: flex;
+  }
+
+  .navbar__close-btn {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 11;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s;
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .navbar__close-icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  .navbar__drop-list {
+    flex-direction: column;
+  }
+
+  .drop-list__item {
+    flex-direction: column;
+  }
+
+  .drop-list__link {
+    padding: 10px 0px 9px 5px;
+  }
+
+  .drop-list__icon {
+    will-change: transform;
+    transition: all 0.2s;
+    transform: rotate(90deg);
+  }
+
+  .drop-list__button {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 10px 10px;
+
+    &.active {
+      
+      .drop-list__icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .drop-list__content { 
+    box-shadow: none;
+    position: static;
+    padding: 0px 0px 0px 30px;
+    gap: 3px;
+    width: 100%;
+    height: 0px;
+    overflow: hidden;
+    transform: none;
+    transition: all 0.3s;
+    background: rgb(243, 243, 243);
+  }
+
+  .drop-list__content.active {
+    padding: 10px 0px 10px 30px;
+    transition: all 0.3s;
+    transform: none;
+  }
+
+  .navbar__nav-links {
+    flex-direction: column;
+    gap: 10px;
+    margin: 0px 0px 0px 35px;
+    order: 0;
+  }
+
+  .nav-links__item {
+    display: flex;
+  }
+
+  .navbar__tel-block {
+    margin: 0px 0px 0px 35px;
+  }
+
+  .calculator {
+    width: 100%;
+    margin: 0 !important;
+
+    .calculator__section {
+      width: 100%;
+      order: 0; 
+
+      &:nth-child(2) {
+        padding: 0px 0px 23px 0px;
+        
+        &::after {
+          display: block;
+        }
+      }
+    }
+
+    .calculator__body {
+      gap: 20px;
+    }
+
+    .calculator__summary {
+      gap: 15px 100px;
+    }
+
+    .calculator__section--phone {
+      padding: 0 !important;
+
+      .calculator__input-area {
+        width: 100%;
+        margin: 0;
+      }
+
+      .calculator__button {
+        width: 100%;
+      }
+    }
+
+    .range {
+
+      &__line {
+        width: 400px;
+      }
+
+    }
+  }
+
+  .popup {
+    width: 450px;
+    gap: 30px;
+
+    &__header {
+      gap: 15px;
+    }
+
+    &__intro {
+      gap: 10px;
+    }
+
+    &__title {
+      font-size: 35px;
+      line-height: 100%;
+    }
+
+    &__body {
+      width: 100%;
+      gap: 15px;
+    }
+
+    &__inputs {
+      gap: 5px;
+    }
+
+    &__input-area {
+      width: 100%;
+    }
+  }
+
+  .popup--answer {
+    padding: 15px 20px 40px 20px;
+
+    .popup__intro {
+      gap: 20px;
+    }
+  }
+
+}
+
+@media (max-width: 501px) {
+
+  .page-wrapper {
+    width: 384px;
+  }
+
+  .nav-sidebar {
+    width: 290px;
+  }
+
+  .navbar--mobile .navbar__controls {
+    padding: 18px 15px;
+  }
+
+  .navbar__benefits {
+    gap: 23px 13px;
+    margin: 0px;
+  }
+
+  .benefit {
+    gap: 18px;
+  }
+
+  .calculator {
+    margin: 0;
+    gap: 27px;
+    padding: 28px 0px 22px 0px;
+
+    &__title {
+      margin: 0px;
+      padding: 0px 18px;
+    }
+
+    .calculator__body {
+      padding: 0px 18px;
+      gap: 19px;
+    }
+
+    .calculator__section {
+      padding: 0px 0px 19px 0px;
+      width: 345px;
+
+      &:last-child {
+        padding: 0 !important;
+      }
+    }
+
+    .calculator__section-title {
+      margin: 0 0 18px 0;
+    }
+
+    &__section-content {
+      gap: 9px 47px;
+    }
+
+    .calculator__summary {
+      padding: 18px 20px 16px 20px;
+      gap: 15px 29px;
+      margin: 0px -20px;
+    }
+
+    .calculator__footer {
+      padding: 0px 20px;
+    }
+
+    .calculator__section-phone {
+      margin: 0px;
+      gap: 7px;
+    }
+
+    .calculator__warning {
+      height: 0px;
+
+      &.active {
+        height: auto;
+      }
+    }
+
+    .range {
+
+      &__line {
+        width: 291px;
+      }
+
+      &__button {
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+
+  .popup {
+    width: 380px;
+
+    &__title {
+      font-size: 30px;
+    }
+  }
+
+}
+
+@media (max-width: 385px) {
+
+  .page-wrapper {
+    width: 290px;
+  }
+
+  .nav-sidebar {
+    width: 240px;
+    padding: 18px 10px;
+  }
+
+  .navbar__close-btn {
+    width: 40px;
+    height: 40px;
+    left: 15px;
+  }
+
+  .tel-block {
+    margin: 0 0 0 20px;
+  }
+
+  .marked-text {
+    font-size: 45px;
+  }
+
+  .header__calculator {
+    
+    .calculator__section--phone {
+      width: 100%;
+    }
+
+    .calculator__summary {
+      padding: 18px 12px 16px 12px;
+      gap: 15px;
+      flex-direction: column;
+    }
+
+    .calculator__summary-item {
+      width: 100%;
+    }
+
+    .range {
+
+      &__line {
+        width: 200px;
+      }
+    }
+  }
+
+  .popup {
+    width: 290px;
+    padding: 10px 10px 15px 10px;
+    gap: 20px;
+
+    &__input-area, &__input {
+      width: 100%;
+    }
+  }
+
+  .popup--answer {
+    padding: 15px 10px 22px 10px;
+  }
+
 }
