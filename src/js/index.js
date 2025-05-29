@@ -50,6 +50,22 @@ new BurgerMenu({
   closeByClickOutOfMenu: false,
 });
 
+new Swiper('.prices__slider', {
+  simulateTouch: true,
+  slidesPerView: 'auto',
+  spaceBetween: 21,
+  touchRatio: 0.8,  
+  slidesOffsetBefore: 20,
+  slidesOffsetAfter: 25,
+  resistance: true,
+  resistanceRatio: 0,
+  
+  freeMode: {
+    enabled: true,
+    momentum: false,
+  },
+})
+
 
 function focusStateFix() {
 

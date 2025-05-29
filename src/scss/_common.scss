@@ -81,6 +81,20 @@
   line-height: 18px;
 }
 
+.text12 {
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.text13 {
+  font-family: 'Roboto';
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 49px;
+}
+
 .navbar {
 
   &__top, &__bottom, &__middle {
@@ -163,18 +177,6 @@
         width: 17px;
         height: 17px;
         margin: 1px 0 0 0;
-      }
-
-      &:hover::before, &:focus::before {
-        animation: phone-move 0.4s;
-      } 
-
-      @keyframes phone-move {
-        0%{transform: rotate(0deg);}
-        25%{transform: rotate(30deg);}
-        50%{transform: rotate(0deg);}
-        75%{transform: rotate(30deg);}
-        100%{transform: rotate(0deg);}
       }
     }
 
@@ -539,7 +541,7 @@
   }
 
   &__section-phone {
-    @include mix.flex(wrap, 14px);
+    @include mix.flex(wrap, 8px 14px);
     @extend %ali-start;
     margin: -5px 0 0 0;
   }
@@ -595,6 +597,10 @@
     color: var.$white;
   }
 
+  &__button {
+    max-width: 185px;
+  }
+
   @at-root
   .custom-radio {
     @include mix.flex(nowrap, 10px);
@@ -642,6 +648,158 @@
     }
   }
 }
+
+.section {
+  @include mix.flex-col(48px);
+  padding: 60px 0 0 0;
+
+  &__title {
+    color: var.$black;
+    text-align: center;
+  }
+}
+
+.price-card {
+  @include mix.flex-col(0px);
+  @extend %over;
+  border-radius: 16px;
+  width: 284px;
+  height: fit-content;
+  box-shadow: 0 0 8px var.$silver2;
+
+  &__header {
+    @include mix.flex-col(0px);
+    border-bottom: 2px solid var.$blue2;
+  }
+
+  &__top {
+    @include mix.flex(wrap, 15px);
+    @extend %ali-cen;
+    @extend %rel;
+    z-index: 1;
+    background: var.$silver3;
+    padding: 14px 22px;
+  }
+
+  &__icon {
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+    filter: saturate(1.5) contrast(1.3);
+  }
+
+  &__title {
+    @include mix.flex-col(4px);
+    max-width: 168px;
+  }
+
+  &__name {
+    color: var.$green;
+    text-transform: uppercase;
+  }
+
+  &__duration {
+    color: var.$black;
+  }
+
+  &__bottom {
+    @include mix.flex-col(10px);
+    padding: 24px 22px 22px 22px;
+    min-height: 143px;
+  }
+
+  &__description {
+    font-weight: 300;
+    color: var.$black;
+  }
+
+  &__body {
+    @extend %over;
+    height: 200px;
+    padding: 15px 22px;
+  }
+
+  &__activities {
+    @include mix.flex-col(19px);
+  }
+
+  &__activity {
+    @include mix.flex-col(9px);
+  }
+
+  &__list {
+    @include mix.flex-col(6px);
+  }
+
+  &__activity-title, &__list-line {
+    color: var.$black;
+  }
+
+  &__list-line {
+    @include mix.flex(nowrap, 5px);
+
+    &::before {
+      content: '';
+      @extend %shrink0;
+      display: block;
+      width: 12px;
+      height: 9px;
+      background: url(../images/icons/ok.png) 0 0 / contain no-repeat;
+      margin: 4px 0 0 0;
+    }
+  }
+
+  &__footer {
+    @include mix.flex-col(5px);
+    @extend %ali-cen;
+    padding: 4px 22px 31px 22px;
+    box-shadow: 0px -35px 40px var.$white;
+  }
+
+  &__more-btn {
+    @include mix.flex(nowrap, 7px);
+    @extend %ali-cen;
+    color: var.$blue;
+    padding: 3px;
+    border-radius: 5px; 
+
+    &::after {
+      content: '';
+      @extend %shrink0;
+      width: 13px;
+      height: 13px;
+      background: url(../images/icons/arrow2.png) 0 0 / contain no-repeat;
+    }
+  }
+
+  &__price {
+    @include mix.flex(wrap, 10px);
+    @extend %jus-cen;
+    color: var.$black;
+    text-align: center;
+  }
+
+  &__old-price {
+    text-decoration: line-through;
+  }
+
+  &__new-price {
+    color: var.$green;
+    font-weight: 700;
+    font-size: 17px;
+  }
+
+  &__button {
+    margin: 16px 0 0 0;
+    padding: 14px 26px 13px 26px;
+  }
+}
+
+
+
+
+
+
 
 .popup {
   @include mix.flex-col(40px);

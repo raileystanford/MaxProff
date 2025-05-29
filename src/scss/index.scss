@@ -7,7 +7,7 @@
 
 .header {
   @include mix.flex-col(32px);
-  padding: 5px 0px;
+  padding: 5px 0px 0px 0px;
 
   &__intro {
     @extend %d-flex;
@@ -15,7 +15,7 @@
     @extend %rel;
     @extend %px-cen;
     width: 100vw;
-    padding: 12px 0;
+    padding: 12px 0 13px 0;
     background: url(../images/backgrounds/overlay.png) -1px 0 / 85% 100% no-repeat, url(../images/backgrounds/background1.jpg) 0 0 / cover no-repeat;
   }
 
@@ -52,7 +52,41 @@
   }
 }
 
+.prices {
+  margin: 0 0 100px 0;
+
+  .section__content {
+    @extend %rel;
+    @extend %px-cen;
+    width: 100vw;
+    padding: 0px 0px 0px 120px;
+  }
+
+  .swiper {
+    padding: 10px 0px 10px 0px;
+    margin: -10px 0 -10px -20px;
+
+    &-slide {
+      width: fit-content;
+    }
+  }
+
+  .price-card {
+    cursor: grab;
+  }
+}
+
 // MEDIA QUERIES
+
+@media (min-width: 1499px) {
+
+  .prices {
+
+    .section__content {
+      padding: 0px 0px 0px 170px;
+    }
+  }
+}
 
 @media (max-width: 1231px) {
 

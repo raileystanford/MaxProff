@@ -1,6 +1,8 @@
 @use './variables.scss' as var;
 @use './templates.scss' as *;
 
+// Header
+
 .popup {
   @extend %will;
   transition: all 0.2s;
@@ -88,7 +90,19 @@
 
   &:hover, &:focus {
     color: var.$blue2;
+
+    &::before {
+      animation: phone-move 0.4s;
+    }
   }
+}
+
+@keyframes phone-move {
+  0%{transform: rotate(0deg);}
+  25%{transform: rotate(30deg);}
+  50%{transform: rotate(0deg);}
+  75%{transform: rotate(30deg);}
+  100%{transform: rotate(0deg);}
 }
 
 .button-outline {
@@ -274,5 +288,59 @@
 
   &:active {
     transform: scale(0.95);
+  }
+}
+
+// Prices
+
+.price-card {
+  @extend %will;
+  transition: all 0.2s;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+
+  &__top {
+    transition: all 0.2s;
+  }
+
+  &__more-btn {
+    @extend %will;
+    transition: all 0.2s, transform 0.1s;
+
+    &:hover, &:focus {
+      background: var.$silver3;
+
+      &::after {
+        animation: arrow-down 0.5s;
+      }
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  &:hover {
+    transform: translateY(5px);
+    box-shadow: 0 0 0px var.$silver2;
+    outline-color: var.$blue2;
+
+    .price-card__top {
+      background: var.$green;
+    }
+
+    .price-card__name, .price-card__duration {
+      color: var.$white;
+    }
+  }
+
+  &:active {
+    cursor: grabbing !important;
+  }
+
+  @keyframes arrow-down {
+    0%{transform: translateY(0px)}
+    50%{transform: translateY(5px);}
+    100%{transform: translateY(0px);}
   }
 }
