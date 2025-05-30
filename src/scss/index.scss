@@ -53,13 +53,11 @@
 }
 
 .prices {
-  margin: 0 0 100px 0;
 
   .section__content {
     @extend %rel;
     @extend %px-cen;
     width: 100vw;
-    padding: 0px 0px 0px 120px;
   }
 
   .swiper {
@@ -82,8 +80,8 @@
 
   .prices {
 
-    .section__content {
-      padding: 0px 0px 0px 170px;
+    .swiper {
+      margin: -10px 0 -10px -12px;
     }
   }
 }
@@ -161,6 +159,25 @@
     }
   }
 
+  .section {
+    padding: 26px 0 0 0;
+    gap: 40px;
+  }
+
+  .prices {
+
+    .section__content {
+      padding: 0 0 0 16px;
+    }
+
+    .price-card {
+
+      &__bottom {
+        min-height: 142px;
+      }
+    }
+  }
+
 }
 
 @media (max-width: 671px) {
@@ -204,6 +221,15 @@
       max-width: 320px;
     }
   }
+
+  .prices {
+    padding: 5px 0 40px 0;
+    gap: 37px;
+
+    .section__title {
+      font-size: 36px;
+    }
+  }
 }
 
 @media (max-width: 385px) {
@@ -220,6 +246,39 @@
 
     .header__title {
       font-size: 32px;
+    }
+  }
+
+  .prices {
+
+    .section__title {
+      font-size: 31px;
+    }
+
+    .price-card {
+      width: 240px;
+
+      &__title {
+        max-width: 140px;
+      }
+
+      &__name {
+        font-size: 16px;
+      }
+
+      &__top {
+        padding: 14px 15px;
+        gap: 10px 11px;
+      }
+
+      &__bottom {
+        padding: 24px 15px 22px 15px;
+        min-height: 158px;
+      }
+
+      &__body {
+        padding: 15px;
+      }
     }
   }
   

@@ -55,8 +55,10 @@ new BurgerMenu({
 });
 
 new ScrollToTop({
-  '1024-1600': 1000,
-  '300-1024': 10,
+  '769-1600': 1000,
+  '501-769': 1400,
+  '386-501': 1600,
+  '300-385': 1300,
 });
 
 new Swiper('.prices__slider', {
@@ -73,6 +75,19 @@ new Swiper('.prices__slider', {
     enabled: true,
     momentum: false,
   },
+
+  breakpoints: {
+    769: {
+      slidesOffsetAfter: 25,
+    },
+    386: {
+      spaceBetween: 23,
+    },
+    300: {
+      slidesOffsetAfter: 15,
+      spaceBetween: 15,
+    }
+  }
 })
 
 
@@ -357,9 +372,38 @@ function changeButtonText(button, card) {
   }
 }
 
+function dynamicPaddingForFullWidthContainer(mainCon) {
+
+  let containers = document.querySelectorAll('[data-dynamic]');
+  let mainContainer = document.querySelector(mainCon);
+
+  if (mainContainer && containers) {
+
+    containers = Array.from(containers);
+    operatePaddings();
+    window.addEventListener('resize', operatePaddings)
+
+  }
+
+  function operatePaddings() {
+    let media = window.matchMedia('(min-width: 769px)').matches;
+    if (media) {
+      let x = mainContainer.getBoundingClientRect().x;
+      let padding = getComputedStyle(mainContainer).paddingLeft;
+      padding = parseFloat(padding);
+
+      containers.forEach((item) => {
+        item.style.paddingLeft = x + padding + 'px';
+      })
+    }
+  }
+
+}
+
 focusStateFix();
 smoothDropMenuMobile(671);
 calculatorHandler();
 formAgreeButtonStateController('popup-terms');
 saveInitialCalculatorValues();
 openPriceCard();
+dynamicPaddingForFullWidthContainer('.page-wrapper');

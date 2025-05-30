@@ -651,7 +651,7 @@
 
 .section {
   @include mix.flex-col(48px);
-  padding: 60px 0 0 0;
+  padding: 60px 0 40px 0;
 
   &__title {
     color: var.$black;
@@ -1455,6 +1455,7 @@
     }
 
     .calculator__button {
+      max-width: none;
       width: 248px;
       padding: 15px 27px;
     }
@@ -1467,6 +1468,11 @@
       width: 163px;
     }
 
+  }
+
+  .scrollToTopBtn {
+    bottom: 20px;
+    right: 20px;
   }
 
 }
@@ -1877,6 +1883,11 @@
 
   .popup--answer {
     padding: 15px 10px 22px 10px;
+  }
+
+  .scrollToTopBtn {
+    bottom: 15px;
+    right: 15px;
   }
 
 }
