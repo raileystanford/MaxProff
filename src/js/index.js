@@ -7,6 +7,7 @@ import {
   CustomRange, 
   FormValidator,
   BurgerMenu,
+  ScrollToTop,
 } from "./modules.js";
 
 new Popup({
@@ -20,6 +21,9 @@ new ChangeLanguage({
   screenBlock: true,
   autoSet: false,
   dictionary: dictionary,
+  details: {
+    changeButtonText: changeButtonText,
+  }
 });
 
 new DropdownMenu ({
@@ -50,6 +54,11 @@ new BurgerMenu({
   closeByClickOutOfMenu: false,
 });
 
+new ScrollToTop({
+  '1024-1600': 1000,
+  '300-1024': 10,
+});
+
 new Swiper('.prices__slider', {
   simulateTouch: true,
   slidesPerView: 'auto',
@@ -59,7 +68,7 @@ new Swiper('.prices__slider', {
   slidesOffsetAfter: 25,
   resistance: true,
   resistanceRatio: 0,
-  
+
   freeMode: {
     enabled: true,
     momentum: false,
@@ -296,8 +305,61 @@ function resetCalculatorValues(form) {
   
 }
 
+function openPriceCard() {
+
+  let cards = Array.from(document.querySelectorAll('.price-card'));
+
+  if (cards.length > 0) {
+
+    cards.forEach((card) => {
+      let moreBtn = card.querySelector('.price-card__more-btn');
+      let content = card.querySelector('.price-card__body');
+      moreBtn.addEventListener('click', (event) => {
+        card.classList.toggle('opened');
+        operateContentBlock(content);
+        changeButtonText(moreBtn, card);
+      })
+    })
+
+  }
+
+  function operateContentBlock(element) {
+    if (!element.initHeight) element.initHeight = element.offsetHeight;
+    let fullHeight = element.scrollHeight;
+
+    if (element.closest('.opened')) {
+      element.style.height = fullHeight + 'px';
+    } else {
+      element.style.height = element.initHeight + 'px';
+    }
+  }
+
+}
+
+function changeButtonText(button, card) {
+  let lang = document.documentElement.lang;
+  if (card.matches('.opened')) {
+
+    if (lang === 'ru') {
+      button.textContent = 'Свернуть';
+    } else {
+      button.textContent = 'Згорнути';
+    }
+
+  } else {
+
+    if (lang === 'ru') {
+      button.textContent = 'Список работ';
+    } else {
+      button.textContent = 'Список робiт';
+    }
+
+  }
+}
+
 focusStateFix();
 smoothDropMenuMobile(671);
 calculatorHandler();
 formAgreeButtonStateController('popup-terms');
 saveInitialCalculatorValues();
+openPriceCard();

@@ -45,6 +45,12 @@ class Popup {
 
     if (BurgerMenu) BurgerMenu.prototype.closeBurgerMenu(); 
 
+    let scrollToTopBtn = document.querySelector('.scrollToTopBtn');
+    if (scrollToTopBtn) {
+      scrollToTopBtn.classList.add('hide');
+      scrollToTopBtn.classList.remove('active');
+    }
+
     if (this.previousPopup) this.previousPopup.classList.remove('active');
     this.previousPopup = popup;
     popup.classList.add('active');
@@ -57,6 +63,7 @@ class Popup {
     let delay = this.params.delay ? this.params.delay : 0;
     popup.classList.remove('active');
     if (this.params.backDrop) this.backDrop.classList.remove('active');
+
     setTimeout(() => {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
@@ -73,6 +80,14 @@ class Popup {
           agree.classList.remove('invalid');
         }
       })
+    }
+
+    let scrollToTopBtn = document.querySelector('.scrollToTopBtn');
+    if (scrollToTopBtn && ScrollToTop) {
+      setTimeout(() => {
+        scrollToTopBtn.classList.remove('hide');
+        ScrollToTop.prototype.scrollHandler();
+      }, this.params.delay ?? 100); 
     }
   }
 
@@ -199,6 +214,16 @@ class ChangeLanguage {
         if (calculator.querySelector('.invalid')) {
           FormValidator.prototype.workOperator(calculator);
         }
+      }
+    }
+
+    if (this.params.details?.changeButtonText) {
+      let cards = Array.from(document.querySelectorAll('.price-card.opened'));
+      if (cards.length > 0) {
+        cards.forEach((card) => {
+          let button = card.querySelector('.price-card__more-btn');
+          this.params.details.changeButtonText(button, card);
+        })
       }
     }
   }
@@ -1109,5 +1134,81 @@ class BurgerMenu {
 
 }
 
+class ScrollToTop {
 
-export { Popup, ChangeLanguage, DropdownMenu, CustomRange, FormValidator, BurgerMenu };
+  constructor(params) {
+    this.params = params;
+    this.clientWidth = document.documentElement.clientWidth;
+    this.button = document.querySelector('[data-item="scrollToTop"]');
+
+    if (this.button) {
+      this.ownMethodsBinder();
+      this.setEventListeners();  
+    }
+  }
+
+  setEventListeners() {
+    window.addEventListener('scroll', this.scrollHandler);
+    window.addEventListener('resize', this.updateClientWidth);
+    document.addEventListener('DOMContentLoaded', this.scrollHandler);
+    this.button.addEventListener('pointerup', this.moveToTop);
+  }
+
+  moveToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    this.button.blur();
+    this.button.classList.add('off');
+  }
+
+  updateClientWidth() {
+    this.clientWidth = document.documentElement.clientWidth;
+  }
+
+  getActivationCoordinate() {
+    let activationCoordinate;
+    for (let key in this.params) {
+      let [min, max] = key.split('-');
+      min = +min;
+      max = +max;
+      if (this.clientWidth >= min && this.clientWidth <= max) { 
+        activationCoordinate = this.params[key];
+        break;
+      } else {
+        activationCoordinate = this.params.default;
+      }
+    }
+    return activationCoordinate ? activationCoordinate : 900;
+  }
+
+  controlButton(state) {
+    if (state) {
+      this.button.classList.add('active');
+    } else {
+      this.button.classList.remove('active');
+      this.button.classList.remove('off');
+    }
+  }
+
+  scrollHandler() {
+    let coordinate = this.getActivationCoordinate();
+    let scrollY = window.pageYOffset;
+    
+    if (scrollY >= coordinate) {
+      this.controlButton(true)
+    } else {
+      this.controlButton(false)
+    }
+  }
+
+  ownMethodsBinder() {
+    let prototype = Object.getPrototypeOf(this);
+    let ownMethods = Object.getOwnPropertyNames(prototype)
+    for (let item of ownMethods) {
+      if (item !== 'constructor') prototype[item] = prototype[item].bind(this);
+    }
+  }
+
+}
+
+
+export { Popup, ChangeLanguage, DropdownMenu, CustomRange, FormValidator, BurgerMenu, ScrollToTop };
