@@ -369,3 +369,60 @@
     transform: scale(0.9) rotate(0deg) !important;
   }
 }
+
+// Examples
+
+.demonstration__tabs-btn {
+  @extend %will;
+  transition: all 0.2s, transform 0.1s;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+
+  &:not(.active) {
+
+    &:hover, &:focus {
+      outline-color: var.$green;
+      letter-spacing: 0.5px;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+  }
+  
+}
+
+.scrollbar-thumb {
+
+  &:hover {
+    background: var.$green2 !important;
+  }
+
+  &:active {
+    cursor: grabbing !important;
+  }
+
+}
+
+.demonstration__control-btn {
+  @extend %will;
+  transition: all 0.2s;
+
+  .demonstration__btn-icon {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+    background: var.$green;
+
+    .demonstration__btn-icon {
+      stroke: var.$white;
+    }
+  }
+
+  &:active {
+    background: var.$green2;
+    transform: scale(0.94);
+  }
+}

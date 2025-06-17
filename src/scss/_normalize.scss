@@ -33,6 +33,10 @@ A, SPAN, P, H1, H2, H3, LI, STRONG, LABEL, LEGEND {
    user-select: none;
 }
 
+TD, TH {
+   padding: 0px;
+}
+
 INPUT, IFRAME, OUTPUT {
    border: none;
    outline: none;

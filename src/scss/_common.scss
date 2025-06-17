@@ -591,7 +591,7 @@
   @at-root
   .button {
     @extend %flex-cen;
-    padding: 13px 27px;
+    padding: 14px 27px 12px 27px;
     border-radius: 4px;
     background: var.$green;
     color: var.$white;
@@ -623,11 +623,13 @@
         height: 10px;
         background: var.$blue2;
         border-radius: 50%;
-        display: none;
+        transform: scale(0);
+        transition: all 0.2s;
       }
     }
 
     &__text {
+      margin: 1px 0 0 0;
       color: var.$gray;
       cursor: pointer;
     }
@@ -638,7 +640,7 @@
         border-color: var.$blue2;
 
         &::after {
-          display: block;
+          transform: scale(1);
         }
       }
 
@@ -651,7 +653,7 @@
 
 .section {
   @include mix.flex-col(48px);
-  padding: 60px 0 40px 0;
+  padding: 60px 0 58px 0;
 
   &__title {
     color: var.$black;
@@ -745,10 +747,10 @@
       content: '';
       @extend %shrink0;
       display: block;
-      width: 12px;
-      height: 9px;
-      background: url(../images/icons/ok.png) 0 0 / contain no-repeat;
-      margin: 4px 0 0 0;
+      width: 13px;
+      height: 13px;
+      background: url(../images/icons/ok.svg) 0 0 / contain no-repeat;
+      margin: 2px 0 0 -1px;
     }
   }
 
@@ -775,7 +777,7 @@
       transition: all 0.3s;
       width: 13px;
       height: 13px;
-      background: url(../images/icons/arrow2.png) 0 0 / contain no-repeat;
+      background: url(../images/icons/arrow2.svg) 0 0 / contain no-repeat;
     }
   }
 
@@ -813,6 +815,317 @@
 
   }
 }
+
+.demonstration {
+  @include mix.flex-col(32px);
+  @extend %ali-cen;
+
+  &__tabs {
+    @include mix.flex(wrap, 6px);
+    @extend %jus-cen;
+    max-width: 1200px;
+  }
+
+  &__tabs-btn {
+    padding: 15px 20px;
+    border-radius: 4px;
+    background: var.$silver3;
+    color: var.$gray;
+    width: 237px;
+
+    &.active {
+      background: var.$blue;
+      color: var.$white;
+    }
+  }
+
+  &__tabs-content-area {
+    @extend %rel;
+    @extend %over;
+    transition: all 0.2s;
+    padding: 0 0 10px 0;
+    margin: 0 0 -10px 0;
+  }
+
+  &__tab {
+    @extend %will;
+    @include mix.flex-col(32px);
+    @extend %ali-cen;
+    @extend %abs;
+    @extend %vis0;
+    @extend %opa0;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    height: fit-content;
+    transform: scale(0.9);
+    transition: all 0.1s;
+
+    &.active {
+      transition: all 0.4s 0.1s;
+      @extend %vis1;
+      @extend %opa1;
+      transform: scale(1)
+    }
+  }
+
+  &__pagination {
+    @include mix.flex(wrap, 31px);
+    @extend %jus-cen;
+    max-width: 1200px;
+  }
+
+  .custom-radio.active .custom-radio__text {
+    color: var.$blue2;
+  }
+
+  &__body {
+    @include mix.flex(nowrap, 20px);
+    @extend %ali-cen;
+  }
+
+  &__control-btn {
+    @extend %flex-cen;
+    box-sizing: content-box;
+    width: 24px;
+    height: 44px;
+    padding: 20px 10px;
+    border-radius: 6px;
+
+    &--prev .demonstration__btn-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__btn-icon {
+    @extend %shrink0;
+    width: 100%;
+    height: 100%;
+    stroke: var.$black;
+    stroke-width: 5px;
+    fill: transparent;
+  }
+
+  &__main {
+    @include mix.flex(nowrap, 19px);
+
+    &:hover .demonstration__screen-controls {
+      top: 0px;
+    }
+  }
+
+  &__previews {
+    @extend %over;
+    width: 116px;
+    height: 420px;
+    padding: 0px 0px 0px 11px;
+    margin: 0px 0px 0px -11px;
+
+    .scrollbar-vertical {
+      width: 6px;
+      right: auto !important;
+      left: 0 !important;
+    }
+
+    .scrollbar-thumb {
+      width: 100%;
+      background: var.$green;
+      border-radius: 6px;
+      cursor: grab;
+      transition: all 0.2s;
+    }
+
+    &.hide-scrollbar .scrollbar-vertical, .scrollbar-horizontal {
+      @extend %opa0;
+      @extend %vis0;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &__previews-inner {
+    @include mix.flex-col(9px);
+    @extend %will;
+    @extend %w-100;
+    height: fit-content;
+    transition: all 0.2s;
+    cursor: grab;
+  }
+
+  &__previews-image {
+    @extend %w-100;
+    transition: all 0.2s;
+    height: 70px;
+    border-radius: 4px;
+    outline: 3px solid transparent;
+    outline-offset: -3px;
+    filter: saturate(1.4) contrast(1.2);
+
+    &.active {
+      outline-color: var.$green;
+    }
+  }
+
+  &__watch-area {
+    @include mix.flex(nowrap, 0px);
+    @extend %jus-bet;
+    background: var.$white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var.$silver2;
+    width: 1076px;
+  }
+
+  &__screen {
+    @extend %over;
+    width: 748px;
+    height: 100%;
+    border-radius: 6px;
+  }
+
+  &__screen-img {
+    @extend %wh-100;
+    @extend %will;
+    display: block;
+    object-fit: cover;
+    filter: blur(0px) saturate(1.6) contrast(1.2);
+    transition: all 0.2s;
+
+    &.active {
+      filter: blur(15px) saturate(1.6) contrast(1.2);
+    }
+  }
+
+  &__screen-controls {
+    @include mix.flex(wrap, 10px);
+    @extend %abs;
+    transition: all 0.2s;
+    top: -50px;
+    right: 0;
+    padding: 5px;
+    background: var.$green;
+    box-shadow: 0 0 5px var.$black;
+  }
+
+  &__controls-btn {
+    width: 30px;
+    height: 30px;
+    background: 5px;
+  }
+
+  &__autoplay-btns {
+    @extend %rel;
+    @extend %d-flex;
+    width: 30px;
+    height: 30px;
+
+    .demonstration__controls-btn {
+      @extend %abs;
+      @extend %vis0;
+      @extend %opa0;
+      transform: scale(0.5);
+      transition: all 0.2s;
+      top: 0;
+      left: 0;
+
+      &.visible {
+        @extend %vis1;
+        @extend %opa1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  &__autoplay-icon {
+    @extend %wh-100;
+    fill: var.$white;
+  }
+
+  @at-root
+  .info-card {
+    @include mix.flex-col(7px);
+    padding: 39px 34px;
+
+    &__line {
+      @include mix.flex(nowrap, 8px);
+      @extend %ali-start;
+
+      &--list {
+        @include mix.flex-col(14px);
+      }
+    }
+
+    &__property {
+      @include mix.flex(nowrap, 6px);
+      @extend %ali-cen;
+      @extend %shrink0;
+      width: 147px;
+      color: var.$gray;
+
+      &::before {
+        content: '';
+        @extend %shrink0;
+        width: 17px;
+        height: 17px;
+        background: 0 0 / contain no-repeat;
+      }
+
+      &--sum::before {
+        background-image: url(../images/icons/dollar.svg);
+      }
+
+      &--square::before {
+        background-image: url(../images/icons/grid.svg);
+      }
+
+      &--dur::before {
+        background-image: url(../images/icons/calendar.svg);
+      }
+
+      &--room::before {
+        background-image: url(../images/icons/home.svg);
+      }
+
+      &--loc::before {
+        background-image: url(../images/icons/map-pin.svg);
+      }
+
+      &--list::before {
+        background-image: url(../images/icons/file-text.svg);
+      }
+    }
+
+    &__value {
+      color: var.$black;
+    }
+
+    &__list {
+      @include mix.flex-col(6px);
+      padding: 0 0 0 24px;
+    }
+
+    &__list-item {
+      @include mix.flex(nowrap, 5px);
+
+      &::before {
+        content: '';
+        @extend %shrink0;
+        width: 13px;
+        height: 13px;
+        background: url(../images/icons/ok.svg) 0 0/contain no-repeat;
+        margin: 2px 0 0 0;
+      }
+
+    }
+  }
+
+  &__info-card {
+    width: 329px;
+  }
+
+}
+
 
 
 

@@ -1,4 +1,4 @@
-import { dictionary } from "./dictionary.js";
+import { dictionary, dem_dictionary } from "./dictionary.js";
 
 import { 
   Popup,
@@ -8,6 +8,9 @@ import {
   FormValidator,
   BurgerMenu,
   ScrollToTop,
+  Tabs,
+  ImageDemonstrator,
+  ImageZoom,
 } from "./modules.js";
 
 new Popup({
@@ -61,6 +64,12 @@ new ScrollToTop({
   '300-385': 1300,
 });
 
+new Tabs({
+  'tabs1': {
+    adaptiveSize: true,
+  }
+});
+
 new Swiper('.prices__slider', {
   simulateTouch: true,
   slidesPerView: 'auto',
@@ -88,7 +97,53 @@ new Swiper('.prices__slider', {
       spaceBetween: 15,
     }
   }
-})
+});
+
+new ImageDemonstrator({
+
+  forAll: {
+
+    pictureClass: 'demonstration__screen-img',
+    reverse: true, 
+    lazy: true,
+
+    scrollbar: {
+      minSize: 100,
+      // size: 300,
+    },
+
+    transition: { 
+      loading: 100, 
+      effect: 200, 
+    },
+
+    swipeXCoef: 3, 
+    swipeYCoef: 4,
+    mobileStartFrom: 768, 
+    changeOrientation: true, 
+    
+    // autoplay: {  
+    //   interval: 1000, 
+    //   // stopOnHover: true, 
+    //   playOnViewport: true, 
+    // }, 
+
+    startPicture: 0, 
+    dictionary: dem_dictionary,
+    jobsClases: 'info-card__list-item text3',
+  
+  }
+  
+});
+
+new ImageZoom('[data-zoom]', {
+  mode: 'hover',
+  startZoom: 1.5, 
+  minZoom: 1,
+  maxZoom: 2,
+  zoomStep: 0.2,
+});
+
 
 
 function focusStateFix() {

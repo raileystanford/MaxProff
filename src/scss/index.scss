@@ -74,6 +74,14 @@
   }
 }
 
+.examples {
+  @extend %rel;
+  @extend %px-cen;
+  @extend %ali-cen;
+  width: 100vw;
+  background: var.$white4;
+}
+
 // MEDIA QUERIES
 
 @media (min-width: 1499px) {
