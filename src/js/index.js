@@ -40,6 +40,7 @@ new DropdownMenu ({
 
 new CustomRange({
   moveButtonToClick: true,
+  mobileViewport: 769,
 })
 
 new FormValidator({
@@ -57,12 +58,12 @@ new BurgerMenu({
   closeByClickOutOfMenu: false,
 });
 
-// new ScrollToTop({
-//   '769-1600': 1000,
-//   '501-769': 1400,
-//   '386-501': 1600,
-//   '300-385': 1300,
-// });
+new ScrollToTop({
+  '769-1600': 1000,
+  '501-769': 1400,
+  '386-501': 1600,
+  '300-385': 1300,
+});
 
 replacePreviews();
 
@@ -75,12 +76,12 @@ new Tabs({
 new Swiper('.prices__slider', {
   simulateTouch: true,
   slidesPerView: 'auto',
-  spaceBetween: 21,
-  touchRatio: 0.8,  
+  spaceBetween: 21, 
   slidesOffsetBefore: 20,
   slidesOffsetAfter: 25,
   resistance: true,
   resistanceRatio: 0,
+  touchRatio: 1,
 
   freeMode: {
     enabled: true,
@@ -126,8 +127,8 @@ new ImageDemonstrator({
     changeOrientation: true, 
     
     // autoplay: {  
-    //   interval: 1000, 
-    //   // stopOnHover: true, 
+    //   interval: 2000, 
+    //   stopOnHover: true, 
     //   playOnViewport: true, 
     // }, 
 
@@ -141,11 +142,15 @@ new ImageDemonstrator({
 
 new ImageZoom('[data-zoom]', {
   mode: 'hover',
-  startZoom: 1.5, 
+  startZoom: 1.4, 
   minZoom: 1,
   maxZoom: 2,
   zoomStep: 0.2,
+  mobileViewport: 769,
 });
+
+
+
 
 
 

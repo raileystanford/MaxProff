@@ -1150,6 +1150,7 @@
 
 
 
+
 .popup {
   @include mix.flex-col(40px);
   @extend %p-cen;
@@ -1957,6 +1958,15 @@
       width: 163px;
     }
 
+    &__button::after {
+      transition: all 0.1s;
+    }
+
+    &__button.active::after {
+      background: var.$green;
+      transform: scale(1.2);
+    }
+    
   }
 
   .scrollToTopBtn {
@@ -1988,6 +1998,10 @@
     &__screen-wrapper {
       width: 363px;
       flex-shrink: 0;
+    }
+
+    &__screen-controls {
+      display: none;
     }
 
     &__control-btn:active {

@@ -282,8 +282,8 @@ let dictionary = {
   },
 
   'subtitle_1': { 
-    'ru': 'от <span class="marked-text">2450</span> грн/м2',
-    'ua': 'від <span class="marked-text">2450</span> грн/м2'
+    'ru': 'от <span class="marked-text">1620</span> грн/м2',
+    'ua': 'від <span class="marked-text">1620</span> грн/м2'
   },
 
   'subtitle_2': { 

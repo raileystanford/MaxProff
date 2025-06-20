@@ -393,7 +393,7 @@
   
 }
 
-.scrollbar-thumb {
+.scrollbar-vertical .scrollbar-thumb, .scrollbar-horizontal .scrollbar-thumb {
 
   &:hover {
     background: var.$green2 !important;

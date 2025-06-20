@@ -231,7 +231,7 @@ class ChangeLanguage {
 
       let containers = Array.from(document.querySelectorAll('[data-demo]'));
       containers.forEach((container) => {
-        let image = container.querySelector('[data-demo-src].active');
+        let image = container._startImage;
         ImageDemonstrator.prototype.changeCaptionInfo(image);
       })
 
@@ -561,6 +561,8 @@ class CustomRange {
   }
 
   setEventListeners() {
+    let mobile = this.params.mobileViewport ?? 769;
+    let media = window.matchMedia(`(max-width: ${mobile}px)`).matches;
     
     document.addEventListener('pointerdown', (event) => {
       let target = event.target;
@@ -576,15 +578,31 @@ class CustomRange {
         this.button.classList.add('active');
         this.button.setPointerCapture(pointerId);
 
-        this.button.addEventListener('pointerup', (event) => {
-          this.button.classList.remove('active');
-          this.button.releasePointerCapture(pointerId);
-          document.removeEventListener('pointermove', this.pointermoveHandler);
-        }, { once: true });
+        if (!media) {
 
-        document.addEventListener('pointermove', this.pointermoveHandler);
+          document.addEventListener('pointermove', this.pointermoveHandler);
+
+          this.button.addEventListener('pointerup', (event) => {
+            this.button.classList.remove('active');
+            document.removeEventListener('pointermove', this.pointermoveHandler);
+          }, { once: true });
+
+        } else {
+
+          document.body.style.overflow = 'hidden';
+
+          document.addEventListener('touchmove', this.pointermoveHandler);
+
+          this.button.addEventListener('touchend', (event) => {
+            document.body.style.overflow = '';
+            this.button.classList.remove('active');
+            document.removeEventListener('touchmove', this.pointermoveHandler);
+          }, { once: true });
+
+        }
 
       }
+
     });
 
     if (this.params.moveButtonToClick) {
@@ -611,8 +629,9 @@ class CustomRange {
   pointermoveHandler(event) {
     if (this.button.matches('.active')) {
       let button = this.button;
-      let x = event.clientX - this.rangeInfo.x;
-      this.moveButtons(button, x, event.clientX);
+      let clientX = event.type === 'touchmove' ? event.touches[0].clientX : event.clientX;
+      let x = clientX - this.rangeInfo.x;
+      this.moveButtons(button, x, clientX);
     }
   }
 
@@ -1484,6 +1503,33 @@ class ImageDemonstrator {
 
   }
 
+  picturesPreloader(container) {
+
+    let previews = container._previews;
+    previews.forEach((preview) => {
+
+      if (preview.tagName === 'PICTURE') {
+
+        let sources = Array.from(preview.querySelectorAll('source'));
+        sources.forEach((source) => {
+          let url = source.dataset.demoSrc;
+          if (url) new Image().src = url;
+        })
+
+        let imgUrl = preview.lastElementChild.dataset.demoSrc;
+        if (imgUrl) new Image().src = imgUrl;
+
+      } else {
+
+        let url = preview.dataset.demoSrc;
+        if (url) new Image().src = url;
+
+      }
+
+    })
+
+  }
+
   updateWatchAreaHeight(element) {
 
     let demonstrator = element.closest('[data-demo]');
@@ -1961,6 +2007,8 @@ class ImageDemonstrator {
           
           let images = item.target._previews;
 
+          this.picturesPreloader(item.target);
+
           images.forEach((image) => {
 
             let picture = image.closest('picture'); 
@@ -1985,7 +2033,7 @@ class ImageDemonstrator {
 
       })
 
-    }, { root: null, threshold: 0.01, rootMargin: '800px 0px' });
+    }, { root: null, threshold: 0.01, rootMargin: '900px 0px' });
 
     this.demonstrators.forEach((demonstrator) => {
       let opt = this.params[demonstrator.dataset.demo];
@@ -2221,6 +2269,7 @@ class ImageDemonstrator {
       let index = this.params[demonstrator.dataset.demo].startPicture ?? 0;
       let image = demonstrator._previews.at(index);
       image.tagName === 'IMG' ? image : image = image.lastElementChild;
+      demonstrator._startImage = image;
 
       if (!demonstrator._lazy) this.showImageOnScreen(image);
     })
@@ -2457,14 +2506,16 @@ class ImageZoom {
     this.maxZoom = options.maxZoom || 3;
     this.zoomStep = options.zoomStep || 0.1;
     this.startZoom = options.startZoom || 1.5;
+    this.mobileViewport = options.mobileViewport || 769;
 
-
+    this.isMobile = window.matchMedia(`(max-width: ${this.mobileViewport}px)`).matches;
     this.containers.forEach(container => this.initContainer(container));
+
   }
 
   initContainer(container) {
 
-    const img = container.querySelector('img') || container.querySelector('picture');
+    const img = container.querySelector('img');
     if (!img) return;
 
     container.style.overflow = 'hidden';
@@ -2473,24 +2524,176 @@ class ImageZoom {
     img.style.position = 'absolute';
     img.dataset.zoomScale = 1;
 
-    if (this.mode === 'hover') {
-      this.initHoverZoom(container, img);
+    if (!this.isMobile) {
+
+      if (this.mode === 'hover') {
+        this.initHoverZoom(container, img);
+      } else {
+        this.initClickZoom(container, img);
+      }
+
+      container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        this.zoomImage(img, e.deltaY < 0 ? 1 : -1, e.offsetX, e.offsetY, container);
+      });
+
+      container.addEventListener('dragstart', (event) => event.preventDefault());
+
     } else {
-      this.initClickZoom(container, img);
+
+      this.initMobileZoom(container, img);
+
     }
 
-    container.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      this.zoomImage(img, e.deltaY < 0 ? 1 : -1, e.offsetX, e.offsetY, container);
+  }
+
+  initMobileZoom(container, img) {
+
+    let initialDistance = 0;
+    let initialScale = 1;
+    let initialX = 0;
+    let initialY = 0;
+    let isPinching = false;
+    let isDragging = false;
+    let startX, startY;
+    let lastTouchTime = 0;
+
+    container.style.touchAction = 'none';
+    touchmoveHandler = touchmoveHandler.bind(this);
+
+    container.addEventListener('touchstart', (e) => {
+
+      img.style.transition = 'transform 0.1s';
+
+      if (e.touches.length === 1) {
+     
+        const touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        initialX = parseFloat(img.dataset.imgX) || 0;
+        initialY = parseFloat(img.dataset.imgY) || 0;
+        isDragging = true;
+        
+   
+        const currentTime = new Date().getTime();
+
+        if (currentTime - lastTouchTime < 300) {
+          img.dataset.zoomScale = 1;
+          this.applyTransform(img, 0, 0);
+        }
+
+        lastTouchTime = currentTime;
+
+      } else if (e.touches.length === 2) {
+       
+        e.preventDefault();
+        isPinching = true;
+        isDragging = false;
+        initialScale = parseFloat(img.dataset.zoomScale) || 1;
+        initialDistance = this.getTouchDistance(e.touches[0], e.touches[1]);
+        
+        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+
+        const containerRect = container.getBoundingClientRect();
+        const offsetX = centerX - containerRect.left;
+        const offsetY = centerY - containerRect.top;
+        
+        startX = offsetX;
+        startY = offsetY;
+        initialX = parseFloat(img.dataset.imgX) || 0;
+        initialY = parseFloat(img.dataset.imgY) || 0;
+
+      } 
+
+      container.addEventListener('touchmove', touchmoveHandler);
+      container.addEventListener('touchend', (e) => {
+      
+        isPinching = false;
+        isDragging = false;
+        img.style.transition = '';
+        container.removeEventListener('touchmove', touchmoveHandler);
+
+      }, { once: true });
+      
     });
+
+    function touchmoveHandler(e) {
+
+      if (isPinching && e.touches.length === 2) {
+
+        e.preventDefault();
+        const currentDistance = this.getTouchDistance(e.touches[0], e.touches[1]);
+        const scale = initialScale * (currentDistance / initialDistance);
+
+        const newScale = Math.min(this.maxZoom, Math.max(this.minZoom, scale));
+
+        const containerRect = container.getBoundingClientRect();
+        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        const offsetX = centerX - containerRect.left;
+        const offsetY = centerY - containerRect.top;
+
+        const relX = (offsetX - initialX) / initialScale;
+        const relY = (offsetY - initialY) / initialScale;
+
+        let imgX = offsetX - relX * newScale;
+        let imgY = offsetY - relY * newScale;
+
+        img.dataset.zoomScale = newScale;
+
+        const constrained = this.constrainPosition(img, container, imgX, imgY);
+        imgX = constrained.x;
+        imgY = constrained.y;
+
+        img.dataset.imgX = imgX;
+        img.dataset.imgY = imgY;
+
+        this.applyTransform(img, imgX, imgY);
+
+      } else if (isDragging && e.touches.length === 1 && parseFloat(img.dataset.zoomScale) > 1) {
+
+        e.preventDefault();
+        const touch = e.touches[0];
+        const dx = touch.clientX - startX;
+        const dy = touch.clientY - startY;
+
+        let imgX = initialX + dx;
+        let imgY = initialY + dy;
+
+        const constrained = this.constrainPosition(img, container, imgX, imgY);
+        imgX = constrained.x;
+        imgY = constrained.y;
+
+        img.dataset.imgX = imgX;
+        img.dataset.imgY = imgY;
+
+        this.applyTransform(img, imgX, imgY);
+
+        startX = touch.clientX;
+        startY = touch.clientY;
+        initialX = imgX;
+        initialY = imgY;
+
+      }
+
+    }
+
+  }
+
+  getTouchDistance(touch1, touch2) {
+
+    const dx = touch1.clientX - touch2.clientX;
+    const dy = touch1.clientY - touch2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
 
   }
 
   initHoverZoom(container, img) {
 
     container.addEventListener('mouseenter', () => {
-      img.style.transition = 'transform 0.1s';
       img.dataset.zoomScale = this.startZoom;
+      img.style.transition = 'transform 0.1s';
       this.applyTransform(img, 0, 0);
       
       container.addEventListener('mousemove', moveHandler);
@@ -2637,7 +2840,6 @@ class ImageZoom {
     let imgX = parseFloat(img.dataset.imgX) || 0;
     let imgY = parseFloat(img.dataset.imgY) || 0;
 
-    const rect = container.getBoundingClientRect();
     const mouseX = offsetX;
     const mouseY = offsetY;
 
@@ -2674,10 +2876,6 @@ class ImageZoom {
     const scale = parseFloat(img.dataset.zoomScale);
     if (scale <= 1) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const imgWidth = img.naturalWidth * scale;
-    const imgHeight = img.naturalHeight * scale;
-
     let x = -(offsetX * (scale - 1));
     let y = -(offsetY * (scale - 1));
 
@@ -2689,10 +2887,12 @@ class ImageZoom {
   constrainPosition(img, container, x, y) {
 
     const scale = parseFloat(img.dataset.zoomScale);
-    const imgWidth = img.naturalWidth * scale;
-    const imgHeight = img.naturalHeight * scale;
+
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
+
+    const imgWidth = img.offsetWidth * scale;
+    const imgHeight = img.offsetHeight * scale;
 
     const minX = Math.min(0, containerWidth - imgWidth);
     const minY = Math.min(0, containerHeight - imgHeight);
@@ -2703,8 +2903,8 @@ class ImageZoom {
     return { x, y };
 
   }
+  
 }
-
 
 
 export { 
