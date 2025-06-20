@@ -57,12 +57,14 @@ new BurgerMenu({
   closeByClickOutOfMenu: false,
 });
 
-new ScrollToTop({
-  '769-1600': 1000,
-  '501-769': 1400,
-  '386-501': 1600,
-  '300-385': 1300,
-});
+// new ScrollToTop({
+//   '769-1600': 1000,
+//   '501-769': 1400,
+//   '386-501': 1600,
+//   '300-385': 1300,
+// });
+
+replacePreviews();
 
 new Tabs({
   'tabs1': {
@@ -120,6 +122,7 @@ new ImageDemonstrator({
     swipeXCoef: 3, 
     swipeYCoef: 4,
     mobileStartFrom: 768, 
+    changeOrientationBreakpoint: 1232,
     changeOrientation: true, 
     
     // autoplay: {  
@@ -452,6 +455,29 @@ function dynamicPaddingForFullWidthContainer(mainCon) {
       })
     }
   }
+
+}
+
+function replacePreviews() {
+
+  let media = window.matchMedia('(max-width: 1024px)').matches;
+
+  let demonstrators = Array.from(document.querySelectorAll('[data-demo]'));
+  demonstrators.forEach((demonstrator) => {
+
+    let preview = demonstrator.querySelector('.demonstration__previews');
+    let wrapper = demonstrator.querySelector('.demonstration__screen-wrapper');
+    let area = demonstrator.querySelector('.demonstration__watch-area');
+    let controls = Array.from(demonstrator.querySelectorAll('.demonstration__control-btn'));
+
+    if (media) {
+      wrapper.append(preview);
+
+      controls.forEach((item) => {
+        area.append(item);
+      })
+    }
+  })
 
 }
 

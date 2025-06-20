@@ -1462,7 +1462,6 @@ class ImageDemonstrator {
 
       if (target.closest('[data-demo-previews]')) {
         this.previewsPointerdownHandler(event);
-
         this.switchButtons(target);
       }
 
@@ -1470,7 +1469,6 @@ class ImageDemonstrator {
         let thumb = target.closest('.scrollbar-thumb');
         thumb.style.transition = 'all 0s';
         this.scrollbarThumbMoveHandller(event);
-
         this.switchButtons(target);
       }
  
@@ -1483,6 +1481,18 @@ class ImageDemonstrator {
         event.preventDefault();
       }
     }, { passive: false })
+
+  }
+
+  updateWatchAreaHeight(element) {
+
+    let demonstrator = element.closest('[data-demo]');
+    
+    if (demonstrator._isChangeBreakpoint) {
+      let watchArea = demonstrator.querySelector('.demonstration__watch-area');
+      watchArea.style.height = '';
+      watchArea.style.height = watchArea.offsetHeight + 'px';
+    }
 
   }
 
@@ -1510,22 +1520,33 @@ class ImageDemonstrator {
 
   }
 
-  updatePreviewsBlockHeight(element) {
+  updatePreviewsBlockHeightWidth(element) {
 
     let demonstrator = element.closest('[data-demo]');
     let previews = demonstrator._previewsBlock;
-
-    previews.style.height = '';
-
-    let main = demonstrator.querySelector('.demonstration__main');
-    let height = main.offsetHeight;
     let dir = previews.dataset.demoPreviews;
 
     if (dir === 'vertical') {
-      previews.style.height = height + 'px';
-      this.hideScrollbarInNonFilledPreviewsBlock(element);
-      this.adjustPreviewsScroll(element);
+      previews.style.height = '';
+    } else {
+      previews.style.width = '';
     }
+    
+    let wrapper = demonstrator.querySelector('.demonstration__screen-wrapper');
+    let main = demonstrator.querySelector('.demonstration__main');
+    let media = window.matchMedia('(max-width: 1024px)').matches;
+
+    if (media) main = wrapper;
+    
+    if (dir === 'vertical') {
+      previews.style.height = main.offsetHeight + 'px';
+    } else {
+      previews.style.width = main.offsetWidth + 'px';
+    }
+
+    this.hideScrollbarInNonFilledPreviewsBlock(element);
+    // this.setSizeOfScrollbarThumb(demonstrator._previewsBlock, true);
+    this.adjustPreviewsScroll(element);
 
   }
 
@@ -1784,7 +1805,7 @@ class ImageDemonstrator {
 
   }
 
-  setSizeOfScrollbarThumb(container) {
+  setSizeOfScrollbarThumb(container, state) {
 
     let demonstrator = container.closest('[data-demo]');
     let opt = this.params[demonstrator.dataset.demo];
@@ -1819,10 +1840,10 @@ class ImageDemonstrator {
 
     if (dir === 'horizontal') {
       demonstrator._thumbHor.style.width = thumbSize + 'px';
-      demonstrator._thumbHor.style.left = thumbPos + 'px';
+      if (!state) demonstrator._thumbHor.style.left = thumbPos + 'px';
     } else {
       demonstrator._thumbVer.style.height = thumbSize + 'px';
-      demonstrator._thumbVer.style.top = thumbPos + 'px';
+      if (!state) demonstrator._thumbVer.style.top = thumbPos + 'px';
     }
 
   }
@@ -2023,10 +2044,10 @@ class ImageDemonstrator {
 
       let opt = this.params[demonstrator.dataset.demo];
 
-      if (opt.changeOrientation && demonstrator._isMobileViewport) {
+      if (opt.changeOrientation && demonstrator._isChangeBreakpoint) {
 
         let orient = demonstrator._previewsBlock.dataset.demoPreviews;
-        let newOrient = orient === 'horizontal' ? 'vertical' : orient;
+        let newOrient = orient === 'horizontal' ? 'vertical' : orient === 'vertical' ? 'horizontal' : null;
         demonstrator._previewsBlock.setAttribute('data-demo-previews', newOrient);
 
       }
@@ -2187,6 +2208,7 @@ class ImageDemonstrator {
       demonstrator._currentTranslate = 0;
       demonstrator._doubleActivating = false;
       demonstrator._isMobileViewport = window.matchMedia(`(max-width: ${opt?.mobileStartFrom ?? 768}px)`).matches;
+      demonstrator._isChangeBreakpoint = window.matchMedia(`(max-width: ${opt.changeOrientationBreakpoint}px)`).matches;
       opt.lazy ? demonstrator._lazy = true : demonstrator._lazy = false;
       if (opt.autoplay?.playOnViewport) demonstrator._playOnViewport = true;
       demonstrator._params = this.params;
@@ -2236,7 +2258,8 @@ class ImageDemonstrator {
     this.adjustPreviewsScroll(image);
     this.updatePagination(image); 
     this.changeCaptionInfo(image); 
-    this.updatePreviewsBlockHeight(image);  
+    this.updateWatchAreaHeight(image); 
+    this.updatePreviewsBlockHeightWidth(image); 
     
   }
 

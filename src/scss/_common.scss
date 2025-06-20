@@ -611,6 +611,7 @@
     &__input {
       @extend %flex-cen;
       @extend %shrink0;
+      @extend %will;
       width: 18px;
       height: 18px;
       background: var.$white2;
@@ -619,6 +620,7 @@
 
       &::after {
         content: '';
+        @extend %will;
         width: 10px;
         height: 10px;
         background: var.$blue2;
@@ -870,7 +872,7 @@
   }
 
   &__pagination {
-    @include mix.flex(wrap, 31px);
+    @include mix.flex(wrap, 15px 31px);
     @extend %jus-cen;
     max-width: 1200px;
   }
@@ -913,7 +915,7 @@
       top: 0px;
     }
   }
-
+ 
   &__previews {
     @extend %over;
     width: 116px;
@@ -921,21 +923,36 @@
     padding: 0px 0px 0px 11px;
     margin: 0px 0px 0px -11px;
 
-    .scrollbar-vertical {
-      width: 6px;
-      right: auto !important;
-      left: 0 !important;
+    &--mobile {
+      display: none;
     }
 
     .scrollbar-thumb {
-      width: 100%;
-      background: var.$green;
+      background: var.$green !important;
       border-radius: 6px;
       cursor: grab;
       transition: all 0.2s;
     }
 
-    &.hide-scrollbar .scrollbar-vertical, .scrollbar-horizontal {
+    .scrollbar-vertical {
+      width: 6px;
+      right: auto !important;
+      left: 0 !important;
+
+      .scrollbar-thumb {
+        width: 100%; 
+      }
+    }
+
+    .scrollbar-horizontal {
+      height: 8px;
+
+      .scrollbar-thumb {
+        height: 100%; 
+      }
+    }
+
+    &.hide-scrollbar .scrollbar-horizontal, &.hide-scrollbar .scrollbar-vertical {
       @extend %opa0;
       @extend %vis0;
     }
@@ -1045,7 +1062,7 @@
   @at-root
   .info-card {
     @include mix.flex-col(7px);
-    padding: 39px 34px;
+    padding: 39px 33px 39px 34px;
 
     &__line {
       @include mix.flex(nowrap, 8px);
@@ -1373,6 +1390,26 @@
 
 // MEDIA QUERIES
 
+@media (max-width: 1400px) {
+
+  .demonstration {
+
+    &__watch-area {
+      width: 930px;
+    }
+
+    &__screen {
+      width: 650px;
+    }
+
+    &__info-card {
+      padding: 30px 20px;
+    }
+
+  }
+
+}
+
 @media (max-width: 1231px) {
 
   .page-wrapper {
@@ -1439,6 +1476,50 @@
 
     }
 
+  }
+
+  .demonstration {
+
+    &__tabs-content-area {
+      padding: 0 0 15px 0;
+      margin: 0 0 -15px 0;
+    }
+
+    &__main {
+      flex-direction: column;
+    }
+
+    &__previews {
+      height: 95px;
+      padding: 0 0 15px 0;
+      margin: 0 0 -15px 0;
+    }
+
+    &__previews-inner {
+      flex-direction: row;
+      width: fit-content;
+      height: 100%;
+      padding: 0 0 0 0.5px;
+    }
+
+    &__previews-image {
+      width: 120px;
+      height: 100%;
+    }
+
+    &__watch-area {
+      transition: all 0.2s;
+      width: 880px;
+      order: -1;
+    }
+
+    &__screen {
+      width: 520px;
+    }
+
+    &__button {
+      margin: 5px 0 0 0;
+    }
   }
 
 }
@@ -1624,12 +1705,107 @@
     }
   }
 
+  .demonstration {
+    gap: 20px;
+
+    &__tab {
+      gap: 20px;
+    }
+
+    &__tabs {
+      gap: 8px;
+    }
+
+    &__tabs-btn {
+      width: 145px;
+      padding: 15px 10px 14px 10px;
+    }
+
+    &__pagination {
+      gap: 10px 20px;
+    }
+
+    .custom-radio {
+      gap: 6px;
+    }
+
+    &__control-btn {
+      position: absolute;
+      left: 10px;
+      top: 123px;
+      padding: 15px 6px;
+    }
+
+    &__control-btn--next {
+      left: auto;
+      right: 10px;
+    }
+
+    &__btn-icon {
+      stroke-width: 3px;
+    }
+
+    &__body {
+      gap: 10px;
+    }
+
+    &__watch-area {
+      width: 100vw;
+      padding: 30px 50px 30px 57px;
+      border-radius: 0;
+      position: relative;
+      gap: 10px;
+    }
+
+    &__screen-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 77%;
+    }
+
+    &__screen {
+      width: 100%;
+    }
+
+    &__previews {
+      height: 75px;
+      flex-shrink: 0;
+    }
+
+    &__previews-inner {
+      gap: 12px;
+    }
+
+    &__previews-image {
+      width: 82px;
+      height: 100%;
+    }
+
+    &__info-card {
+      padding: 0px 10px;
+    }
+
+    &__button {
+      margin: 8px 0 0 0;
+    }
+  }
+
 }
 
 @media (max-width: 768px) {
 
   .page-wrapper {
     width: 670px;
+  }
+
+  .section {
+    padding: 26px 0 50px 0;
+    gap: 40px;
+
+    &__title {
+      font-size: 38px;
+    }
   }
 
   .popup {
@@ -1786,6 +1962,79 @@
   .scrollToTopBtn {
     bottom: 20px;
     right: 20px;
+  }
+
+  .demonstration {
+
+    &__previews {
+      height: 60px;
+      padding: 0;
+      margin: 0;
+    }
+
+    &__tabs-content-area {
+      padding: 0 0 10px 0;
+      margin: 0 0 -10px 0;
+    }
+
+    &__watch-area {
+      padding: 30px 50px 26px 57px;
+    }
+
+    .scrollbar-horizontal {
+      display: none;
+    }
+
+    &__screen-wrapper {
+      width: 363px;
+      flex-shrink: 0;
+    }
+
+    &__control-btn:active {
+      background: var.$green;
+
+      .demonstration__btn-icon {
+        stroke: var.$white;
+      }
+    }
+
+  }
+
+}
+
+@media (max-width: 760px) {
+
+  .demonstration {
+
+    &__watch-area {
+      flex-direction: column;
+      padding: 30px 30px 26px 30px;
+      gap: 30px;
+    }
+
+    &__screen-wrapper {
+      width: 100%;
+    }
+
+    &__screen {
+      width: 100%;
+      height: 300px;
+    }
+
+    &__control-btn {
+      display: none;
+    }
+
+    &__info-card {
+      width: 100%;
+      padding: 0px;
+    }
+
+    .info-card__list {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
   }
 
 }
@@ -2040,6 +2289,15 @@
     width: 384px;
   }
 
+  .section {
+    gap: 37px;
+    padding: 26px 0 40px 0;
+
+    &__title {
+      font-size: 36px;
+    }
+  }
+
   .nav-sidebar {
     width: 290px;
   }
@@ -2133,6 +2391,50 @@
     }
   }
 
+  .demonstration {
+
+    &__pagination {
+      position: absolute;
+      visibility: hidden;
+    }
+
+    &__tabs-content-area {
+      padding: 0;
+      margin: 0;
+    }
+
+    &__watch-area {
+      padding: 5px 15px 10px 15px;
+      gap: 15px;
+      background: none;
+      box-shadow: none;
+    }
+
+    &__screen {
+      height: 229px;
+    }
+
+    &__previews-inner {
+      gap: 9px;
+    }
+
+    &__info-card {
+      padding: 22px 18px;
+      border-radius: 8px;
+      background: var.$white;
+      box-shadow: 0 0 8px var.$silver2;
+    }
+
+    .info-card__list {
+      flex-direction: column;
+    }
+
+    &__button {
+      margin: -5px 0 0 0;
+      width: 93%;
+    }
+  }
+
 }
 
 @media (max-width: 385px) {
@@ -2201,6 +2503,14 @@
   .scrollToTopBtn {
     bottom: 15px;
     right: 15px;
+  }
+
+  .demonstration {
+
+    .info-card {
+      padding: 18px 14px;
+    }
+
   }
 
 }
