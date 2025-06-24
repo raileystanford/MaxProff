@@ -82,6 +82,23 @@
   background: var.$white4;
 }
 
+.promotions {
+
+  .section__content {
+    @include mix.flex-col(24px);
+    @extend %ali-cen;
+  }
+
+  &__items {
+    @include mix.flex(wrap, 19px);
+  }
+
+  &__button {
+    padding: 13.5px 15px 11px 15px;
+    width: 205px;
+  }
+}
+
 // MEDIA QUERIES
 
 @media (min-width: 1499px) {

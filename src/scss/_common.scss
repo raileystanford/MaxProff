@@ -95,6 +95,13 @@
   line-height: 49px;
 }
 
+.text14 {
+  font-family: 'Roboto';
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
 .navbar {
 
   &__top, &__bottom, &__middle {
@@ -1141,6 +1148,57 @@
     width: 329px;
   }
 
+}
+
+.promotion {
+  @include mix.flex-col(20px);
+  @extend %ali-cen;
+  @extend %rel;
+  @extend %over;
+  width: 387px;
+  min-height: 490px;
+  padding: 305px 18px 18px 18px;
+  border-radius: 8px;
+
+  &::after {
+    content: '';
+    @extend %abs;
+    @extend %w-100;
+    bottom: 0px;
+    left: 0;
+    height: 60%;
+    background: url(../images/backgrounds/overlay4.png) 0 0 / cover no-repeat;
+  }
+
+  &__background {
+    @extend %abs;
+    @extend %wh-100;
+    @extend %fit;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  &__content {
+    @include mix.flex-col(16px);
+    @extend %ali-cen;
+    @extend %rel;
+    z-index: 1;
+  }
+
+  &__info {
+    @include mix.flex-col(8px);
+    max-width: 290px;
+  }
+
+  &__title, &__subtitle {
+    color: var.$black;
+    text-align: center;
+  }
+
+  &__button {
+    width: 205px;
+  }
 }
 
 

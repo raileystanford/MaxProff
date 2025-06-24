@@ -10,6 +10,7 @@ const sourceMaps = require('gulp-sourcemaps');
 const jsmin = require('gulp-uglify');
 const changed = require('gulp-changed');
 const rename = require('gulp-rename');
+const replace = require('gulp-replace');
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,7 +147,34 @@ gulp.task('htmlmin', function() {
       .pipe(gulp.dest('./dist/'))
 })
 
+gulp.task('updateRefs', function() {
+   return gulp
+      .src('./dist/*.html')
+    
+      .pipe(replace(
+         /(<script[^>]+src=["'])([^"']+?)(?<!\.min)\.js(["'][^>]*>)/g,
+         '$1$2.min.js$3'
+      ))
+
+      .pipe(replace(
+         /(<link[^>]+href=["'])([^"']+?)(?<!\.min)\.css(["'][^>]*>)/g,
+         '$1$2.min.css$3'
+      ))
+      .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('updateJsRefs', function() {
+   return gulp
+      .src('./dist/js/*.js')
+      .pipe(replace(
+         /(['"`])(\.\/[^'"`]+?)(?<!\.min)\.js\1/g,
+         '$1$2.min.js$1'
+      ))
+      .pipe(gulp.dest('./dist/js/'));
+});
+
 // PRODUCTION
 gulp.task('prod', gulp.series(
-   gulp.parallel('cssmin', 'jsmin', 'htmlmin')
-))
+   gulp.parallel('cssmin', 'jsmin', 'htmlmin'),
+   gulp.parallel('updateRefs', 'updateJsRefs')
+));
