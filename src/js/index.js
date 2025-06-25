@@ -11,6 +11,7 @@ import {
   Tabs,
   ImageDemonstrator,
   ImageZoom,
+  LazyLoad,
 } from "./modules.js";
 
 new Popup({
@@ -147,6 +148,10 @@ new ImageZoom('[data-zoom]', {
   maxZoom: 2,
   zoomStep: 0.2,
   mobileViewport: 769,
+});
+
+new LazyLoad({
+  offset: 900,
 });
 
 
@@ -486,6 +491,115 @@ function replacePreviews() {
 
 }
 
+function openMorePromotions() {
+
+  let container = document.querySelector('.promotions__items');
+  let button = document.querySelector('.promotions__button');
+  let element = container.querySelector('.promotion');
+  let isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  if (container && button && element && !isMobile) {
+
+    let conStyles = getComputedStyle(container);
+    let conPadBot = parseFloat(conStyles.paddingBottom);
+    let conPadTop = parseFloat(conStyles.paddingTop);
+    let elementHeight = element.offsetHeight;
+    let comboHeight = elementHeight + conPadBot + conPadTop;
+    let fullHeight = container.scrollHeight;
+  
+    container.style.height = comboHeight + 'px';
+    
+    button.addEventListener('click', (event) => {
+
+      let lang = document.documentElement.lang;
+      elementHeight = element.offsetHeight;
+      comboHeight = elementHeight + conPadBot + conPadTop;
+      fullHeight = container.scrollHeight;
+
+      if (container.matches('.open')) {
+
+        button.textContent = lang === 'ru' ? 'Все акции' : 'Усі акції';
+        container.classList.remove('open');
+        container.style.height = comboHeight + 'px';
+        button.scrollIntoView({ block: 'end', behavior: 'smooth' });
+
+      } else {
+
+        button.textContent = lang === 'ru' ? 'Свернуть' : 'Згорнути';
+        container.style.height = fullHeight + 'px';
+        container.classList.add('open');
+
+      }
+      
+    });
+
+  }
+
+}
+
+function changePromotionBlockToSlider() {
+
+  let container = document.querySelector('.promotions__items');
+  let media = window.matchMedia('(max-width: 768px)').matches;
+  let button = document.querySelector('.promotions__button');
+  if (container && media) {
+
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('swiper-wrapper');
+    container.prepend(wrapper);
+    container.classList.add('swiper');
+
+    let items = Array.from(container.querySelectorAll('.promotion'));
+    items.forEach((item) => {
+
+      item.classList.remove('promotion--hidden');
+      let slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+      slide.append(item);
+      wrapper.append(slide);
+
+    });
+
+    let pagination = document.createElement('div');
+    pagination.classList.add('swiper-pagination1');
+    container.append(pagination);
+
+    button ? button.remove() : null;
+
+    new Swiper('.promotions__items', {
+
+      // simulateTouch: true,
+      // slidesPerView: 'auto',
+      spaceBetween: 13, 
+      // slidesOffsetBefore: 20,
+      // slidesOffsetAfter: 25,
+      // resistance: true,
+      // resistanceRatio: 0,
+      // touchRatio: 1,
+
+      // freeMode: {
+      //   enabled: true,
+      //   momentum: false,
+      // },
+
+      pagination: {
+        el: '.swiper-pagination1',
+        type: 'bullets',
+        clickable: true,
+      },
+
+      breakpoints: {
+        672: {
+          slidesPerView: 2.52,
+        },
+      }
+
+    });
+
+  }
+
+}
+
 focusStateFix();
 smoothDropMenuMobile(671);
 calculatorHandler();
@@ -493,3 +607,5 @@ formAgreeButtonStateController('popup-terms');
 saveInitialCalculatorValues();
 openPriceCard();
 dynamicPaddingForFullWidthContainer('.page-wrapper');
+openMorePromotions();
+changePromotionBlockToSlider();

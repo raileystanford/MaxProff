@@ -1153,12 +1153,14 @@
 .promotion {
   @include mix.flex-col(20px);
   @extend %ali-cen;
+  @extend %jus-end;
   @extend %rel;
   @extend %over;
   width: 387px;
   min-height: 490px;
   padding: 305px 18px 18px 18px;
   border-radius: 8px;
+  transition: opacity 0.2s, box-shadow 0.3s;
 
   &::after {
     content: '';
@@ -1197,7 +1199,13 @@
   }
 
   &__button {
-    width: 205px;
+    min-width: 205px;
+    max-width: 220px;
+  }
+
+  &--hidden {
+    @extend %opa0;
+    @extend %vis0;
   }
 }
 
@@ -1581,6 +1589,10 @@
     }
   }
 
+  .promotion {
+    width: 32.05%;
+  }
+
 }
 
 @media (max-width: 1024px) {
@@ -1850,6 +1862,12 @@
     }
   }
 
+  .promotion {
+    width: 31.9%;
+    min-height: 400px;
+    padding: 196px 18px 18px 18px;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -2070,6 +2088,33 @@
       }
     }
 
+  }
+
+  .promotion {
+    width: 100%;
+    min-height: 350px;
+    padding: 146px 18px 18px 18px;
+
+    &__content {
+      gap: 12px;
+    }
+
+    &__info {
+      gap: 5px;
+    }
+
+    &__title {
+      font-size: 30px;
+    }
+
+    &__button {
+      max-width: 100%;
+      padding: 14px 13px 12px 13px;
+    }
+
+    &::after {
+      height: 75%;
+    }
   }
 
 }

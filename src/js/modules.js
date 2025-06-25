@@ -194,6 +194,7 @@ class ChangeLanguage {
         return;
       }
 
+      
       let content = dictionary[elementKey][language];
 
       if (content) {
@@ -234,6 +235,22 @@ class ChangeLanguage {
         let image = container._startImage;
         ImageDemonstrator.prototype.changeCaptionInfo(image);
       })
+
+    }
+
+    let promCon = document.querySelector('.promotions__items');
+    if (promCon) {
+
+      let element = promCon.querySelector('.promotion');
+      let info = getComputedStyle(promCon);
+      let padTop = parseFloat(info.paddingTop);
+      let padBot = parseFloat(info.paddingBottom);
+
+      if (promCon.matches('.open')) {
+        promCon.style.height = promCon.scrollHeight + padBot + padTop + 'px';
+      } else {
+        promCon.style.height = element.offsetHeight + padBot + padTop + 'px';
+      }
 
     }
 
@@ -2906,6 +2923,89 @@ class ImageZoom {
   
 }
 
+class LazyLoad {
+
+  constructor(params) {
+    this.params = params;
+    this.blocks= Array.from(document.querySelectorAll('[data-load-block]'));
+
+    if (this.blocks.length > 0) {
+      this.ownMethodsBinder();
+      this.createObserver();
+      this.observeBlocks();
+      this.showLine();
+    }
+
+  }
+
+  createObserver() {
+    let offset = this.params?.offset ?? 500;
+    this.observer = new IntersectionObserver((list, observer) => {
+
+      list.forEach((item) => {
+        if (item.isIntersecting) {
+            this.observerHandler(item.target);
+            observer.unobserve(item.target);
+        }
+      });
+
+    }, { root: null, rootMargin: `${offset}px 0px ${offset}px 0px`, threshold: 0.01 });
+  }
+
+  observerHandler(container) {
+    let elements = Array.from(container.querySelectorAll('[data-load]'));
+    elements.forEach((element) => {
+
+      let inPicture = element.closest('picture');
+      let inVideo = element.closest('video');
+      let inAudio = element.closest('audio');
+
+      let url = element.dataset.load;
+
+      if (inPicture) {
+        element.tagName === 'IMG' ? element.src = url : element.srcset = url;
+      } else if (inVideo || inAudio) {
+        element.load();
+      } else {
+        element.src = url;
+      }
+
+    });
+  }
+
+  observeBlocks() {
+    this.blocks.forEach((block) => {
+
+      let isContent = block.querySelector('[data-load]');
+      if (isContent) {
+        this.observer.observe(block);
+      }
+
+    })
+  }
+
+  showLine() {
+    if (this.params?.showLine) {
+      let offset = this.params?.offset ?? 500;
+      this.blocks.forEach((block) => {
+        block.style.position = 'relative';
+        let line = document.createElement('div');
+        line.style.cssText = `display: block; width: 100vw; height: 2px; background: red; position: absolute; left: 0; top: -${offset}px`;
+        block.prepend(line);
+      })
+    }
+  }
+
+  ownMethodsBinder() {
+    let prototype = Object.getPrototypeOf(this);
+    let ownMethods = Object.getOwnPropertyNames(prototype)
+    for (let item of ownMethods) {
+      if (item !== 'constructor') prototype[item] = prototype[item].bind(this);
+    }
+  }
+
+}
+
 
 export { 
   Popup, 
@@ -2918,4 +3018,5 @@ export {
   Tabs,
   ImageDemonstrator,
   ImageZoom,
+  LazyLoad,
 };
