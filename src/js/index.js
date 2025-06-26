@@ -548,6 +548,7 @@ function changePromotionBlockToSlider() {
     wrapper.classList.add('swiper-wrapper');
     container.prepend(wrapper);
     container.classList.add('swiper');
+    let maxHeight = [];
 
     let items = Array.from(container.querySelectorAll('.promotion'));
     items.forEach((item) => {
@@ -557,8 +558,12 @@ function changePromotionBlockToSlider() {
       slide.classList.add('swiper-slide');
       slide.append(item);
       wrapper.append(slide);
+      maxHeight.push(item.offsetHeight);
 
     });
+
+    maxHeight = Math.max(...maxHeight);
+    items.forEach((item) => item.style.height = maxHeight + 'px');
 
     let pagination = document.createElement('div');
     pagination.classList.add('swiper-pagination1');
@@ -568,18 +573,11 @@ function changePromotionBlockToSlider() {
 
     new Swiper('.promotions__items', {
 
-      // simulateTouch: true,
-      // slidesPerView: 'auto',
       spaceBetween: 13, 
-      // slidesOffsetBefore: 20,
-      // slidesOffsetAfter: 25,
-      // resistance: true,
-      // resistanceRatio: 0,
-      // touchRatio: 1,
 
-      // freeMode: {
-      //   enabled: true,
-      //   momentum: false,
+      // autoplay: {
+      //   delay: 2000,
+      //   disableOnInteraction: true,
       // },
 
       pagination: {
@@ -591,6 +589,12 @@ function changePromotionBlockToSlider() {
       breakpoints: {
         672: {
           slidesPerView: 2.52,
+        },
+        501: {
+          slidesPerView: 1.8,
+        },
+        319: {
+          slidesPerView: 1,
         },
       }
 

@@ -1175,10 +1175,13 @@
   &__background {
     @extend %abs;
     @extend %wh-100;
-    @extend %fit;
     top: 0;
     left: 0;
     z-index: -1;
+
+    &.loaded {
+      @extend %fit;
+    }
   }
 
   &__content {
@@ -2093,7 +2096,7 @@
   .promotion {
     width: 100%;
     min-height: 350px;
-    padding: 146px 18px 18px 18px;
+    padding: 172px 18px 18px 18px;
 
     &__content {
       gap: 12px;
@@ -2549,6 +2552,15 @@
     &__button {
       margin: -5px 0 0 0;
       width: 93%;
+    }
+  }
+
+  .promotion {
+    min-height: 400px;
+    padding: 222px 18px 18px 18px;
+
+    &__title {
+      font-size: 32px;
     }
   }
 

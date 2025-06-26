@@ -2033,11 +2033,18 @@ class ImageDemonstrator {
 
             if (picture) {
               let sources = Array.from(picture.querySelectorAll('source'));
-              sources.forEach((source) => source.srcset = source.dataset.demoLazy);
+
+              sources.forEach((source) => { 
+                source.srcset = source.dataset.demoLazy;
+                source.removeAttribute('data-demo-lazy');
+              });
+
               let img = picture.lastElementChild;
               img.src = img.dataset.demoLazy;
+              img.removeAttribute('data-demo-lazy');
             } else {
               image.src = src;
+              img.removeAttribute('data-demo-lazy');
             }
 
           })
@@ -2709,6 +2716,7 @@ class ImageZoom {
   initHoverZoom(container, img) {
 
     container.addEventListener('mouseenter', () => {
+
       img.dataset.zoomScale = this.startZoom;
       img.style.transition = 'transform 0.1s';
       this.applyTransform(img, 0, 0);
@@ -2923,6 +2931,7 @@ class ImageZoom {
   
 }
 
+
 class LazyLoad {
 
   constructor(params) {
@@ -2935,7 +2944,6 @@ class LazyLoad {
       this.observeBlocks();
       this.showLine();
     }
-
   }
 
   createObserver() {
@@ -2944,8 +2952,8 @@ class LazyLoad {
 
       list.forEach((item) => {
         if (item.isIntersecting) {
-            this.observerHandler(item.target);
-            observer.unobserve(item.target);
+          this.observerHandler(item.target);
+          observer.unobserve(item.target);
         }
       });
 
@@ -2964,13 +2972,23 @@ class LazyLoad {
 
       if (inPicture) {
         element.tagName === 'IMG' ? element.src = url : element.srcset = url;
+        element.removeAttribute('data-load');
+        this.loadHandler(element);
       } else if (inVideo || inAudio) {
         element.load();
       } else {
         element.src = url;
+        element.removeAttribute('data-load');
+        this.loadHandler(element);
       }
 
     });
+  }
+
+  loadHandler(item) {
+    item.addEventListener('load', (event) => {
+      event.currentTarget.classList.add('loaded');
+    }, { once: true });
   }
 
   observeBlocks() {
