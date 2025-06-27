@@ -464,3 +464,30 @@
   }
 
 }
+
+// Explain
+
+.explanation__card {
+
+  &-icon {
+    @extend %will;
+    transition: all 0.2s;
+  }
+
+  &-caption {
+    transition: all 0.2s;
+    text-decoration: underline solid transparent;
+  }
+
+  &:hover, &:focus {
+
+    .explanation__card-icon {
+      transform: scale(1.1);
+    }
+
+    .explanation__card-caption {
+      text-decoration-color: black;
+    }
+
+  }
+}
