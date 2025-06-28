@@ -2708,11 +2708,16 @@
   }
 
   .section {
-    gap: 37px;
-    padding: 26px 0 40px 0;
+    gap: 42px;
+    padding: 29px 0 41px 0;
+
+    &__info {
+      gap: 20px;
+    }
 
     &__title {
       font-size: 36px;
+      line-height: 40px;
     }
 
     &__subtitle {

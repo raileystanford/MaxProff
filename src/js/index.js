@@ -607,108 +607,114 @@ function changePromotionBlockToSlider() {
 
 function explanationHandler() {
 
-  let cards = Array.from(document.querySelectorAll('.explanation__card'));
-  let bullets = Array.from(document.querySelectorAll('.explanation__bullet'));
-  let container = document.querySelector('.explanation__cards');
-  let line = document.querySelector('.explanation__line');
-  let lineInfo = line.getBoundingClientRect();
-  let currentPopup, innerLine, currentIndex, prevIndex;
+  let media = window.matchMedia('(min-width: 1025px)').matches;
 
-  if (cards.length > 0 && bullets.length > 0 && explain_dictionary && container) {
+  if (media) {
 
-    createInnerLine();
-    createPopups();
+    let cards = Array.from(document.querySelectorAll('.explanation__card'));
+    let bullets = Array.from(document.querySelectorAll('.explanation__bullet'));
+    let container = document.querySelector('.explanation__cards');
+    let line = document.querySelector('.explanation__line');
+    let lineInfo = line.getBoundingClientRect();
+    let currentPopup, innerLine, currentIndex, prevIndex;
 
-    document.addEventListener('mouseover', (event) => {
-      let target = event.target;
+    if (cards.length > 0 && bullets.length > 0 && explain_dictionary && container) {
 
-      if (target.closest('.explanation__card')) {
-        let element = target.closest('.explanation__card');
-        activatePopup(element);
-      }
-    });
+      createInnerLine();
+      createPopups();
 
-    container.addEventListener('pointerleave', (event) => {
-      innerLine.style.width = '0px';
-      bullets.forEach((item) => item.classList.remove('active'));
-    });
+      document.addEventListener('mouseover', (event) => {
+        let target = event.target;
 
-  }
+        if (target.closest('.explanation__card')) {
+          let element = target.closest('.explanation__card');
+          activatePopup(element);
+        }
+      });
 
-  function activatePopup(element) {
+      container.addEventListener('pointerleave', (event) => {
+        innerLine.style.width = '0px';
+        bullets.forEach((item) => item.classList.remove('active'));
+      });
 
-    prevIndex = currentIndex;
-
-    let index = cards.findIndex((item) => item === element);
-    let bullet = bullets.at(index);
-    let popup = bullet._popup;
-    let lang = document.documentElement.lang;
-    let text = explain_dictionary.at(index)[lang];
-
-    activateAllBulletsBeforeActive(index);
-   
-    popup.firstElementChild.textContent = text;
-    controlSizeOfInnerLine(bullet);
-
-    popup.classList.add('active');
-
-    currentPopup = popup;
-    currentIndex = index;
-
-    if (prevIndex > currentIndex) {
-      bullets.at(prevIndex).classList.remove('active');
     }
 
-    element.addEventListener('mouseout', (event) => {
-      currentPopup.classList.remove('active');
-    }, { once: true });
+    function activatePopup(element) {
 
-  }
+      prevIndex = currentIndex;
 
-  function activateAllBulletsBeforeActive(index1) {
+      let index = cards.findIndex((item) => item === element);
+      let bullet = bullets.at(index);
+      let popup = bullet._popup;
+      let lang = document.documentElement.lang;
+      let text = explain_dictionary.at(index)[lang];
 
-    bullets.forEach((bullet, index) => {
-
-      if (index <= index1) {
-        bullet.classList.add('active');
-      }
-
-    })
-
-  }
-
-  function controlSizeOfInnerLine(bullet) {
-
-    let bulletInfo = bullet.getBoundingClientRect();
-    let x = bulletInfo.x + (bulletInfo.width / 2);
-    let width = Math.trunc(x - lineInfo.x);
+      activateAllBulletsBeforeActive(index);
     
-    innerLine.style.width = width + 'px';
+      popup.firstElementChild.textContent = text;
+      controlSizeOfInnerLine(bullet);
 
-  }
+      popup.classList.add('active');
 
-  function createInnerLine() {
+      currentPopup = popup;
+      currentIndex = index;
 
-    if (line) {
-      innerLine = document.createElement('div');
-      innerLine.classList.add('explanation__progress');
-      line.append(innerLine);
+      if (prevIndex > currentIndex) {
+        bullets.at(prevIndex).classList.remove('active');
+      }
+
+      element.addEventListener('mouseout', (event) => {
+        currentPopup.classList.remove('active');
+      }, { once: true });
+
     }
 
-  }
+    function activateAllBulletsBeforeActive(index1) {
 
-  function createPopups() {
+      bullets.forEach((bullet, index) => {
 
-    bullets.forEach((bullet) => {
+        if (index <= index1) {
+          bullet.classList.add('active');
+        }
 
-      bullet._popup = document.createElement('div');
-      bullet._popup.classList.add('explanation__description');
-      let inner = document.createElement('div');
-      inner.classList.add('explanation__description-inner', 'text10');
-      bullet._popup.append(inner);
-      bullet.append(bullet._popup);
+      })
 
-    })
+    }
+
+    function controlSizeOfInnerLine(bullet) {
+
+      let bulletInfo = bullet.getBoundingClientRect();
+      let x = bulletInfo.x + (bulletInfo.width / 2);
+      let width = Math.trunc(x - lineInfo.x);
+      
+      innerLine.style.width = width + 'px';
+
+    }
+
+    function createInnerLine() {
+
+      if (line) {
+        innerLine = document.createElement('div');
+        innerLine.classList.add('explanation__progress');
+        line.append(innerLine);
+      }
+
+    }
+
+    function createPopups() {
+
+      bullets.forEach((bullet) => {
+
+        bullet._popup = document.createElement('div');
+        bullet._popup.classList.add('explanation__description');
+        let inner = document.createElement('div');
+        inner.classList.add('explanation__description-inner', 'text10');
+        bullet._popup.append(inner);
+        bullet.append(bullet._popup);
+
+      })
+
+    }
 
   }
 
