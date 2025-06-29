@@ -720,6 +720,23 @@ function explanationHandler() {
 
 }
 
+function autoCountQaCards() {
+
+  let container = document.querySelector('.quality__methods');
+  let cards = container ? Array.from(container.querySelectorAll('.qa-card')) : [];
+
+  cards.forEach((card, index) => {
+
+    let inner = `
+      <span class="qa-card__cur-count">${index + 1}</span> / <span class="qa-card__total-count">${cards.length}</span>`;
+    let area = card.querySelector('.qa-card__count');
+
+    if (area) area.innerHTML = inner;
+
+  })
+
+}
+
 focusStateFix();
 smoothDropMenuMobile(671);
 calculatorHandler();
@@ -730,3 +747,4 @@ dynamicPaddingForFullWidthContainer('.page-wrapper');
 openMorePromotions();
 changePromotionBlockToSlider();
 explanationHandler();
+autoCountQaCards();

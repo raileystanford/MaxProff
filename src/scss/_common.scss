@@ -1372,6 +1372,26 @@
 
 }
 
+.qa-card {
+  @include mix.flex-col(18px);
+  width: 220px;
+
+  &__header {
+    @include mix.flex-col(4px);
+  }
+
+  &__count {
+    color: var.$silver2;
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  &__cur-count {
+    font-size: 35px;
+    color: var.$green;
+  }
+}
+
 
 
 
@@ -2157,6 +2177,10 @@
     }
   }
 
+  .qa-card {
+    width: 200px;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -2404,6 +2428,10 @@
     &::after {
       height: 75%;
     }
+  }
+
+  .qa-card {
+    width: 190px;
   }
 
 }
@@ -2699,6 +2727,10 @@
 
   }
 
+  .qa-card {
+    width: 217px;
+  }
+
 }
 
 @media (max-width: 501px) {
@@ -2950,6 +2982,10 @@
       left: 42%;
       transform: none;
     }
+  }
+
+  .qa-card {
+    width: 100%;
   }
 
 }
