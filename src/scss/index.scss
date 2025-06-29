@@ -232,10 +232,13 @@
   }
 
   &__image {
-    @extend %fit;
     @extend %h-100;
     width: 597px;
     border-radius: 0 8px 8px 0;
+
+    &.loaded {
+      @extend %fit;
+    }
   }
 
   &__methods {
