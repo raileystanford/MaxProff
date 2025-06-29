@@ -1386,13 +1386,33 @@
     line-height: 30px;
   }
 
+  &__text, &__title {
+    color: var.$black;
+  }
+
   &__cur-count {
     font-size: 35px;
     color: var.$green;
   }
 }
 
+.advantage {
+  @include mix.flex-col(8px);
+  width: 285px;
 
+  &__info {
+    @include mix.flex-col(14px);
+  }
+
+  &__icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  &__title, &__text {
+    color: var.$black;
+  }
+}
 
 
 
@@ -1831,6 +1851,10 @@
 
   }
 
+  .advantage {
+    width: 233px;
+  }
+
 }
 
 @media (max-width: 1024px) {
@@ -2181,6 +2205,10 @@
     width: 200px;
   }
 
+  .advantage {
+    width: 358px;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -2432,6 +2460,17 @@
 
   .qa-card {
     width: 190px;
+  }
+
+  .advantage {
+    width: 100%;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+
+    &__info {
+      gap: 5px;
+    }
   }
 
 }
@@ -2986,6 +3025,14 @@
 
   .qa-card {
     width: 100%;
+  }
+
+  .advantage {
+
+    &__icon {
+      width: 60px;
+      height: 60px;
+    }
   }
 
 }

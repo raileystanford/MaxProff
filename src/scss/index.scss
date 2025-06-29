@@ -249,6 +249,15 @@
   }
 }
 
+.advantages {
+
+  &__items {
+    @include mix.flex(wrap, 25px 20px);
+    @extend %ali-start;
+  }
+
+}
+
 
 
 
@@ -257,14 +266,7 @@
 
 // MEDIA QUERIES
 
-@media (min-width: 1499px) {
-
-  .prices {
-
-    .swiper {
-      margin: -10px 0 -10px -12px;
-    }
-  }
+@media (min-width: 1540px) {
 
   .quality {
 
@@ -278,6 +280,18 @@
     }
 
   }
+  
+}
+
+@media (min-width: 1499px) {
+
+  .prices {
+
+    .swiper {
+      margin: -10px 0 -10px -12px;
+    }
+  }
+
 }
 
 @media (max-width: 1231px) {
@@ -474,6 +488,11 @@
     }
   }
 
+  .advantages__items {
+    flex-direction: column;
+    gap: 20px;
+  }
+
 }
 
 @media (max-width: 750px) {
@@ -592,6 +611,14 @@
 
     &__image {
       height: 260px;
+    }
+
+  }
+
+  .advantages {
+
+    &__items {
+      gap: 30px;
     }
 
   }
