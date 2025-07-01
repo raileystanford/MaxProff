@@ -737,6 +737,83 @@ function autoCountQaCards() {
 
 }
 
+function setSliderToReviewsBlock() {
+
+  let block = document.querySelector('.reviews');
+  let media = window.matchMedia('(max-width: 768px)').matches;
+
+  if (block && media) {
+
+    let reviews = Array.from(block.querySelectorAll('.review'));
+
+    prepareContainer(block);
+    reviews.forEach((review) => replaceElements(review));
+
+    new Swiper('.reviews__items', {
+
+      spaceBetween: 0, 
+      slidesPerView: 1,
+
+      // autoplay: {
+      //   delay: 2000,
+      //   disableOnInteraction: true,
+      // },
+
+      pagination: {
+        el: '.reviews__swiper-pagination',
+        type: 'bullets',
+        clickable: true,
+      },
+
+      // breakpoints: {
+      //   // 672: {
+      //   //   slidesPerView: 2.52,
+      //   // },
+      //   // 501: {
+      //   //   slidesPerView: 1.8,
+      //   // },
+      //   // 319: {
+          
+      //   // },
+      // }
+
+    });
+
+  }
+
+  function prepareContainer(block) {
+
+    let container = block.querySelector('.reviews__items');
+
+    if (container) {
+
+      let wrapper = document.createElement('div');
+      wrapper.classList.add('swiper-wrapper');
+      container.classList.add('swiper');
+      container.prepend(wrapper);
+
+      let radios = document.createElement('div');
+      radios.classList.add('reviews__swiper-pagination');
+      container.append(radios);
+
+    }
+
+  }
+
+  function replaceElements(element) {
+
+    let container = element.parentElement;
+    let wrapper = container.firstElementChild;
+    let slide = document.createElement('div');
+
+    slide.classList.add('swiper-slide');
+    slide.append(element);
+    wrapper.append(slide);
+
+  }
+
+}
+
 focusStateFix();
 smoothDropMenuMobile(671);
 calculatorHandler();
@@ -748,3 +825,5 @@ openMorePromotions();
 changePromotionBlockToSlider();
 explanationHandler();
 autoCountQaCards();
+
+setSliderToReviewsBlock();

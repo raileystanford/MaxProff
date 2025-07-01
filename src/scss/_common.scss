@@ -1432,6 +1432,7 @@
     @extend %will;
     @extend %abs;
     @extend %wh-100;
+    @extend %fit;
     transform: scale(1.005);
     display: block;
     top: 0;
@@ -1918,6 +1919,10 @@
     width: 233px;
   }
 
+  .review {
+    width: 485px;
+  }
+
 }
 
 @media (max-width: 1024px) {
@@ -2272,6 +2277,14 @@
     width: 358px;
   }
 
+  .review {
+    width: 100%;
+
+    &__video-wrapper {
+      height: 350px;
+    }
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -2534,6 +2547,10 @@
     &__info {
       gap: 5px;
     }
+  }
+
+  .review {
+    width: 100%;
   }
 
 }
@@ -3098,6 +3115,17 @@
     }
   }
 
+  .review {
+
+    &__video-wrapper {
+      height: 270px;
+    }
+
+    &__apartment {
+      margin: 0;
+    }
+  }
+
 }
 
 @media (max-width: 385px) {
@@ -3178,6 +3206,13 @@
 
   .explanation {
     gap: 15px;
+  }
+
+  .review {
+
+    &__video-wrapper {
+      height: 230px;
+    }
   }
 
 }
