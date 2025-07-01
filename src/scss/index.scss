@@ -258,6 +258,25 @@
 
 }
 
+.reviews {
+  @extend %rel;
+  @extend %px-cen;
+  @extend %ali-cen;
+  width: 100vw;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: var.$white4;
+
+  .section__content {
+    width: 1200px;
+  }
+
+  &__items {
+    @include mix.flex(wrap, 24px);
+  }
+
+}
+
 
 
 

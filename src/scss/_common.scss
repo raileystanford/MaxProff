@@ -1414,6 +1414,69 @@
   }
 }
 
+.review {
+  @include mix.flex-col(0px);
+  @extend %over;
+  width: 588px;
+  box-shadow: 0 0 8px var.$silver2;
+  border-radius: 8px;
+
+  &__video-wrapper {
+    @extend %w-100;
+    @extend %over;
+    @extend %rel;
+    height: 330px;
+  }
+
+  &__video {
+    @extend %will;
+    @extend %abs;
+    @extend %wh-100;
+    transform: scale(1.005);
+    display: block;
+    top: 0;
+    left: 0;
+    filter: saturate(1.5);
+  }
+
+  &__info {
+    @include mix.flex-col(8px);
+    padding: 14px;
+    background: var.$white;
+  }
+
+  &__title {
+    @include mix.flex(wrap, 5px 15px);
+    @extend %ali-cen;
+  }
+
+  &__type {
+    color: var.$green;
+    text-transform: uppercase;
+  }
+
+  &__apartment {
+    color: var.$black;
+    margin: 1.5px 0 0 0;
+  }
+
+  &__location {
+    @include mix.flex(nowrap, 5px);
+    @extend %ali-cen;
+    color: var.$black;
+
+    &::before {
+      content: '';
+      @extend %shrink0;
+      width: 18px;
+      height: 19px;
+      background: url(../images/icons/map-pin.svg) 0 0 / contain no-repeat;
+    }
+  }
+}
+
+
+
 
 
 

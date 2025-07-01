@@ -491,3 +491,24 @@
 
   }
 }
+
+// Reviews
+
+// .review {
+//   @extend %rel;
+  
+//   &::after {
+//     content: '';
+//     @extend %abs;
+//     @extend %w-100;
+//     transition: all 0.2s;
+//     height: 5px;
+//     bottom: -5px;
+//     left: 0px;
+//     background: var.$green;
+//   }
+
+//   &:hover::after {
+//     bottom: 0px;
+//   }
+// }
