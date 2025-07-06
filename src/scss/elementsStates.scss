@@ -405,18 +405,18 @@
 
 }
 
-.demonstration__control-btn {
+.demonstration__control-btn, .workers-slider__button {
   @extend %will;
   transition: all 0.2s;
 
-  .demonstration__btn-icon {
+  .demonstration__btn-icon, .workers-slider__icon {
     transition: all 0.2s;
   }
 
   &:hover, &:focus {
     background: var.$green;
 
-    .demonstration__btn-icon {
+    .demonstration__btn-icon, .workers-slider__icon {
       stroke: var.$white;
     }
   }
@@ -494,21 +494,47 @@
 
 // Reviews
 
-// .review {
-//   @extend %rel;
+.review {
+  @extend %rel;
   
-//   &::after {
-//     content: '';
-//     @extend %abs;
-//     @extend %w-100;
-//     transition: all 0.2s;
-//     height: 5px;
-//     bottom: -5px;
-//     left: 0px;
-//     background: var.$green;
-//   }
+  &::after {
+    content: '';
+    @extend %abs;
+    @extend %w-100;
+    transition: all 0.2s;
+    height: 5px;
+    bottom: -5px;
+    left: 0px;
+    background: var.$green;
+  }
 
-//   &:hover::after {
-//     bottom: 0px;
-//   }
-// }
+  &:hover::after {
+    bottom: 0px;
+  }
+}
+
+.swiper-pagination-bullet {
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    border-color: var.$blue2 !important;
+  }
+}
+
+// Command 
+
+.workers-slider__job {
+  transition: all 0.2s;
+
+  &:not(.active):hover {
+    color: var.$blue2;
+  }
+}
+
+.workers-slider__indicator {
+  transition: all 0.2s;
+
+  &:not(.active):hover {
+    background: lighten(var.$green, 40%);
+  }
+}

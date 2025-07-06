@@ -913,8 +913,7 @@
 
   &__btn-icon {
     @extend %shrink0;
-    width: 100%;
-    height: 100%;
+    @extend %wh-100;
     stroke: var.$black;
     stroke-width: 5px;
     fill: transparent;
@@ -1476,6 +1475,203 @@
   }
 }
 
+.workers-slider {
+  @include mix.flex-col(35px);
+
+  &__status {
+    @include mix.flex-col(10px);
+  }
+
+  &__jobs {
+    @include mix.flex(nowrap, 15px);
+    @extend %jus-bet;
+  }
+
+  &__job {
+    @extend %will;
+    color: var.$black;
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &.active {
+      transform: scale(1.3) translateY(-5px);
+    }
+  }
+
+  &__indicators {
+    @extend %rel;
+    @extend %w-100;
+    height: 26px;
+  }
+
+  &__line {
+    @extend %abs;
+    @extend %py-cen;
+    height: 6px;
+    background: var.$white2;
+    z-index: -1;
+  }
+
+  &__indicator {
+    @extend %abs;
+    top: 0;
+    background: var.$white2;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 3px solid var.$white;
+    transition: background 0.2s;
+    cursor: pointer;
+
+    &.active {
+      background: var.$green;
+    }
+  }
+
+  &__main {
+    @include mix.flex(nowrap, 22px);
+    @extend %ali-cen;
+  }
+
+  &__button {
+    @extend %flex-cen;
+    width: 44px;
+    height: 84px;
+    padding: 20px 10px;
+    border-radius: 8px;
+    margin: 0 0 61px 0;
+
+    &--prev .workers-slider__icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__icon {
+    @extend %shrink0;
+    @extend %wh-100;
+    stroke: var.$black;
+    stroke-width: 5px;
+    fill: transparent;
+  }
+
+  &__slider {
+    @extend %w-100;
+    @include mix.flex-col(35px);
+    @extend %ali-cen;
+  }
+
+  &__slide {
+    @include mix.flex(nowrap, 30px);
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &__slide-image {
+    @extend %fit;
+    width: 600px;
+    height: 378px;
+    border-radius: 8px;
+    filter: saturate(1.3) contrast(1.1);
+  }
+
+  &__slide-description {
+    @include mix.flex-col(13px);
+    width: 420px;
+    align-self: flex-end;
+  }
+
+  &__slide-header {
+    @include mix.flex-col(8px);
+  }
+
+  &__slide-name {
+    color: var.$green;
+    text-transform: uppercase;
+    font-size: 700;
+  }
+
+  &__slide-job {
+    color: var.$black;
+  }
+
+  &__slide-info {
+    @include mix.flex-col(14px);
+  }
+
+  &__slide-title {
+    color: var.$black;
+    line-height: 18px;
+  }
+
+  &__slide-list {
+    @include mix.flex-col(2px);
+    padding: 0 0 0 40px;
+  }
+
+  &__slide-li {
+    @include mix.flex(nowrap, 10px);
+    color: var.$black;
+    line-height: 18px;
+
+    &::before {
+      content: '';
+      @extend %shrink0;
+      margin: 1px 0 0 0;
+      width: 13px;
+      height: 13px;
+      background: url(../images/icons/ok.svg) 0 0 / contain no-repeat;
+    }
+  }
+
+  
+}
+
+.pagination {
+  @include mix.flex(wrap, 15px);
+  @extend %jus-cen;
+  width: fit-content !important;
+  padding: 0 0 2px 0;
+
+  .swiper-pagination-bullet {
+    @extend %will;
+    @extend %flex-cen;
+    @extend %shrink0;
+    @extend %opa1;
+    width: 18px;
+    height: 18px;
+    margin: 0 !important;
+    background: var.$white2;
+    border: 2px solid var.$white3;
+    transition: all 0.2s;
+
+    &::after {
+      content: '';
+      @extend %will;
+      @extend %shrink0;
+      transition: all 0.2s;
+      width: 10px;
+      height: 10px;
+      background: var.$blue2;
+      border-radius: 50%;
+      transform: scale(0);
+    }
+
+    &-active::after {
+      transform: scale(1);
+    }
+
+    &-active {
+      border-color: var.$blue2;
+    }
+
+  }
+}
+
+    
+
 
 
 
@@ -1923,6 +2119,22 @@
     width: 485px;
   }
 
+  .workers-slider {
+
+    &__slide-image {
+      width: 500px;
+      height: 340px;
+    }
+
+    &__job {
+
+      &.active {
+        transform: scale(1.2) translateY(-5px);
+      }
+
+    }
+  }
+
 }
 
 @media (max-width: 1024px) {
@@ -2285,6 +2497,46 @@
     }
   }
 
+  .workers-slider {
+
+    &__indicators {
+      display: none;
+    }
+
+    &__jobs {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    &__job {
+      padding: 6px;
+      background: var.$silver3;
+      border-radius: 4px;
+      color: var.$gray;
+
+      &.active {
+        transform: none;
+        background: var.$blue2;
+        color: var.$white;
+      }
+    }
+
+    &__slide {
+      gap: 20px;
+    }
+
+    &__slide-image {
+      width: 300px;
+      height: 340px;
+    }
+
+    &__slide-list {
+      padding: 0 0 0 20px;
+    }
+
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -2551,6 +2803,37 @@
 
   .review {
     width: 100%;
+  }
+
+  .workers-slider {
+
+    &__slider {
+      gap: 20px;
+    }
+
+    &__main {
+      gap: 10px;
+    }
+
+    &__slide {
+      flex-direction: column;
+    }
+
+    &__slide-description {
+      align-self: flex-start;
+      width: 100%;
+    }
+
+    &__slide-image {
+      width: 100%;
+      height: 300px;
+    }
+
+    &__button {
+      align-self: flex-start;
+      margin: 110px 0 0 0;
+    }
+
   }
 
 }
@@ -3124,6 +3407,19 @@
     &__apartment {
       margin: 0;
     }
+  }
+
+  .workers-slider {
+
+    &__jobs {
+      justify-content: flex-start;
+      gap: 7px;
+    }
+
+    &__button {
+      display: none;
+    }
+
   }
 
 }

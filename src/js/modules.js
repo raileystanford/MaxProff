@@ -254,6 +254,8 @@ class ChangeLanguage {
 
     }
 
+    if (this.params.details?.stabilizator) this.params.details.stabilizator();
+
   }
 
   getLanguages() {

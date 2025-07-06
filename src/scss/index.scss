@@ -96,47 +96,6 @@
     margin: 0px -7px -7px 0px;
     transition: all 0.3s;
 
-    .swiper-pagination1 {
-      width: fit-content;
-      display: flex;
-      gap: 15px;
-      margin: 0 0 2px 0;
-    }
-
-    .swiper-pagination-bullet {
-      will-change: transform;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0px !important;
-      opacity: 1;
-      width: 18px;
-      height: 18px;
-      border: 2px solid var.$white3;
-      background: var.$white2;
-      transition: all 0.2s;
-
-      &::after {
-        content: '';
-        will-change: transform;
-        display: block;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var.$blue2;
-        transition: all 0.2s;
-        transform: scale(0);
-      }
-
-      &-active {
-        border-color: var.$blue2;
-      }
-
-      &-active::after {
-        transform: scale(1);
-      }
-    }
-
     &.open .promotion--hidden {
       transition: opacity 0.3s, box-shadow 0.3s;
       @extend %vis1;
@@ -541,51 +500,8 @@
       align-items: center;
     }
 
-    &__swiper-pagination {
-      display: flex;
-      gap: 15px;
-      width: fit-content !important;
-      justify-content: center;
-      padding: 0 0 2px 0;
-    }
-
     .swiper-slide {
       padding: 0px 8px 0px 8px;
-    }
-
-    .swiper-pagination-bullet {
-      will-change: transform;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-shrink: 0;
-      width: 18px;
-      height: 18px;
-      margin: 0 !important;
-      opacity: 1;
-      background: var.$white2;
-      border: 2px solid var.$white3;
-      transition: all 0.2s;
-
-      &::after {
-        content: '';
-        will-change: transform;
-        flex-shrink: 0;
-        transition: all 0.2s;
-        width: 10px;
-        height: 10px;
-        background: var.$blue2;
-        border-radius: 50%;
-        transform: scale(0);
-      }
-
-      &-active::after {
-        transform: scale(1);
-      }
-
-      &-active {
-        border-color: var.$blue2;
-      }
     }
 
   }

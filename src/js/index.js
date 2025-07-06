@@ -27,6 +27,7 @@ new ChangeLanguage({
   dictionary: dictionary,
   details: {
     changeButtonText: changeButtonText,
+    stabilizator: indicatorsStabilizator,
   }
 });
 
@@ -101,6 +102,55 @@ new Swiper('.prices__slider', {
       spaceBetween: 15,
     }
   }
+});
+
+const command__swiper = new Swiper('.workers-slider__slider', {
+  
+  slidesPerView: 1,
+  spaceBetween: 2,
+  autoHeight: true,
+
+  pagination: {
+    el: '.swiper-pagination2',
+    type: 'bullets',
+    clickable: true,
+  },
+
+  navigation: {
+    nextEl: '.workers-slider__button--next',
+    prevEl: '.workers-slider__button--prev',
+  },
+
+  on: {
+    slideChange: updateWorkersIndicator,
+    init: updateWorkersIndicator,
+  }
+
+  // simulateTouch: true,
+  // spaceBetween: 21, 
+  // slidesOffsetBefore: 20,
+  // slidesOffsetAfter: 25,
+  // resistance: true,
+  // resistanceRatio: 0,
+  // touchRatio: 1,
+
+  // freeMode: {
+  //   enabled: true,
+  //   momentum: false,
+  // },
+
+  // breakpoints: {
+  //   769: {
+  //     slidesOffsetAfter: 25,
+  //   },
+  //   386: {
+  //     spaceBetween: 23,
+  //   },
+  //   300: {
+  //     slidesOffsetAfter: 15,
+  //     spaceBetween: 15,
+  //   }
+  // }
 });
 
 new ImageDemonstrator({
@@ -567,7 +617,7 @@ function changePromotionBlockToSlider() {
     items.forEach((item) => item.style.height = maxHeight + 'px');
 
     let pagination = document.createElement('div');
-    pagination.classList.add('swiper-pagination1');
+    pagination.classList.add('swiper-pagination1', 'pagination');
     container.append(pagination);
 
     button ? button.remove() : null;
@@ -793,7 +843,7 @@ function setSliderToReviewsBlock() {
       container.prepend(wrapper);
 
       let radios = document.createElement('div');
-      radios.classList.add('reviews__swiper-pagination');
+      radios.classList.add('reviews__swiper-pagination', 'pagination');
       container.append(radios);
 
     }
@@ -814,6 +864,102 @@ function setSliderToReviewsBlock() {
 
 }
 
+function updateWorkersIndicator() {
+
+  let activeIndex = this.activeIndex;
+  let bullets = Array.from(document.querySelectorAll('.workers-slider__indicator'));
+  let jobs = Array.from(document.querySelectorAll('.workers-slider__job'));
+
+  if (bullets.length > 0 && jobs.length > 0) {
+
+    if (this.prevBullet) this.prevBullet.classList.remove('active');
+    if (this.prevJob) this.prevJob.classList.remove('active');
+
+    let bullet = bullets.at(activeIndex);
+    let job = jobs.at(activeIndex);
+
+    bullet.classList.add('active');
+    job.classList.add('active');
+
+    this.prevBullet = bullet;
+    this.prevJob = job;
+
+  }
+}
+
+function operateWorkersUndicators() {
+
+  let bullets = Array.from(document.querySelectorAll('.workers-slider__indicator'));
+  let jobs = Array.from(document.querySelectorAll('.workers-slider__job'));
+
+  if (bullets.length > 0 && jobs.length > 0 && command__swiper) {
+
+    document.addEventListener('click', (event) => {
+      let target = event.target;
+
+      if (target.closest('.workers-slider__job')) {
+
+        let item = target.closest('.workers-slider__job');
+        handler(jobs, item);
+
+      } else if (target.closest('.workers-slider__indicator')) {
+
+        let item = target.closest('.workers-slider__indicator');
+        handler(bullets, item);
+
+      }
+
+    });
+
+  }
+
+  function handler(arr, item) {
+
+    let index = arr.findIndex((elem) => elem === item);
+    arr.forEach((item) => item.classList.remove('active'));
+    item.classList.add('active');
+    command__swiper.slideTo(index);
+    
+  }
+
+}
+
+function indicatorsStabilizator() {
+
+  let bullets = Array.from(document.querySelectorAll('.workers-slider__indicator'));
+  let jobs = Array.from(document.querySelectorAll('.workers-slider__job'));
+  let line = document.querySelector('.workers-slider__line');
+  let bulletsCon = document.querySelector('.workers-slider__indicators');
+  let conInfo = bulletsCon ? bulletsCon.getBoundingClientRect() : null;
+  let media = window.matchMedia('(min-width: 1025px)').matches;
+  let bulletsInfo = [];
+
+  if ((bullets.length === jobs.length) && conInfo && line && media) {
+
+    jobs.forEach((job, index) => {
+
+      let bullet = bullets.at(index);
+      let info = job.getBoundingClientRect();
+      let x = (info.x + info.width / 2) - conInfo.x;
+      let bulletX = x - (bullet.offsetWidth / 2);
+      
+      bullet.style.left = bulletX + 'px';
+      if (index === 0 || index === bullets.length - 1) bulletsInfo.push(bullet.getBoundingClientRect());
+
+    });
+
+    let bulletStart = bulletsInfo[0];
+    let bulletEnd = bulletsInfo[1];
+    let width = (bulletEnd.x + bulletEnd.width / 2) - (bulletStart.x + bulletStart.width / 2);
+    
+    line.style.width = width + 'px';
+    line.style.left = (bulletStart.x + (bulletStart.width / 2)) - conInfo.x + 'px';
+   
+  }
+
+}
+
+
 focusStateFix();
 smoothDropMenuMobile(671);
 calculatorHandler();
@@ -825,5 +971,6 @@ openMorePromotions();
 changePromotionBlockToSlider();
 explanationHandler();
 autoCountQaCards();
-
 setSliderToReviewsBlock();
+operateWorkersUndicators();
+indicatorsStabilizator();
