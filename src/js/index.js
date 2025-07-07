@@ -206,10 +206,9 @@ new LazyLoad({
 
 new Swiper('.action__slider', {
 
-  slidesPerView: 3,
-  spaceBetween: 12,
-  centeredSlides: true,
-  initialSlide: 1,
+  
+  
+  simulateTouch: false,
 
   navigation: {
     nextEl: '.action__slider-btn--next',
@@ -221,6 +220,29 @@ new Swiper('.action__slider', {
     type: 'bullets',
     clickable: true,
   },
+
+  breakpoints: {
+
+    1025: {
+      initialSlide: 1,
+      spaceBetween: 12,
+      slidesPerView: 3,
+      centeredSlides: true,
+    },
+
+    751: {
+      spaceBetween: 10,
+      slidesPerView: 1.4,
+    },
+
+    300: {
+      spaceBetween: 10,
+      initialSlide: 0,
+      slidesPerView: 1,
+      centeredSlides: false,
+    }
+
+  }
 
 });
 
