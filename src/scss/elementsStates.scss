@@ -539,3 +539,28 @@
     background: color.adjust(var.$green, $lightness: 40%)
   }
 }
+
+// Action
+
+.action__slider-btn {
+  @extend %will;
+  transition: all 0.2s, transform 0.1s;
+
+  .action__slider-icon {
+    @extend %will;
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+    background: var.$green;
+
+    .action__slider-icon {
+      stroke: var.$white;
+    }
+  }
+
+  &:active {
+    background: var.$green2;
+    transform: scale(0.95) translateY(-50%);
+  }
+}

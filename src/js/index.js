@@ -204,6 +204,26 @@ new LazyLoad({
   offset: 900,
 });
 
+new Swiper('.action__slider', {
+
+  slidesPerView: 3,
+  spaceBetween: 12,
+  centeredSlides: true,
+  initialSlide: 1,
+
+  navigation: {
+    nextEl: '.action__slider-btn--next',
+    prevEl: '.action__slider-btn--prev',
+  },
+
+  pagination: {
+    el: '.action__slider-pagination',
+    type: 'bullets',
+    clickable: true,
+  },
+
+});
+
 
 
 
