@@ -606,3 +606,19 @@
     transform: translateY(2px);
   }
 }
+
+// Supliers
+
+.brands__link {
+  @extend %will;
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transition: all 0.1s;
+    transform: scale(0.95);
+  }
+}

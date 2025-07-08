@@ -355,6 +355,45 @@
   }
 }
 
+.supliers {
+  @extend %rel;
+  @extend %px-cen;
+  @extend %ali-cen;
+  width: 100vw;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: url(../images/backgrounds/overlay2.png) -150px 0 / cover no-repeat,
+              url(../images/backgrounds/overlay3.png) 150px 0 / cover no-repeat,
+              url(../images/backgrounds/background2.jpg) right bottom / cover no-repeat;
+              
+  // 
+  margin: 0 0 300px 0;
+
+  &__block {
+    @include mix.flex(nowrap, 40px);
+  }
+
+  &__prom-block {
+    align-self: flex-start;
+  }
+
+  &__brands {
+    align-self: center;
+  }
+
+  .section__content {
+    flex-direction: column;
+    width: 1200px;
+  }
+
+  .section__info {
+    align-self: flex-start;
+    align-items: flex-start;
+    margin: 0 0 48px 0;
+  }
+
+}
+
 
 
 
