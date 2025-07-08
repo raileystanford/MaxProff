@@ -1671,6 +1671,68 @@
   }
 }
 
+.informer {
+  @include mix.flex-col(20px);
+  @extend %rel;
+  @extend %over;
+  width: 530px;
+  box-shadow: 0 0 8px var.$silver2;
+  border-radius: 8px;
+  padding: 25px 20px;
+
+  &::after {
+    content: '';
+    @extend %abs;
+    @extend %w-100;
+    height: 40px;
+    background: var.$green;
+    bottom: -30px;
+    left: 0;
+  }
+
+  &__link {
+    @include mix.flex(nowrap, 5px);
+    @extend %ali-cen;
+    width: fit-content;
+    font-weight: 700;
+    color: var.$green;
+  }
+
+  &__link-icon {
+    @extend %shrink0;
+    width: 24px;
+    height: 24px;
+    stroke: transparent;
+    fill: var.$green
+  }
+
+  &__list-wrapper {
+    @include mix.flex-col(15px);
+  }
+
+  &__list {
+    @include mix.flex-col(7px);
+    padding: 0 0 0 30px;
+  }
+
+  &__list-title, &__list-item {
+    color: var.$black;
+  }
+
+  &__list-item {  
+    @include mix.flex(nowrap, 10px);
+
+    &::before {
+      content: '';
+      @extend %shrink0;
+      width: 13px;
+      height: 13px;
+      background: url(../images/icons/ok.svg) 0 0 / contain no-repeat;
+      margin: 2px 0 0 0;
+    }
+  }
+}
+
     
 
 
