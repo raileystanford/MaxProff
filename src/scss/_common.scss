@@ -1736,10 +1736,11 @@
 .prom-block {
   @include mix.flex-col(20px);
   @extend %ali-cen;
-  padding: 20px;
+  padding: 30px 20px;
   width: 570px;
   border-radius: 8px;
   background: var.$white;
+  box-shadow: 0 0 8px var.$silver;
 
   &__header {
     @include mix.flex(nowrap, 15px);
@@ -2957,6 +2958,27 @@
 
   }
 
+  .prom-block {
+    gap: 30px;
+    padding: 15px;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    &__button {
+      flex-shrink: 0;
+    }
+
+    .marked-text {
+      font-size: 44px;
+      line-height: 49px;
+    }
+  }
+
+  .brands {
+    justify-content: center;
+  }
+
 }
 
 @media (max-width: 760px) {
@@ -3252,6 +3274,16 @@
 
   .qa-card {
     width: 217px;
+  }
+
+  .prom-block {
+    gap: 20px;
+    flex-direction: column;
+  }
+
+  .brands {
+    width: 100%;
+    gap: 30px;
   }
 
 }
@@ -3551,6 +3583,22 @@
     }
   }
 
+  .prom-block {
+
+    &__header {
+      flex-direction: column;
+    }
+
+    &__title {
+      text-align: center;
+    }
+
+    &__button {
+      width: 100%;
+    }
+
+  }
+
 }
 
 @media (max-width: 385px) {
@@ -3646,6 +3694,10 @@
     &__link {
       font-size: 23px;
     }
+  }
+
+  .brands {
+    gap: 15px;
   }
 
 }
