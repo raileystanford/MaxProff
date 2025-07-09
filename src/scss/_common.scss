@@ -1787,6 +1787,137 @@
   }
 }
 
+.faq {
+  @include mix.flex-col(10px);
+  @extend %w-100;
+
+  &__element {
+    @include mix.flex-col(0px);
+    @extend %w-100;
+    @extend %over;
+    background: var.$white4;
+    border-radius: 8px;
+  }
+
+  &__header {
+    @include mix.flex(nowrap, 20px);
+    @extend %ali-cen;
+    padding: 15px;
+    cursor: pointer;
+  }
+
+  &__title, &__text {
+    color: var.$black;
+  }
+
+  &__title {
+    @extend %rel;
+    @extend %w-100;
+    transition: all 0.3s;
+    font-size: 25px;
+    line-height: 27px;
+    padding: 15px 0;
+    margin: -15px 0;
+    
+    &::after {
+      content: '';
+      @extend %abs;
+      width: 0%;
+      bottom: 0;
+      left: 0;
+      height: 1.5px;
+      background: var.$blue2;
+      transition: all 0.3s;
+    }
+  }
+
+  .open &__title {
+    color: var.$green;
+  }
+
+  .open &__title::after {
+    @extend %w-100;
+  }
+
+  &__icon {
+    @extend %rel;
+    @extend %shrink0;
+    width: 27px;
+    height: 27px;
+
+    &::before, &::after {
+      content: '';
+      @extend %abs;
+      @extend %w-100;
+      @extend %py-cen;
+      height: 5px;
+      background: var.$white3;
+      transition: all 0.3s;
+      z-index: 2;
+    }
+
+    &::after {
+      transform: translateY(-50%) rotate(90deg);
+      z-index: 1;
+    }
+  }
+
+  .open &__icon::after {
+    transform: translateY(-50%) rotate(90deg) scaleX(0);
+  }
+
+  .open &__icon::before {
+    background: var.$green;
+  }
+
+  &__content {
+    @extend %w-100;
+    @extend %over;
+    @extend %opa0;
+    height: 0px;
+    transition: all 0.3s;
+  }
+
+  .open &__content {
+    @extend %opa1;
+  }
+
+  &__content-inner {
+    @include mix.flex-col(13px);
+    @extend %w-100;
+    padding: 15px 15px 15px 60px;
+  }
+
+  &__text {
+    line-height: 23px;
+  }
+
+  &__list {
+    @include mix.flex-col(6px);
+  }
+
+  &__list-element {
+    @include mix.flex(nowrap, 7px);
+
+    &:first-child {
+      margin: 0 0 5px 0;
+    }
+
+    &:not(:first-child) {
+      margin: 0 0 0 30px;
+    }
+
+    &:not(:first-child)::before {
+      content: '';
+      @extend %shrink0;
+      margin: 3px 0 0 0;
+      width: 13px;
+      height: 13px;
+      background: url(../images/icons/ok.svg) 0 0 / contain no-repeat;
+    }
+  }
+}
+
     
 
 

@@ -12,6 +12,7 @@ import {
   ImageDemonstrator,
   ImageZoom,
   LazyLoad,
+  DropAnswer,
 } from "./modules.js";
 
 new Popup({
@@ -245,6 +246,12 @@ new Swiper('.action__slider', {
   }
 
 });
+
+new DropAnswer({
+  backdropClose: true,
+  multiple: false,
+  escapeClose: true,
+})
 
 
 

@@ -622,3 +622,22 @@
     transform: scale(0.95);
   }
 }
+
+// Faq
+
+.faq__header {
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    background: var.$silver3;
+
+    .faq__title:not(.open .faq__title) {
+      color: var.$blue2;
+      letter-spacing: 0.5px;
+    }
+
+    .faq__icon::before, .faq__icon::after {
+      background: var.$green;
+    }
+  }
+}
