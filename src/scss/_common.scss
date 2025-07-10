@@ -1815,9 +1815,14 @@
     @extend %w-100;
     transition: all 0.3s;
     font-size: 25px;
+    font-weight: 500;
     line-height: 27px;
     padding: 15px 0;
     margin: -15px 0;
+
+    &--mobile {
+      display: none;
+    }
     
     &::after {
       content: '';
@@ -3726,6 +3731,39 @@
 
     &__button {
       width: 100%;
+    }
+
+  }
+
+  .faq {
+    gap: 12px;
+
+    &__header {
+      gap: 10px;
+      padding: 10px;
+    }
+
+    &__title {
+      font-size: 22px;
+      line-height: 25px;
+      padding: 10px 0;
+      margin: -10px 0;
+
+      &--mobile {
+        display: block;
+      }
+
+      &--desktop {
+        display: none;
+      }
+    }
+
+    &__content-inner {
+      padding: 15px 15px 15px 47px;
+    }
+
+    &__list-element:not(:first-child) {
+      margin: 0;
     }
 
   }
