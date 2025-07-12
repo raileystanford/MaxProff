@@ -1923,6 +1923,244 @@
   }
 }
 
+.order {
+  @include mix.flex-col(30px);
+  @extend %ali-cen;
+  @extend %rel;
+  @extend %px-cen;
+  width: 100vw;
+  background: var.$green;
+  padding: 20px 15px;
+
+  &__content {
+    @include mix.flex(wrap, 15px 30px);
+    @extend %jus-bet;
+    @extend %ali-cen;
+    width: 1200px;
+  }
+
+  &__info {
+    @include mix.flex(nowrap, 30px);
+    @extend %ali-cen;
+  }
+
+  &__title, &__subtitle, &__button {
+    color: var.$white;
+  }
+
+  &__subtitle {
+    max-width: 570px;
+  }
+
+  &__button {
+    @extend %flex-cen;
+    width: 205px;
+    min-height: 48px;
+    border: 2px solid var.$white;
+    border-radius: 30px;
+    padding: 10px 20px;
+  }
+}
+
+.bottom {
+  @include mix.flex-col(30px);
+  @extend %ali-cen;
+  @extend %rel;
+  @extend %px-cen;
+  width: 100vw;
+  background: var.$blue4;
+  padding: 30px 0px 0px 0px;
+
+  &__main {
+    @include mix.flex(nowrap, 30px);
+    @extend %jus-bet;
+    width: 1200px;
+  }
+
+  &__element {
+    @include mix.flex-col(30px);
+    @extend %jus-bet;
+    max-width: 200px;
+  }
+
+  &__pay {
+    @include mix.flex-col(7px);
+  }
+
+  &__pay-title {
+    color: var.$white;
+  }
+
+  &__pay-icons {
+    @include mix.flex(wrap, 7px);
+  }
+
+  &__pay-icon {
+    width: auto;
+    height: 30px;
+  }
+
+  &__nav {
+    @include mix.flex(wrap, 30px);
+    @extend %jus-bet;
+    width: 900px;
+  }
+
+  &__menu {
+    @include mix.flex-col(4px);
+    max-width: 150px;
+  }
+
+  &__menu-title {
+    display: block;
+    color: var.$green;
+    text-transform: uppercase;
+    margin: 0 0 5px 0;
+  }
+
+  &__menu-link {
+    display: block;
+    padding: 3px 0;
+    color: var.$silver2;
+  }
+
+  &__menu--anchors {
+    gap: 5px;
+  }
+
+  &__menu--anchors .bottom__menu-link {
+    text-transform: uppercase;
+    color: var.$white;
+  }
+
+  &__contacts {
+    @include mix.flex-col(5px);
+    max-width: 205px;
+  }
+
+  &__tel-block {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .tel-block__link, .tel-block__info {
+      color: var.$white;
+    }
+
+    .tel-block__link {
+      gap: 5px;
+    }
+
+    .tel-block__link::before {
+      background: url(../images/icons/green-tel.svg) 0 0 / contain no-repeat;
+    }
+
+    .tel-block__main {
+      margin: 0;
+      max-width: 200px;
+    }
+
+    .tel-block__info {
+      align-self: flex-end;
+      text-align: end;
+    }
+
+    .tel-block__buttons {
+      display: none;
+    }
+  }
+
+  &__contacts-item {
+    @include mix.flex(nowrap, 5px);
+    @extend %ali-cen;
+    color: var.$white;
+    padding: 3px 0;
+    width: fit-content;
+
+    &::before {
+      content: '';
+      @extend %shrink0;
+      width: 19px;
+      height: 19px;
+    }
+
+    &--email::before {
+      background: url(../images/icons/mail.svg) 0 0 / contain no-repeat;
+    }
+
+    &--loc::before {
+      background: url(../images/icons/map-pin2.svg) 0 0 / contain no-repeat;
+    }
+
+  }
+
+  &__footer {
+    @extend %d-flex;
+    @extend %rel;
+    @extend %px-cen;
+    @extend %jus-cen;
+    width: 100vw;
+    padding: 20px 15px;
+
+    &::before {
+      content: '';
+      @extend %abs;
+      @extend %w-100;
+      height: 1px;
+      background: var.$white;
+      top: 0;
+      left: 0;
+    }
+    
+  }
+
+  &__footer-wrapper {
+    @include mix.flex(wrap, 10px 60px);
+    @extend %ali-cen;
+    width: 1200px;
+  }
+
+  &__info {
+    @include mix.flex(wrap, 6px 10px);
+    max-width: 350px;
+  }
+
+  &__info-text {
+    color: var.$silver2;
+  }
+
+  &__info-link {
+    color: var.$white;
+    text-decoration: underline;
+  }
+
+  &__socials {
+    @include mix.flex(wrap, 7px);
+    @extend %ali-cen;
+    max-width: 203px;
+  }
+
+  &__social {
+    @extend %flex-cen;
+    width: 22px;
+    height: 22px;
+    padding: 3px;
+    box-sizing: content-box;
+  }
+
+  &__social-icon {
+    @extend %wh-100;
+    fill: var.$white;
+  }
+
+  &__warning {
+    color: var.$silver2;
+    max-width: 486px;
+  }
+
+
+}
+
     
 
 

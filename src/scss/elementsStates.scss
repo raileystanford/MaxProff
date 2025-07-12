@@ -641,3 +641,113 @@
     }
   }
 }
+
+//Footer
+
+.order__button {
+  @extend %will;
+  transition: all 0.2s, transform 0.1s;
+
+  &:hover, &:focus {
+    background: var.$white;
+    color: var.$green;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.bottom__contacts-item {
+
+  &:hover, &:focus {
+    text-decoration: underline;
+
+    &::before {
+      animation: jump 0.3s;
+    }
+
+  }
+
+  &:active {
+    color: var.$green;
+  }
+
+  @keyframes jump {
+    0%{transform: translateY(0px);};
+    50%{transform: translateY(-4px);};
+    100%{transform: translateY(0px);};
+  }
+}
+
+.bottom__menu-link:not(.bottom__menu--anchors .bottom__menu-link) {
+  @extend %will;
+  transition: transform 0.1s;
+
+  &:hover, &:focus {
+    color: var.$white;
+    text-decoration: underline;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+.bottom__menu--anchors .bottom__menu-link {
+  transition: all 0.2s, transform 0.1s;
+
+  &:hover, &:focus {
+    color: var.$green;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+.footer .tel-block__link {
+  transition: none;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: var.$green;
+  }
+}
+
+.bottom__info-link {
+  @extend %will;
+  transition: all 0.2s, transform 0.1s;
+
+  &:hover, &:focus {
+    color: var.$green;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+.bottom__social {
+  @extend %will;
+  transition: all 0.1s;
+
+  &-icon {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+    transform: scale(1.1);
+
+    .bottom__social-icon {
+      fill: var.$green;
+    }
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
