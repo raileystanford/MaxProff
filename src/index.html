@@ -9,18 +9,645 @@
   <link rel="shortcut-icon" href="./favicon.ico" type="image/x-icon">
   <link rel="shortcut-icon" href="./images/favicon.png" type="image/png">
   <!-- Styles -->
+  <link rel="stylesheet" href="./libs/nouislider/nouislider.min.css">
   <link rel="stylesheet" href="./css/desktop-states.css" media="(min-width: 769px)">
   <link rel="stylesheet" href="./css/mobile-states.css" media="(max-width: 768px)">
   <link rel="stylesheet" href="./css/index.css">
   <!-- Scripts -->
+  <script defer src="./libs/nouislider/nouislider.min.js"></script>
   <script type="module" src="./js/index.js"></script>
   
 </head>
 <body>
 
     
+  <div class="page-wrapper">
+
+    <header class="header">
+
+      <nav class="navbar">
+
+        <div class="navbar__top">
+
+          <a href="./index.html" class="logotype navbar__logotype">
+            <img src="./images/icons/logo.svg" alt="MaxProff" class="logotype__icon">
+          </a>
+
+          <ul class="nav-links navbar__nav-links">
+
+            <li class="nav-links__li">
+              <a href="#price" class="nav-links__link norm-text" data-lang="nav-link1">Цены</a>
+            </li>
+
+            <li class="nav-links__li">
+              <a href="#team" class="nav-links__link norm-text" data-lang="nav-link2">Команда</a>
+            </li>
+
+            <li class="nav-links__li">
+              <a href="#portfolio" class="nav-links__link norm-text" data-lang="nav-link3">Портфолио</a>
+            </li>
+
+            <li class="nav-links__li">
+              <a href="#discont" class="nav-links__link norm-text" data-lang="nav-link4">Акции</a>
+            </li>
+
+            <li class="nav-links__li">
+              <a href="#advantages" class="nav-links__link norm-text" data-lang="nav-link5">Преимущества</a>
+            </li>
+
+            <li class="nav-links__li">
+              <a href="#blog" class="nav-links__link norm-text" data-lang="nav-link6">Блог</a>
+            </li>
+
+            <li class="nav-links__li">
+              <a href="#contacts" class="nav-links__link norm-text" data-lang="nav-link7">Контакты</a>
+            </li>
+
+          </ul>
+
+          <div class="tel-block navbar__tel-block">
+
+            <a href="tel:+380502222222" class="tel-block__link mid-text">+38 (050) 222-22-22</a>
+            <em class="tel-block__text small-text" data-lang="tel-text">08:00 - 22:00, без выходных</em>
+
+          </div>
+
+          <button class="outline-btn mid-text" data-popup="popup--main" data-lang="tel-trig">Заказать звонок</button>
+
+        </div>
+
+        <div class="navbar__bot">
+
+          <div class="navbar__dropdowns">
+
+            <div class="dropdown navbar__dropdown" data-drop-block>
+
+              <button class="dropdown__trigger" data-drop-trigger>
+                <span class="dropdown__trigger-text norm-text" data-lang="drop-trig1">Ремонт квартир</span>
+                <svg class="dropdown__trigger-icon">
+                  <use xlink:href="./images/sprite.svg#arrow"></use>
+                </svg>
+              </button>
+
+              <div class="dropdown__body" data-drop-content>
+
+                <ul class="dropdown__menu no-scrollbar">
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link1">Черновой</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link2">Косметический</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link3">Капитальный</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link4">Элитный</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link5">В новостройках</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link6">Студии</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link7">Вторичное жилье</a>
+                  </li>
+
+                </ul>
+
+              </div>
+
+            </div>
+
+            <div class="dropdown navbar__dropdown" data-drop-block>
+
+              <button class="dropdown__trigger" data-drop-trigger>
+                <span class="dropdown__trigger-text norm-text" data-lang="drop-trig2">Дизайн интерьера</span>
+                <svg class="dropdown__trigger-icon">
+                  <use xlink:href="./images/sprite.svg#arrow"></use>
+                </svg>
+              </button>
+
+              <div class="dropdown__body" data-drop-content>
+
+                <ul class="dropdown__menu no-scrollbar">
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link8">Дизайн кухни</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link9">Дизайн спальни</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link10">Дизайн гостинной</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link11">Дизайн детской</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link12">Дизайн санузла</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link13">Дизайн коридора</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link14">Дизайн балкона</a>
+                  </li>
+
+                </ul>
+
+              </div>
+
+            </div>
+
+            <div class="dropdown navbar__dropdown" data-drop-block>
+
+              <button class="dropdown__trigger" data-drop-trigger>
+                <span class="dropdown__trigger-text norm-text" data-lang="drop-trig3">Ремонт комнат</span>
+                <svg class="dropdown__trigger-icon">
+                  <use xlink:href="./images/sprite.svg#arrow"></use>
+                </svg>
+              </button>
+
+              <div class="dropdown__body" data-drop-content>
+
+                <ul class="dropdown__menu no-scrollbar">
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link15">Кухни</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link16">Спальни</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link17">Гостинная</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link18">Детские</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link19">Санузлы</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link20">Коридоры</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link21">Балконы</a>
+                  </li>
+
+                </ul>
+
+              </div>
+
+            </div>
+
+            <div class="dropdown navbar__dropdown" data-drop-block>
+
+              <button class="dropdown__trigger" data-drop-trigger>
+                <span class="dropdown__trigger-text norm-text" data-lang="drop-trig4">Дома и коттеджи</span>
+                <svg class="dropdown__trigger-icon">
+                  <use xlink:href="./images/sprite.svg#arrow"></use>
+                </svg>
+              </button>
+
+              <div class="dropdown__body" data-drop-content>
+
+                <ul class="dropdown__menu no-scrollbar">
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link22">Озеленение</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link23">Ремонт фасада</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link24">Ремонт крыши</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link25">Ремонт пола</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link26">Замена окон</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link27">Теплоизоляция</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link28">Откосы</a>
+                  </li>
+
+                </ul>
+
+              </div>
+
+            </div>
+
+            <div class="dropdown navbar__dropdown" data-drop-block>
+
+              <button class="dropdown__trigger" data-drop-trigger>
+                <span class="dropdown__trigger-text norm-text" data-lang="drop-trig5">Прочие услуги</span>
+                <svg class="dropdown__trigger-icon">
+                  <use xlink:href="./images/sprite.svg#arrow"></use>
+                </svg>
+              </button>
+
+              <div class="dropdown__body" data-drop-content>
+
+                <ul class="dropdown__menu no-scrollbar">
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link29">Покраска</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link30">Вывоз мусора</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link31">Электрификация</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link32">Газификация</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link33">Клининг</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link34">Демонтаж</a>
+                  </li>
+
+                  <li class="dropdown__li">
+                    <a href="./404.html" target="_blank" class="dropdown__link norm-text" data-lang="drop-link35">Страхование</a>
+                  </li>
+
+                </ul>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="lang-selector" data-lang-controls>
+            <button class="lang-selector__trigger tall-text" data-lang-var="ru">RU</button>
+            <button class="lang-selector__trigger tall-text" data-lang-var="ua">UA</button>
+          </div>
+
+        </div>
+
+      </nav>
+
+      <article class="intro">
+
+        <div class="intro__heading">
+
+          <h1 class="intro__title big-text" data-lang="int-h1">Ремонт квартир в Киеве</h1>
+          <em class="intro__subtitle lay-text" data-lang="int-sub*">от <span class="text-bg intro__text-bg lay-text">1620</span> грн/м²</em>
+
+        </div>
+
+        <form class="calculator intro__calculator" action="#" method="#" novalidate data-form>
+
+          <strong class="calculator__title head-text" data-lang="calc-title">Рассчитайте стоимость ремонта</strong>
+
+          <div class="calculator__body">
+
+            <fieldset class="calculator__section">
+
+              <legend class="calculator__subtitle norm-text" data-lang="calc-sub1">Вид ремонта:</legend>
+
+              <div class="calculator__selectors">
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="rem-type" class="radio-var__input" id="type_cosmetic" value="cosmetic" checked>
+
+                  <label for="type_cosmetic" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text" data-lang="calc-var1">Косметический</span>
+                  </label>
+                  
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="rem-type" class="radio-var__input" id="type_capital" value="capital">
+
+                  <label for="type_capital" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text" data-lang="calc-var2">Капитальный</span>
+                  </label>
+
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="rem-type" class="radio-var__input" id="type_key" value="key">
+
+                  <label for="type_key" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text" data-lang="calc-var3">Под ключ</span>
+                  </label>
+
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="rem-type" class="radio-var__input" id="type_design" value="design">
+
+                  <label for="type_design" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text" data-lang="calc-var4">Дизайнерский</span>
+                  </label>
+
+                </div>
+
+              </div>
+
+            </fieldset>
+
+            <fieldset class="calculator__section">
+
+              <legend class="calculator__subtitle norm-text" data-lang="calc-sub2">Тип вашей недвижимости:</legend>
+
+              <div class="calculator__selectors">
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="appart-type" class="radio-var__input" id="type_new" value="newhome" checked>
+
+                  <label for="type_new" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text" data-lang="calc-var5">Новостройка</span>
+                  </label>
+                  
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="appart-type" class="radio-var__input" id="type_second" value="oldhome">
+
+                  <label for="type_second" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text" data-lang="calc-var6">Вторичное жилье</span>
+                  </label>
+
+                </div>
+
+              </div>
+
+            </fieldset>
+
+            <fieldset class="calculator__section calculator__section--rooms">
+
+              <legend class="calculator__subtitle norm-text" data-lang="calc-sub3">Количество комнат:</legend>
+
+              <div class="calculator__selectors">
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="room-count" class="radio-var__input" id="room_1" value="1" checked>
+
+                  <label for="room_1" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text">1</span>
+                  </label>
+                  
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="room-count" class="radio-var__input" id="room_2" value="2">
+
+                  <label for="room_2" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text">2</span>
+                  </label>
+                  
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="room-count" class="radio-var__input" id="room_3" value="3">
+
+                  <label for="room_3" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text">3</span>
+                  </label>
+                  
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="room-count" class="radio-var__input" id="room_4" value="4">
+
+                  <label for="room_4" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text">4</span>
+                  </label>
+                  
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="room-count" class="radio-var__input" id="room_5" value="5">
+
+                  <label for="room_5" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text">5</span>
+                  </label>
+                  
+                </div>
+
+                <div class="radio-var calculator__radio-var">
+
+                  <input type="radio" name="room-count" class="radio-var__input" id="room_6" value="6">
+
+                  <label for="room_6" class="radio-var__label">
+                    <span class="radio-var__effect"></span>
+                    <span class="radio-var__text small-text">6</span>
+                  </label>
+                  
+                </div>
+
+              </div>
+
+            </fieldset>
+
+            <fieldset class="calculator__section calculator__section--range">
+
+              <legend class="calculator__subtitle norm-text" data-lang="calc-sub4">Площадь, м²:</legend>
+
+              <div class="custom-range calculator__custom-range" id="squareRange">
+
+                <div class="custom-range__line"></div>
+                <span class="custom-range__value norm-text">72</span>
+                <input type="hidden" name="square-value" class="custom-range__input" id="range_value">
+
+              </div>
+
+            </fieldset>
+
+            <div class="calculator__results">
+
+              <div class="calculator__result">
+                <em class="calculator__result-title norm-text" data-lang="calc-sub5">Срок ремонта:</em>
+                <span class="calculator__result-value calculator__result-value--dur mid-text">до 10 дней</span>
+              </div>
+
+              <div class="calculator__result">
+                <em class="calculator__result-title norm-text" data-lang="calc-sub6">Стоимость ремонта:</em>
+                <span class="calculator__result-value mid-text"><span class="res-price">116 640</span> грн</span>
+              </div>
+
+            </div>
+
+            <fieldset class="calculator__section">
+
+              <legend class="calculator__subtitle norm-text" data-lang="calc-sub7">Введите номер телефона</legend>
+
+              <div class="calculator__tel">
+
+                <div class="input-area calculator__input-area">
+                  <input type="tel" class="input-area__input mid-text" id="calc_tel" autocomplete="off" data-validate>
+                  <span class="input-area__warning small-text" data-warn="calc_tel"></span>
+                </div>
+
+                <button class="button calculator__button mid-text" type="submit" data-lang="calc-submit">Заказать</button>
+
+              </div>
+
+            </fieldset>
+
+          </div>
+
+        </form>
+
+        <div class="intro__options">
+
+          <div class="option intro__option">
+            <img src="./images/icons/handshake.png" alt="Оплата" data-lang="opt-img1" class="option__icon">
+            <em class="option__text mid-text" data-lang="opt1">Оплата по факту приема работ</em>
+          </div>
+
+          <div class="option intro__option">
+            <img src="./images/icons/docs.png" alt="Смета" data-lang="opt-img2" class="option__icon">
+            <em class="option__text mid-text" data-lang="opt2">Замер и составление сметы БЕСПЛАТНО</em>
+          </div>
+
+          <div class="option intro__option">
+            <img src="./images/icons/worker.png" alt="Сметчик" data-lang="opt-img3" class="option__icon">
+            <em class="option__text mid-text" data-lang="opt3">Выезд сметчика</em>
+          </div>
+
+          <div class="option intro__option">
+            <img src="./images/icons/garant.png" alt="Гарантия" data-lang="opt-img4" class="option__icon">
+            <em class="option__text mid-text" data-lang="opt4">Гарантия 3 года</em>
+          </div>
+
+        </div>
+
+      </article>
+
+    </header>
+
+    <main class="main"></main>
+
+    <footer class="footer"></footer>
+
+  </div>
 
   
+
+  <dialog class="popup popup--main">
+
+    <button class="popup__close-btn" data-popup-close>&times;</button>
+
+    <img src="./images/pictures/manager.jpg" alt="Менеджер" data-lang="popup-man" class="popup__image">
+
+    <div class="popup__header">
+
+      <p class="popup__title tall-text" data-lang="popup-title">Оставьте вашу заявку</p>
+      <p class="popup__subtitle norm-text" data-lang="popup-sub">Наш менеджер свяжется с вами в течение 10 минут</p>
+
+    </div>
+
+    <form action="#" method="#" novalidate class="popup__body" data-form>
+
+      <div class="input-area popup__input-area">
+        <input type="text" class="input-area__input mid-text" id="popup_name" autocomplete="off" data-validate>
+        <label for="popup_name" class="input-area__label small-text" data-lang="popup-name">Имя</label>
+        <span class="input-area__warning small-text" data-warn="popup_name"></span>
+      </div>
+
+      <div class="input-area popup__input-area">
+        <input type="tel" class="input-area__input mid-text" id="popup_number" autocomplete="off" data-validate>
+        <label for="popup_number" class="input-area__label small-text" data-lang="popup-tel">Телефон</label>
+        <span class="input-area__warning small-text" data-warn="popup_number"></span>
+      </div>
+
+      <div class="agreement popup__agreement">
+
+        <div class="agreement__selector">
+          <input type="checkbox" id="popup_agree" class="agreement__checkbox" data-validate>
+          <label for="popup_agree" class="agreement__label" tabindex="0"></label>
+        </div>
+
+        <span class="agreement__text small-text" data-lang="popup-agree*">Даю согласие на обработку персональных данных, а также соглашаюсь с <a href="./404.html" target="_blank" class="agreement__link">Политикой конфиденциальности</a>.</span>
+
+      </div>
+
+      <button class="outline-btn popup__outline-btn popup__outline-btn--reset mid-text" data-popup-close type="button" data-lang="popup-reset">Отмена</button>
+      <button class="outline-btn popup__outline-btn mid-text" type="submit" data-lang="popup-submit">Отправить</button>
+
+    </form>
+
+  </dialog>
+
+  <dialog class="popup popup--result">
+
+    <button class="popup__close-btn" data-popup-close>&times;</button>
+
+    <img src="./images/pictures/operator.jpg" alt="Оператор" data-lang="popup-oper" class="popup__image">
+
+    <div class="popup__header">
+
+      <p class="popup__title tall-text" data-lang="popup-title1">Ваша заявка принята</p>
+      <p class="popup__subtitle norm-text" data-lang="popup-sub1">Ожидайте звонка от нашего менеджера</p>
+
+    </div>
+
+  </dialog>
+
 
 
   

@@ -6,3 +6,745 @@
 @use './modules/_typography.scss';
 
 
+.header {
+  @include mix.flex-col(30px);
+  width: 100%;
+  padding: 18px 0;
+}
+
+.logotype {
+  @extend %flex-cen;
+  max-width: 123px;
+
+  &__icon {
+    width: 100%;
+  }
+}
+
+.nav-links {
+  @include mix.flex(wrap, 0px 25px);
+  align-items: center;
+
+  &__li {
+    display: flex;
+  }
+
+  &__link {
+    color: var.$black;
+    padding: 5px 0;
+  }
+}
+
+.tel-block {
+  @include mix.flex-col(5px);
+
+  &__link {
+    @include mix.flex(nowrap, 5px);
+    color: var.$black;
+    align-items: center;
+
+    &::before {
+      content: '';
+      width: 17px;
+      height: 18px;
+      background: url(../images/icons/phone.svg) 0 0 / contain no-repeat;
+      flex-shrink: 0;
+    }
+  }
+
+  &__text {
+    color: var.$black;
+  }
+}
+
+.outline-btn {
+  @extend %flex-cen;
+  border-radius: 3px;
+  border: 1px solid var.$green;
+  padding: 11px 8px;
+  color: var.$green;
+}
+
+.no-scrollbar {
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.dropdown {
+  position: relative;
+
+  &__trigger {
+    @include mix.flex(nowrap, 5px);
+    align-items: center;
+    justify-content: center;
+    padding: 25px 16px;
+    width: 100%;
+  }
+
+  &__trigger-text {
+    font-weight: 500;
+    color: var.$black;
+  }
+
+  &__trigger-icon {
+    will-change: transform;
+    width: 14px;
+    height: 8px;
+    fill: transparent;
+    stroke: var.$black;
+    stroke-width: 2px;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    will-change: transform;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    z-index: 1;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.707);
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+    transition: all 0.15s;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  &__menu {
+    @include mix.flex-col(0px);
+    padding: 5px 0;
+    border-bottom: 6px solid var.$green;
+    max-height: 280px;
+    overflow: auto;
+  }
+
+  &__li {
+    display: flex;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var.$dark-white;
+    }
+  }
+
+  &__link {
+    padding: 6px 10px;
+    width: 100%;
+    color: var.$blue;
+    
+  }
+
+  &.opened {
+
+    .dropdown__trigger {
+      background: var.$green;
+    }
+
+    .dropdown__trigger-text {
+      color: var.$white;
+    }
+
+    .dropdown__trigger-icon {
+      stroke: var.$white;
+      transform: rotate(-180deg);
+    }
+
+    .dropdown__body {
+      transition: all 0.25s;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(1px);
+      
+    }
+
+  }
+}
+
+.lang-selector {
+  @include mix.flex(nowrap, 0px);
+  align-items: center;
+  border-radius: 3px;
+  border: 1px solid var.$green;
+
+  &__trigger {
+    position: relative;
+    padding: 10px 14px;
+    color: var.$green;
+    text-transform: uppercase;
+
+    &:not(:last-child) {
+
+      &::after {
+        content: '';
+        @extend %py-cen;
+        position: absolute;
+        right: 0;
+        width: 1px;
+        height: 58%;
+        background: var.$green;
+      }
+
+    }
+
+    &.active {
+      color: var.$black;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.navbar {
+  @include mix.flex-col;
+  width: 100%;
+
+  &__top {
+    display: grid;
+    grid-template-columns: 126px 627px 206px 173px;
+    grid-template-rows: auto;
+    align-items: center;
+    padding: 11px 0px;
+    justify-content: space-between;
+    gap: 15px 23px;
+    border-bottom: 1px solid var.$green;
+  }
+
+  &__bot {
+    display: grid;
+    grid-template-columns: 1000px auto;
+    grid-template-rows: auto;
+    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var.$green;
+  }
+
+  &__nav-links {
+    margin: 0 0 0 14.5px;
+  }
+
+  &__tel-block {
+    margin: 0 0 0 14px;
+  }
+
+  &__dropdowns {
+    @include mix.flex(wrap, 0px);
+    align-items: center;
+  }
+
+  &__dropdown {
+    width: 200px;
+  }
+}
+
+.text-bg {
+  font-size: 58px;
+  line-height: 68px;
+  border-radius: 10px;
+  background: var.$green;
+  color: var.$white;
+  padding: 0 11px 0 10px;
+}
+
+.option {
+  @include mix.flex-col(9px);
+
+  &__icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  &__text {
+    color: var.$black;
+  }
+}
+
+.radio-var {
+
+  &__input {
+    position: absolute;
+    visibility: hidden;
+
+    &:checked ~ .radio-var__label .radio-var__effect {
+      border-color: var.$blue;
+
+      &::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    &:checked ~ .radio-var__label {
+      color: var.$blue;
+    }
+  }
+
+  &__label {
+    @include mix.flex(nowrap, 10px);
+    align-items: center;
+    color: var.$gray;
+    width: fit-content;
+  }
+
+  &__effect {
+    @extend %flex-cen;
+    will-change: transform;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var.$silver;
+    background: var.$dark-white;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &::before {
+      content: '';
+      will-change: transform;
+      width: 10px;
+      height: 10px;
+      background: var.$blue;
+      border-radius: 50%;
+      transform: scale(0.1);
+      transition: all 0.25s;
+      opacity: 0;
+    }
+  }
+
+  &__text {
+    cursor: pointer;
+    padding: 3px 0;
+  }
+}
+
+.custom-range {
+  @include mix.flex(nowrap, 23px);
+  align-items: center;
+  width: 100%;
+
+  &__line {
+    width: 100%;
+    height: 6px;
+    background: none;
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    padding: 0 11px;
+    background: var.$dark-white;
+  }
+
+  &__value {
+    font-weight: 700;
+    color: var.$gray;
+    flex-shrink: 0;
+  }
+
+  .noUi-base {
+    background: var.$dark-white;
+  }
+
+  .noUi-connects {
+    margin: 0 0 0 -11px;
+  }
+
+  .noUi-connect {
+    background: var.$blue;
+  }
+
+  .noUi-handle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid var.$white;
+    background: var.$blue;
+    box-shadow: none;
+    cursor: pointer;
+    top: -10px;
+    right: -13px;
+
+    &::before, &::after {
+      display: none;
+    }
+  }
+}
+
+.input-area {
+  @include mix.flex-col(0px);
+
+  &__label {
+    will-change: transform;
+    color: var.$black;
+    order: -1;
+    margin: 0 0 4px -4px;
+    background: var.$white;
+    width: fit-content;
+    padding: 0 4px;
+    transition: all 0.15s;
+  }
+
+  &__input {
+    width: 100%;
+    font-weight: 400;
+    line-height: 18px;
+    border: 1px solid var.$silver;
+    padding: 8.5px 11px;
+    color: var.$gray;
+
+    &.invalid {
+      border-color: var.$red;
+    }
+  }
+
+  &__warning {
+    font-size: 13px;
+    line-height: 14px;
+    font-weight: 500;
+    height: 0px;
+    opacity: 0;
+    color: var.$red;
+    transition: all 0.15s;
+    margin: 3px 0 0 0;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+
+  &__input:focus ~ &__label {
+    transform: translate(11px, 12px);
+    color: var.$green;
+  }
+}
+
+.button {
+  @extend %flex-cen;
+  border-radius: 4px;
+  background: var.$green;
+  padding: 14px 20px 13px 20px;
+  color: var.$white;
+}
+
+.calculator {
+  @include mix.flex-col(29px);
+  background: var.$white;
+  border-radius: 7px;
+  padding: 30px 28px 20px 28px;
+
+  &__title {
+    color: var.$black;
+    text-transform: uppercase;
+  }
+
+  &__body {
+    @include mix.flex-col(18px);
+    width: 100%;
+  }
+
+  &__section {
+    
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid var.$light-silver;
+      padding: 0 0 16px 0;
+    }
+  }
+
+  &__section--rooms {
+
+    .calculator__selectors {
+      gap: 9px 24px;
+    }
+
+    .calculator__radio-var {
+      width: auto;
+      max-width: 140px;
+    }
+  }
+
+  &__section--range {
+    border: none !important;
+    padding: 0 0 9px 0 !important;
+  }
+
+  &__subtitle {
+    font-weight: 700;
+    color: var.$gray;
+    margin: 0 0 17px 0;
+  }
+
+  &__selectors {
+    @include mix.flex(wrap, 5px 54px);
+    align-items: center;
+  }
+
+  &__custom-range {
+
+    .custom-range__line {
+      width: 83%;
+    }
+  }
+
+  &__results {
+    @include mix.flex(wrap, 18px 97px);
+    background: var.$dark-white;
+    padding: 17px 28px;
+    margin: 0 -28px;
+  }
+
+  &__result {
+    @include mix.flex-col(2px);
+    max-width: 154px;
+  }
+
+  &__result-title, &__result-value {
+    color: var.$blue;
+  }
+
+  &__tel {
+    @include mix.flex(nowrap, 14px);
+    align-items: flex-start;
+  }
+
+  &__radio-var {
+    width: 145px;
+  }
+
+  &__button {
+    width: 133px;
+  }
+
+  &__input-area {
+    width: 203px;
+    margin: 4px 0 0 0;
+
+    .input-area__warning {
+      height: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 533px 461px;
+  grid-template-rows: auto 1fr;
+  align-items: flex-start;
+  padding: 19px 0;
+  position: relative;
+  gap: 87px 50px;
+  justify-content: space-between;
+
+  &::before {
+    content: '';
+    @extend %px-cen;
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100vw;
+    height: 100%;
+    background: var.$gradient-white, url(../images/backgrounds/interior.jpg) 0 0 / 100% 100% no-repeat;
+    z-index: -1;
+  }
+
+  &__heading {
+    @include mix.flex-col(17px);
+    margin: 11px 0 0 0;
+  }
+
+  &__title {
+    color: var.$black;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    color: var.$black;
+  }
+
+  &__calculator {
+    grid-row: span 2;
+  }
+
+  &__options {
+    @include mix.flex(wrap, 25px 43px);
+  }
+
+  &__option {
+    width: 185px;
+  }
+}
+
+.agreement {
+  @include mix.flex(nowrap, 10px);
+
+  &__checkbox {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  &__label {
+    @extend %flex-cen;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var.$black;
+    margin: 2px 0 0 0;
+    flex-shrink: 0;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      @extend %wh-100;
+      will-change: transform, opacity;
+      background: url(../images/icons/done.svg) 0 0 / cover no-repeat;
+      transition: all 0.15s;
+      transform: scale(0.2);
+      opacity: 0;
+    }
+  }
+
+  &__link {
+    color: var.$light-blue;
+  }
+
+  &__checkbox:checked ~ &__label {
+    border-color: var.$green;
+
+    &::before {
+      opacity: 1;
+      transform: translateX(-1px) scale(1.1);
+    }
+  }
+
+  &__checkbox.invalid ~ &__label {
+    border-color: var.$red;
+  }
+}
+
+.popup-backdrop {
+  @extend %wh-100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var.$trans-black;
+  z-index: 9;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.popup {
+  @extend %p-cen;
+  @include mix.flex-col(15px);
+  will-change: transform;
+  position: fixed;
+  width: 470px;
+  background: var.$white;
+  border-radius: 7px;
+  padding: 0 0 23px 0;
+  z-index: 10;
+  border-bottom: 8px solid var.$green;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: all 0.15s;
+  opacity: 0;
+  visibility: hidden;
+
+  &__close-btn {
+    position: absolute;
+    width: 33px;
+    height: 33px;
+    top: -34px;
+    right: -35px;
+    font-size: 40px;
+    line-height: 20px;
+    color: var.$white;
+    padding: 5px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    object-position: 0px -30px;
+    border-radius: 7px 7px 0 0;
+    filter: saturate(1.3);
+  }
+
+  &__header {
+    @include mix.flex-col(5px);
+    width: 100%;
+    padding: 0px 20px;
+    margin: 0 0 5px 0;
+  }
+
+  &__title {
+    color: var.$green;
+    text-align: center;
+    font-size: 32px;
+    line-height: 35px;
+  }
+
+  &__subtitle {
+    color: var.$black;
+    text-align: center;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+    padding: 0px 20px;
+  }
+
+  &__input-area {
+
+    .input-area__input {
+      font-size: 17px;
+      line-height: 17px;
+      min-height: 40px;
+    }
+  }
+
+  &__agreement {
+    grid-column: span 2;
+  }
+
+  &__outline-btn--reset {
+    border-color: var.$red;
+    color: var.$red;
+  }
+
+  &.active {
+    transition: all 0.3s;
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.popup--result {
+  gap: 23px;
+
+  .popup__image {
+    object-position: top;
+  }
+
+  .popup__header {
+    margin: 0;
+  }
+}
+
+
+
+
+
+
+
