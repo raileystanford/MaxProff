@@ -1,3 +1,71 @@
 @use './modules/_variables.scss' as var;
 @use './modules/_templates.scss' as *;
 @use './modules/_mixins.scss' as mix;
+
+
+.mob-nav__call, .logotype {
+  will-change: transform;
+  transition: all 0.05s;
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.radio-var__effect, .radio-var__text {
+  transition: all 0.2s;
+}
+
+#squareRange .noUi-handle {
+  will-change: transform;
+  transition: all 0.15s;
+
+  &.noUi-active {
+    transform: scale(0.85);
+    background: var.$green;
+  }
+}
+
+.input-area__input {
+  transition: all 0.2s;
+
+  &:focus {
+    border-color: var.$light-blue;
+  }
+}
+
+.outline-btn {
+  will-change: transform;
+  transition: all 0.1s;
+
+  &:active {
+    transform: scale(0.9);
+    background: var.$green;
+    color: var.$white;
+  }
+}
+
+.agreement__link {
+
+  &:active {
+    color: var.$green;
+    text-decoration: underline;
+  }
+}
+
+.popup__outline-btn--reset {
+
+  &:active {
+    background: var.$red;
+  }
+}
+
+.popup__close-btn {
+  will-change: transform;
+  transition: all 0.05s;
+
+  &:active {
+    transform: translateX(-50%) scale(0.85);
+    color: var.$red;
+  }
+}

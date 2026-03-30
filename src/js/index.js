@@ -3,10 +3,12 @@ import {
   FormValidator,
   DropMenu,
   ChangeLanguage,
+  BurgerMenu,
 } from './modules.js';
 
 import { titles_dic, elements_dic } from './dictionary.js';
 
+removeMobileBlocks();
 
 // Plugins
 
@@ -15,7 +17,7 @@ new Popup({
   overlayExit: true,
   // pageWrapper: '.popup-backdrop', // Если есть какойто скрол смусер или еще чтото что обрачивает както страницу то указывай тут егог класс что падинг при открытии попапа ему задавался а не быди. Если ниче такого нет то просто не пиши ето свойство
   scrollUnlockTime: 100,
-  mobileFrom: 768,
+  mobileFrom: 671,
   escapeButtonExit: true,
 
   // Колбек срабатывающий когда выход из попапа по клику вне него запрещен и мы кликнули вне него
@@ -53,7 +55,7 @@ new FormValidator({
 new DropMenu({
 
   type: 'hover',
-  mobile: 768,
+  mobile: 671,
 
   // menuOpened: (block) => console.log('opened', block),
   // menuClosed: (block) => console.log('closed', block),
@@ -62,7 +64,16 @@ new DropMenu({
 
 new ChangeLanguage({
   dictionary: { ...titles_dic, ...elements_dic },
-})
+});
+
+new BurgerMenu({
+  activationBreakpoint: 671,
+  needOverlay: false,
+  closeByClickOutOfMenu: true,
+  exceptBtns: '[data-lang-var], .button', // Кроме button с указаными селекторами. При клике на такие кнопки меню не закроется
+  openCallback: function(info) {},
+  closeCallback: function(info) {},
+});
 
 
 // Other functions
@@ -472,6 +483,40 @@ function calculatorHandler() {
 
 }
 
+function mobileFixedHeaderEffect() {
+
+  let header = document.querySelector('.mob-nav');
+  let media = window.matchMedia('(max-width: 671px)').matches;
+
+  if (!header || !media) return;
+
+  window.addEventListener('scroll', (event) => {
+
+    if (window.pageYOffset > 0) {
+      header.classList.add('active');
+    } else {
+      header.classList.remove('active');
+    }
+
+  });
+
+}
+
+function removeMobileBlocks() {
+
+  let media = window.matchMedia('(max-width: 671px)').matches;
+  let header = document.querySelector('.mob-nav');
+  let menu = document.querySelector('.mob-menu');
+
+  if (!media) {
+
+    if (header) header.remove();
+    if (menu) menu.remove();
+
+  }
+
+}
+
 
 
 
@@ -482,3 +527,4 @@ customRange();
 formValidatorEventsHandler();
 langControlsHandler();
 calculatorHandler();
+mobileFixedHeaderEffect();

@@ -10,8 +10,8 @@
   <link rel="shortcut-icon" href="./images/favicon.png" type="image/png">
   <!-- Styles -->
   <link rel="stylesheet" href="./libs/nouislider/nouislider.min.css">
-  <link rel="stylesheet" href="./css/desktop-states.css" media="(min-width: 769px)">
-  <link rel="stylesheet" href="./css/mobile-states.css" media="(max-width: 768px)">
+  <link rel="stylesheet" href="./css/desktop-states.css" media="(min-width: 672px)">
+  <link rel="stylesheet" href="./css/mobile-states.css" media="(max-width: 671px)">
   <link rel="stylesheet" href="./css/index.css">
   <!-- Scripts -->
   <script defer src="./libs/nouislider/nouislider.min.js"></script>
@@ -20,7 +20,29 @@
 </head>
 <body>
 
-    
+
+  <div class="mob-nav">
+
+    <button class="mob-nav__burger" data-burger-open>
+      <span class="mob-nav__burger-line"></span>
+    </button>
+
+    <a href="./index.html" class="logotype mob-nav__logotype">
+      <img src="./images/icons/logo.svg" alt="MaxProff" class="logotype__icon">
+    </a>
+
+    <a href="tel:+380502222222" class="mob-nav__call">
+      <img src="./images/icons/phone-mob.svg" alt="+380502222222" class="mob-nav__call-icon">
+    </a>
+
+  </div>
+
+  <nav class="mob-menu" data-burger-content>
+
+
+
+  </nav>
+
   <div class="page-wrapper">
 
     <header class="header">
@@ -72,7 +94,29 @@
 
           </div>
 
-          <button class="outline-btn mid-text" data-popup="popup--main" data-lang="tel-trig">Заказать звонок</button>
+          <button class="outline-btn navbar__outline-btn mid-text" data-popup="popup--main" data-lang="tel-trig">Заказать звонок</button>
+
+          <ul class="mob-socials navbar__mob-socials">
+
+            <li class="mob-socials__li">
+              <a href="https://www.viber.com" target="_blank" class="mob-socials__link">
+                <img src="./images/icons/viber-colored.svg" alt="Viber" class="mob-socials__icon">
+              </a>
+            </li>
+
+            <li class="mob-socials__li">
+              <a href="https://www.whatsapp.com" target="_blank" class="mob-socials__link">
+                <img src="./images/icons/whatsapp-colored.png" alt="Whatsapp" class="mob-socials__icon">
+              </a>
+            </li>
+
+            <li class="mob-socials__li">
+              <a href="https://web.telegram.org" target="_blank" class="mob-socials__link">
+                <img src="./images/icons/telegram-colored.svg" alt="Telegram" class="mob-socials__icon">
+              </a>
+            </li>
+
+          </ul>
 
         </div>
 
@@ -395,7 +439,7 @@
 
             </fieldset>
 
-            <fieldset class="calculator__section">
+            <fieldset class="calculator__section calculator__section--type">
 
               <legend class="calculator__subtitle norm-text" data-lang="calc-sub2">Тип вашей недвижимости:</legend>
 
@@ -531,14 +575,14 @@
 
             </div>
 
-            <fieldset class="calculator__section">
+            <fieldset class="calculator__section calculator__section--tel">
 
               <legend class="calculator__subtitle norm-text" data-lang="calc-sub7">Введите номер телефона</legend>
 
               <div class="calculator__tel">
 
                 <div class="input-area calculator__input-area">
-                  <input type="tel" class="input-area__input mid-text" id="calc_tel" autocomplete="off" data-validate>
+                  <input type="tel" class="input-area__input mid-text" id="calc_tel" autocomplete="off" placeholder="+38 (___) ___-__-__" data-validate>
                   <span class="input-area__warning small-text" data-warn="calc_tel"></span>
                 </div>
 
@@ -610,7 +654,7 @@
       </div>
 
       <div class="input-area popup__input-area">
-        <input type="tel" class="input-area__input mid-text" id="popup_number" autocomplete="off" data-validate>
+        <input type="tel" class="input-area__input mid-text" id="popup_number" autocomplete="off" placeholder="+38 (___) ___-__-__" data-validate>
         <label for="popup_number" class="input-area__label small-text" data-lang="popup-tel">Телефон</label>
         <span class="input-area__warning small-text" data-warn="popup_number"></span>
       </div>
@@ -648,8 +692,5 @@
 
   </dialog>
 
-
-
-  
 </body>
 </html>
