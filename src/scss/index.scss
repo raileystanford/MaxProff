@@ -9,7 +9,7 @@
 .header {
   @include mix.flex-col(30px);
   width: 100%;
-  padding: 18px 0;
+  padding: 18px 0 0 0;
 }
 
 .logotype {
@@ -867,6 +867,178 @@
 
   &.active {
     display: flex;
+  }
+}
+
+.main {
+  padding: 67px 0;
+}
+
+.section {
+  @include mix.flex-col(48px);
+  width: 100%;
+  align-items: center;
+
+  &__title {
+    text-align: center;
+    color: var.$black;
+  }
+
+  &__content {
+    @include mix.flex-col(40px);
+    width: 100%;
+  }
+}
+
+.desc-list {
+  @include mix.flex-col(6px);
+
+  &__li {
+    @include mix.flex(nowrap, 5px);
+    align-items: center;
+    color: var.$black;
+
+    &--title {
+      font-weight: 700;
+      margin: 0 0 3px 0;
+    }
+
+    &:not(.desc-list__li--title) {
+
+      &::before {
+        content: '';
+        width: 12px;
+        height: 8px;
+        background: url(../images/icons/done.svg) 0 0 / contain no-repeat;
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+.offer {
+  @include mix.flex-col(0px);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var.$white;
+  box-shadow: 0 0 5px var.$silver;
+
+  &__image {
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+    filter: saturate(1.3);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__header {
+    @include mix.flex(nowrap, 14px);
+    align-items: center;
+    background: var.$alfa-blue;
+    padding: 14px 23px;
+  }
+
+  &__intro {
+    @include mix.flex-col(5px);
+  }
+
+  &__title {
+    color: var.$green;
+    text-transform: uppercase;
+    word-break: break-all;
+  }
+
+  &__subtitle {
+    font-weight: 700;
+    color: var.$black;
+  }
+
+  &__description {
+    font-weight: 300;
+    color: var.$black;
+    padding: 25px 22px 22px 22px;
+    min-height: 143px;
+  }
+
+  &__body {
+    @include mix.flex-col(18px);
+    padding: 16px 22px 15px 22px;
+    border-top: 2px solid var.$blue;
+    overflow: hidden;
+    height: 204px;
+    transition: all 0.25s;
+  }
+
+  &__footer {
+    @include mix.flex-col(6px);
+    align-items: center;
+    padding: 5px 22px 31px 22px;
+    background: var.$white;
+    box-shadow: -25px -45px 70px var.$white;
+    transition: all 0.2s;
+
+    &.active {
+      box-shadow: none;
+
+      .offer__trigger::after {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  &__trigger {
+    @include mix.flex(nowrap, 9px);
+    align-items: center;
+    color: var.$blue;
+
+    &::after {
+      content: '';
+      will-change: transform;
+      width: 13px;
+      height: 13px;
+      background: url(../images/icons/full-arrow.svg) 0 0 / contain no-repeat;
+      flex-shrink: 0;
+      transition: all 0.25s;
+    }
+  }
+
+  &__prices {
+    @include mix.flex(wrap, 3px 9px);
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 12px 0;
+  }
+
+  &__old-price {
+    color: var.$black;
+    text-decoration: underline;
+    text-underline-offset: -4px;
+    text-decoration-skip-ink: none;
+  }
+
+  &__bold {
+    font-weight: 700;
+  }
+
+  &__new-price {
+    color: var.$green;
+    font-weight: 700;
+  }
+
+  &__button {
+    width: 188px;
+    padding: 14px 7px 13px 7px;
+  }
+}
+
+.offers {
+  @include mix.flex(wrap, 21px);
+  width: 100%;
+  align-items: flex-start;
+
+  &__offer {
+    width: calc(25% - 16px);
   }
 }
 

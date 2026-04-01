@@ -69,3 +69,12 @@
     color: var.$red;
   }
 }
+
+.button {
+  will-change: transform;
+  transition: all 0.15s;
+
+  &:active {
+    transform: scale(0.92);
+  }
+}

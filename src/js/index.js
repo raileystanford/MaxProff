@@ -9,6 +9,7 @@ import {
 import { titles_dic, elements_dic } from './dictionary.js';
 
 removeMobileBlocks();
+translateMoreBtnOfferBlock();
 
 // Plugins
 
@@ -517,6 +518,82 @@ function removeMobileBlocks() {
 
 }
 
+function showHiddenContent() {
+
+  let blocks = Array.from(document.querySelectorAll('.offer__body'));
+  let trigger = document.querySelector('.offer__trigger');
+
+  if (!blocks.length || !trigger) return;
+
+  defineElements();
+
+  document.addEventListener('click', (event) => {
+
+    let trigger = event.target.closest('.offer__trigger');
+
+    if (trigger) {
+      showHideBlock(trigger);
+    }
+
+  });
+
+  function showHideBlock(trigger) {
+
+    let block = trigger._content;
+    let footer = trigger.parentElement;
+    let lang = document.documentElement.lang;
+
+    if (footer.matches('.active')) {
+      block.style.height = '';
+      footer.classList.remove('active');
+      trigger.textContent = lang === 'ru' ? 'Список работ' : 'Список робіт';
+    } else {
+      block.style.height = block.scrollHeight + 'px';
+      footer.classList.add('active');
+      trigger.textContent = lang === 'ru' ? 'Скрыть' : 'Приховати';
+    }
+
+  }
+
+  function defineElements() {
+
+    blocks.forEach((block) => {
+
+      let parent = block.closest('.offer');
+      block._trigger = parent.querySelector('.offer__trigger');
+      block._trigger._content = block;
+
+    })
+
+  }
+
+}
+
+function translateMoreBtnOfferBlock() {
+
+  let btns = Array.from(document.querySelectorAll('.offer__trigger'));
+
+  if (!btns.length) return;
+
+  document.addEventListener('translated', (event) => {
+
+    btns.forEach((btn) => {
+
+      let parent = btn.parentElement;
+      let lang = document.documentElement.lang;
+
+      if (parent.matches('.active')) {
+        btn.textContent = lang === 'ru' ? 'Скрыть' : 'Приховати';
+      } else {
+        btn.textContent = lang === 'ru' ? 'Список работ' : 'Список робіт';
+      }
+
+    });
+
+  });
+
+}
+
 
 
 
@@ -528,3 +605,4 @@ formValidatorEventsHandler();
 langControlsHandler();
 calculatorHandler();
 mobileFixedHeaderEffect();
+showHiddenContent();

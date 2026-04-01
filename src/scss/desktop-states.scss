@@ -311,3 +311,69 @@
     background: var.$green;
   }
 }
+
+.offer {
+  will-change: transform;
+  transition: all 0.25s;
+
+  &__header, &__title, &__subtitle {
+    transition: all 0.25s;
+  }
+
+  &:hover {
+    box-shadow: 0 0 10px var.$silver;
+    transform: translateY(-3px);
+
+    .offer__title, .offer__subtitle {
+      color: var.$white;
+    }
+
+    .offer__header {
+      background: var.$green;
+    }
+
+  } 
+}
+
+.offer__trigger {
+  will-change: transform;
+  transition: all 0.15s;
+  text-decoration: underline solid transparent;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+
+    &:not(:active, .active .offer__trigger) {
+
+      &::after {
+        animation: down 0.5s infinite;
+      }
+    
+    }
+
+    &:not(:active) {
+      
+      &::after {
+        animation: up 0.5s infinite;
+      }
+
+    }
+  }
+
+  &:active {
+    transition: all 0.05s;
+    transform: scale(0.94);
+  }
+
+  @keyframes down {
+    0%{ transform: translateX(0); }
+    50%{ transform: translateY(3px); }
+    100%{ transform: translateX(0); }
+  }
+
+  @keyframes up {
+    0%{ transform: rotate(-180deg) translateX(0); }
+    50%{ transform: rotate(-180deg) translateY(3px); }
+    100%{ transform: rotate(-180deg) translateX(0); }
+  }
+}
