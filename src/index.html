@@ -9,11 +9,13 @@
   <link rel="shortcut-icon" href="./favicon.ico" type="image/x-icon">
   <link rel="shortcut-icon" href="./images/favicon.png" type="image/png">
   <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
   <link rel="stylesheet" href="./libs/nouislider/nouislider.min.css">
-  <link rel="stylesheet" href="./css/desktop-states.css" media="(min-width: 672px)">
-  <link rel="stylesheet" href="./css/mobile-states.css" media="(max-width: 671px)">
+  <link rel="stylesheet" href="./css/desktop-states.css" media="(min-width: 831px)">
+  <link rel="stylesheet" href="./css/mobile-states.css" media="(max-width: 831px)">
   <link rel="stylesheet" href="./css/index.css">
   <!-- Scripts -->
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
   <script defer src="./libs/nouislider/nouislider.min.js"></script>
   <script type="module" src="./js/index.js"></script>
   
@@ -45,7 +47,7 @@
 
   <div class="page-wrapper">
 
-    <header class="header">
+    <header class="header" data-title="header">
 
       <nav class="navbar">
 
@@ -626,9 +628,9 @@
 
     <main class="main">
 
-      <article class="section">
+      <article class="section section--prices" data-title="prices">
 
-        <h2 class="section__title title-text">Цены на ремонт</h2>
+        <h2 class="section__title title-text" data-lang="prices-title">Цены на ремонт</h2>
 
         <div class="section__content">
 

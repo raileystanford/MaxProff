@@ -3,12 +3,48 @@
 @use './modules/_mixins.scss' as mix;
 
 
-.mob-nav__call, .logotype {
+.mob-nav__call, .logotype, .mob-socials__link {
   will-change: transform;
   transition: all 0.05s;
 
   &:active {
     transform: scale(0.9);
+  }
+}
+
+.tel-block__link, .nav-links__link {
+
+  &:active {
+    color: var.$green;
+    text-decoration: underline;
+  }
+}
+
+.dropdown__trigger {
+  transition: all 0.2s;
+
+  &-icon {
+    transition: all 0.2s;
+  }
+}
+
+.dropdown__link {
+
+  &:active {
+    background: var.$blue;
+    color: var.$white;
+  }
+}
+
+.lang-selector__trigger {
+
+  &:active {
+  
+    &:not(.active) {
+      background: var.$green;
+      color: var.$white;
+    }
+
   }
 }
 
@@ -61,20 +97,24 @@
 }
 
 .popup__close-btn {
-  will-change: transform;
-  transition: all 0.05s;
 
   &:active {
-    transform: translateX(-50%) scale(0.85);
     color: var.$red;
   }
 }
 
 .button {
   will-change: transform;
-  transition: all 0.15s;
+  transition: all 0.1s;
 
   &:active {
     transform: scale(0.92);
+  }
+}
+
+.offer__trigger {
+
+  &:active {
+    text-decoration: underline;
   }
 }

@@ -1036,14 +1036,23 @@
   @include mix.flex(wrap, 21px);
   width: 100%;
   align-items: flex-start;
+  justify-content: center;
 
   &__offer {
     width: calc(25% - 16px);
   }
 }
 
+.offers-slider {
+  @extend %px-cen;
+  width: 100vw;
+  padding: 7px 0;
+  margin: -7px 0;
+}
+
 
 // Media queries
+
 @media (max-width: 1231px) {
 
   .page-wrapper {
@@ -1087,6 +1096,24 @@
 
   .intro {
     grid-template-columns: 415px 461px;
+  }
+
+  .offer {
+
+    &__description {
+      min-height: 128px;
+    }
+
+    &__body {
+      height: 120px;
+    }
+  }
+
+  .offers {
+
+    &__offer {
+      width: calc(33.33% - 14px);
+    }
   }
 
 }
@@ -1163,6 +1190,24 @@
 
     &__option {
       width: 162px;
+    }
+  }
+
+  .offer {
+
+    &__description {
+      min-height: 110px;
+    }
+
+    &__body {
+      height: 145px;
+    }
+  }
+
+  .offers {
+
+    &__offer {
+      width: calc(50% - 11px);
     }
   }
 
@@ -1377,6 +1422,30 @@
     }
   }
 
+  .main {
+    padding: 64px 0;
+  }
+
+  .section {
+    gap: 40px;
+
+    &__title {
+      font-size: 38px;
+      line-height: 45px;
+    }
+  }
+
+  .offer {
+
+    &__description {
+      min-height: 143px;
+    }
+
+    &__body {
+      height: 204px;
+    }
+  }
+
 }
 
 @media (max-width: 671px) {
@@ -1486,7 +1555,7 @@
   }
 
   .calculator {
-    padding: 27px 19px 28px 19px;
+    padding: 27px 19px 36px 19px;
     gap: 28px;
 
     &__subtitle {
@@ -1569,6 +1638,19 @@
     &__body {
       padding: 0px 10px;
       gap: 15px 11px;
+    }
+  }
+
+  .main {
+    padding: 61px 0;
+  }
+
+  .section {
+    gap: 43px;
+
+    &__title {
+      font-size: 36px;
+      line-height: 40px;
     }
   }
 
@@ -1688,6 +1770,40 @@
 
     .popup__subtitle {
       display: block;
+    }
+  }
+
+  .main {
+    padding: 55px 0;
+  }
+
+  .section {
+    gap: 35px;
+
+    &__title {
+      font-size: 30px;
+      line-height: 35px;
+    }
+  }
+
+  .offer {
+
+    &__header {
+      padding: 14px 15px;
+    }
+
+    &__description {
+      padding: 20px 15px 20px 15px;
+      min-height: 135px;
+    }
+
+    &__body {
+      height: 180px;
+      padding: 16px 15px 15px 15px;
+    }
+
+    &__footer {
+      padding: 5px 10px 25px 10px;
     }
   }
 

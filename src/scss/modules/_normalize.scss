@@ -112,10 +112,19 @@ A, BUTTON {
 }
 
 .page-wrapper {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   width: 1230px;
-  margin: 0 auto;
-  padding: 0 15px;
   min-height: 100vh;
-  grid-template-rows: auto 1fr auto;
+  padding: 0 15px;
+  margin: 0 auto;
+  justify-content: space-between;
+
+  MAIN {
+    flex: 1 0 auto;
+  }
+
+  FOOTER, HEADER {
+    flex: 0 0 auto;
+  }
 }

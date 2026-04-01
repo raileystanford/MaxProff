@@ -1,5 +1,15 @@
 let titles_dic = {
 
+  'header': {
+    'ru': 'MaxProff',
+    'ua': 'MaxProff',
+  },
+
+  'prices': {
+    'ru': 'MaxProff - Цены на ремонт',
+    'ua': 'MaxProff - Ціни на ремонт',
+  }
+
 }
 
 let elements_dic = {
@@ -652,6 +662,11 @@ let elements_dic = {
   'off4-new-price': {
     'ru': 'от <span class="mid-text">6 820</span> грн/м²',
     'ua': 'від <span class="mid-text">6 820</span> грн/м²',
+  },
+
+  'prices-title': {
+    'ru': 'Цены на ремонт',
+    'ua': 'Ціни на ремонт',
   },
 
 

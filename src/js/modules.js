@@ -980,6 +980,85 @@ class BurgerMenu {
 
 }
 
+class UpdatePageTitle {
+
+  constructor(params) {
+    this.params = params ?? {};
+    this.items = Array.from(document.querySelectorAll('[data-title]'));
+    this.title = document.querySelector('title');
+    let media = window.matchMedia(`(max-width: ${this.params.mobile ?? 768}px)`).matches;
+    
+    if (this.items.length > 0 && !media) {
+      this.ownMethodsBinder();
+      this.createObserver();
+      this.installObserverOnElements();
+      this.translateListener();
+    }
+  
+  }
+
+  installObserverOnElements() {
+
+    this.items.forEach((item) => this.observer.observe(item));
+
+  }
+
+  createObserver() {
+
+    let params = this.params.observer ?? {};
+
+    let options = {
+      root: null,
+      rootMargin: params.rootMargin ?? '0px',
+      threshold: params.threshold ?? 0.3,
+      delay: params.delay ?? 0
+    }
+
+    this.observer = new IntersectionObserver(this.observerHandler, options);
+
+  }
+
+  observerHandler(list, observer) {
+
+    list.forEach((item) => {
+
+      let element = item.target;
+      let msg = element.dataset.title;
+
+      if (item.isIntersecting) {
+        
+        if (this.params.dictionary) {
+          this.title._translateKey = msg; 
+          this.translator();
+        } else {
+          this.title.textContent = msg;
+        }
+  
+      }
+
+    })
+
+  }
+
+  translateListener() {
+
+    if (!this.params.dictionary) return;
+
+    document.addEventListener('translated', (event) => this.translator());
+
+  }
+
+  translator() {
+
+    let lang = document.documentElement.lang;
+    let key = this.title._translateKey;
+    if (!key) return;
+    let text = this.params.dictionary[key][lang];
+    this.title.textContent = text;
+
+  }
+}
+
 
 
 
@@ -1008,6 +1087,7 @@ setupMixin(
   DropMenu,
   ChangeLanguage,
   BurgerMenu,
+  UpdatePageTitle,
 );
 
 export {
@@ -1016,4 +1096,5 @@ export {
   DropMenu,
   ChangeLanguage,
   BurgerMenu,
+  UpdatePageTitle,
 }

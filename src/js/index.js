@@ -4,11 +4,13 @@ import {
   DropMenu,
   ChangeLanguage,
   BurgerMenu,
+  UpdatePageTitle,
 } from './modules.js';
 
 import { titles_dic, elements_dic } from './dictionary.js';
 
 removeMobileBlocks();
+pricesBlockMobile();
 translateMoreBtnOfferBlock();
 
 // Plugins
@@ -18,7 +20,7 @@ new Popup({
   overlayExit: true,
   // pageWrapper: '.popup-backdrop', // Если есть какойто скрол смусер или еще чтото что обрачивает както страницу то указывай тут егог класс что падинг при открытии попапа ему задавался а не быди. Если ниче такого нет то просто не пиши ето свойство
   scrollUnlockTime: 100,
-  mobileFrom: 671,
+  mobileFrom: 831,
   escapeButtonExit: true,
 
   // Колбек срабатывающий когда выход из попапа по клику вне него запрещен и мы кликнули вне него
@@ -56,7 +58,7 @@ new FormValidator({
 new DropMenu({
 
   type: 'hover',
-  mobile: 671,
+  mobile: 831,
 
   // menuOpened: (block) => console.log('opened', block),
   // menuClosed: (block) => console.log('closed', block),
@@ -64,7 +66,7 @@ new DropMenu({
 });
 
 new ChangeLanguage({
-  dictionary: { ...titles_dic, ...elements_dic },
+  dictionary: elements_dic,
 });
 
 new BurgerMenu({
@@ -74,6 +76,13 @@ new BurgerMenu({
   exceptBtns: '[data-lang-var], .button', // Кроме button с указаными селекторами. При клике на такие кнопки меню не закроется
   openCallback: function(info) {},
   closeCallback: function(info) {},
+});
+
+new UpdatePageTitle({
+  dictionary: titles_dic,
+  observer: {
+    threshold: 0.3,
+  },
 });
 
 
@@ -594,6 +603,122 @@ function translateMoreBtnOfferBlock() {
 
 }
 
+function pricesBlockMobile() {
+
+  let block = document.querySelector('.section--prices');
+  let media = window.matchMedia('(max-width: 831px)').matches;
+
+  if (!block || !media) return;
+
+  let container = block.querySelector('.offers');
+  let offers = Array.from(block.querySelectorAll('.offer'));
+
+  if (!container || !offers.length) return;
+
+  let slider;
+
+  createStructure();
+  initSlider();
+
+  function createStructure() {
+
+    slider = document.createElement('div');
+    slider.classList.add('swiper', 'offers-slider');
+    slider.id = 'offers_slider';
+
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('swiper-wrapper');
+
+    offers.forEach((offer) => {
+
+      let slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+
+      offer.className = 'offer offers-slider__offer';
+
+      slide.append(offer);
+      wrapper.append(slide);
+
+    });
+
+    slider.append(wrapper);
+    container.replaceWith(slider);
+
+  }
+
+  function initSlider() {
+
+    new Swiper('#offers_slider', {
+      slidesPerView: 2.479, 
+      spaceBetween: 23,
+      slidesOffsetBefore: 15,
+      slidesOffsetAfter: 15,
+      speed: 700,
+
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: true,
+        pauseOnMouseEnter: true,
+      },
+
+      breakpoints: {
+
+        741: {
+          slidesPerView: 2.479, 
+        },
+
+        670: {
+          slidesPerView: 2.2,
+        },
+
+        501: {
+          slidesPerView: 1.65, 
+        },
+
+        413: {
+          slidesOffsetBefore: 15,
+          slidesOffsetAfter: 15,
+          slidesPerView: 1.3257,
+        },
+
+        1: {
+          slidesOffsetBefore: 10,
+          slidesOffsetAfter: 10,
+          slidesPerView: 1.15, 
+        }
+
+      }
+
+    });
+
+  }
+
+}
+
+function slidersAutoplayViewportController(except = '.a93fj3fds1') {
+
+  let sliders = Array.from(document.querySelectorAll(`.swiper:not(${except})`));
+
+  if (sliders.length === 0) return;
+
+  let observer = new IntersectionObserver((list, obs) => {
+
+    list.forEach((item) => {
+
+      if (item.isIntersecting) {
+        item.target.swiper?.autoplay.start();
+      } else {
+        item.target.swiper?.autoplay.stop();
+      }
+
+    })
+
+  }, { root: null, threshold: 0.2 });
+
+  sliders.forEach((slider) => observer.observe(slider));
+
+}
+
 
 
 
@@ -606,3 +731,4 @@ langControlsHandler();
 calculatorHandler();
 mobileFixedHeaderEffect();
 showHiddenContent();
+slidersAutoplayViewportController();
