@@ -257,7 +257,7 @@
 
     &::before {
       opacity: 1;
-      transform: translate(0.2px, 0px) scale(0.95);
+      transform: translate(0px, -1px) scale(0.95);
     }
   }
 
@@ -375,5 +375,102 @@
     0%{ transform: rotate(-180deg) translateX(0); }
     50%{ transform: rotate(-180deg) translateY(3px); }
     100%{ transform: rotate(-180deg) translateX(0); }
+  }
+}
+
+.tabs__trigger {
+  will-change: transform;
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    background: var.$blue;
+    color: var.$white;
+  }
+
+  &:active {
+
+    &:not(.active) {
+      transition: all 0.05s;
+      transform: scale(0.95);
+    } 
+  }
+}
+
+.slider-pag__item {
+
+  .slider-pag__effect, .slider-pag__text {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+
+    .slider-pag__effect {
+      border-color: var.$blue;
+    }
+
+    .slider-pag__text {
+      color: var.$black;
+    }
+  }
+}
+
+.demonstrator .swiper-slide {
+  will-change: transform;
+  transition: all 0.2s;
+
+  &:hover {
+    outline-color: var.$green;
+  }
+
+  &:active:not(.active) {
+    transition: all 0.05s;
+    transform: scale(0.95);
+  }
+}
+
+.slider-control {
+  will-change: transform;
+  transition: all 0.2s;
+
+  &__icon {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+    background: var.$seal-silver;
+
+    &:not([disabled]) {
+      cursor: pointer;
+      background: var.$green;
+
+      .slider-control__icon {
+        stroke: var.$white;
+      }
+
+    }
+    
+  }
+
+  &:active {
+
+    &:not([disabled]) {
+      transition: all 0.05s;
+      transform: scale(0.94);
+    }
+    
+  }
+}
+
+.scroll-top {
+
+  &:hover, &:focus {
+    background: var.$blue;
+    box-shadow: 0 0 5px var.$blue;
+    transform: scale(1.05) !important;
+  }
+
+  &:active {
+    transition: all 0.06s;
+    transform: scale(0.9) !important;
   }
 }

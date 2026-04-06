@@ -1059,6 +1059,658 @@ class UpdatePageTitle {
   }
 }
 
+class Demonstrator {
+
+  constructor(selector, params = {}) {
+
+    if (typeof Swiper === 'undefined') {
+      console.warn('[Swiper] not loaded');
+      return;
+    }
+
+    this.demonstrator = document.querySelector(selector);
+    if (!this.demonstrator) return;
+
+    this.opt = params;
+
+    this.isMobile = window.matchMedia(`(max-width: ${this.opt.mobile ?? 768}px)`).matches;
+
+    this.screen = this.demonstrator.querySelector('.demonstrator__screen');
+    this.screenPic = this.screen?.querySelector('.demonstrator__big-img');
+
+    this.scrollToClick = this.opt.scrollToClick ?? true;
+    this.showSlideOnScreen = this.showSlideOnScreen.bind(this);
+
+    this.initSlider();
+    this.setLazyIntersectionObserver();
+    this.setAutoplayIntersectionObserver();
+    this.setEventListeners();
+
+  }
+
+  initSlider() {
+
+    this.slider = this.demonstrator.querySelector('.swiper');
+    if (!this.slider) {
+      console.warn('Swiper container not found', this.demonstrator);
+      return;
+    }
+
+    this.swiper = new Swiper(this.slider, {
+
+      slidesPerView: 4,
+      spaceBetween: 10,
+      speed: 500,
+      simulateTouch: true,
+      direction: 'vertical',
+
+      pagination: {
+        el: this.demonstrator.querySelector('.demonstrator__pagination'),
+        clickable: true,
+        type: 'bullets',
+      },
+
+      navigation: {
+        nextEl: this.demonstrator.querySelector('.demonstrator__btn--next'),
+        prevEl: this.demonstrator.querySelector('.demonstrator__btn--prev'),
+      },
+
+      mousewheel: {
+        enabled: true,
+        forceToAxis: true,
+      },
+
+      keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+      },
+
+      ...this.opt.slider
+
+    });
+
+    this.isAutoplayEnabled = this.swiper.params?.autoplay?.enabled;
+    this.isLooped = this.swiper.params?.loop;
+
+    if (!this.opt.lazy) {
+      this.swiper.on('slideChange', this.showSlideOnScreen);
+      this.showSlideOnScreen();
+    }
+
+  }
+
+  setEventListeners() {
+
+    this.demonstrator.addEventListener('click', (event) => {
+
+      const slide = event.target.closest('.swiper-slide:not(.active)');
+      if (slide) this.showSlideOnScreen(slide);
+
+    });
+
+    if (!this.isAutoplayEnabled) return;
+
+    if (this.isMobile) {
+
+      this.demonstrator.addEventListener('pointerdown', () => {
+        this.swiper.autoplay.stop();
+      });
+
+    } else {
+
+      this.demonstrator.addEventListener('pointerenter', () => {
+
+        this.swiper.autoplay.stop();
+
+        this.demonstrator.addEventListener('pointerleave', () => {
+          this.swiper.autoplay.start();
+        }, { once: true });
+
+      });
+
+    }
+
+  }
+
+  setAutoplayIntersectionObserver() {
+
+    if (!this.opt.autoplayOnViewport || !this.isAutoplayEnabled) return;
+
+    this.autoplayObserver = new IntersectionObserver((entries) => {
+
+      if (!this.swiper) return;
+
+      entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+          this.swiper.autoplay.start();
+        } else {
+          this.swiper.autoplay.stop();
+        }
+
+      });
+
+    }, {
+      threshold: this.opt.autoplayOnViewport.threshold ?? 0.1,
+      rootMargin: `${this.opt.autoplayOnViewport.margin ?? 0}px 0px`,
+    });
+
+    this.autoplayObserver.observe(this.demonstrator);
+
+  }
+
+  setLazyIntersectionObserver() {
+
+    if (!this.opt.lazy) return;
+
+    const fulls = Array.from(this.demonstrator.querySelectorAll('[data-full]'));
+
+    this.lazyObserver = new IntersectionObserver((entries, obs) => {
+
+      entries.forEach((entry) => {
+
+        if (!entry.isIntersecting) return;
+
+        fulls.forEach((item) => {
+          const img = new Image();
+          img.src = item.dataset.full;
+        });
+
+        this.loadThumbs();
+
+        this.swiper.on('slideChange', this.showSlideOnScreen);
+        this.showSlideOnScreen();
+
+        obs.disconnect();
+
+      });
+
+    }, {
+      threshold: this.opt.lazy.threshold ?? 0.01,
+      rootMargin: `${this.opt.lazy.margin ?? 700}px 0px`
+    });
+
+    this.lazyObserver.observe(this.demonstrator);
+
+  }
+
+  loadThumbs() {
+
+    const thumbs = Array.from(this.demonstrator.querySelectorAll('[data-lazy]'));
+
+    thumbs.forEach((thumb) => {
+
+      if (thumb.tagName === 'SOURCE') thumb.srcset = thumb.dataset.lazy;
+      if (thumb.tagName === 'IMG') thumb.src = thumb.dataset.lazy;
+
+      thumb.removeAttribute('data-lazy');
+
+    });
+
+  }
+
+  showSlideOnScreen(slide) {
+
+    if (!this.swiper) return;
+
+    const data = this.getImgInfo(slide);
+    if (!data.full) return;
+
+    this.swiper.slides.forEach(s => s.classList.remove('active'));
+    data.slide.classList.add('active');
+
+    this.scrollSliderToSlide(data.slide);
+
+    clearTimeout(this.imgTimer);
+    clearTimeout(this.animTimer);
+
+    this.screenPic.classList.add('active');
+
+    this.imgTimer = setTimeout(() => {
+      this.screenPic.src = data.full;
+      this.screenPic.alt = data.alt ?? 'image';
+    }, 150);
+
+    this.animTimer = setTimeout(() => {
+      this.screenPic.classList.remove('active');
+    }, 300);
+
+  }
+
+  scrollSliderToSlide(slide) {
+
+    if (!slide || !this.scrollToClick) return;
+
+    if (this.isLooped) {
+      const index = slide.dataset.swiperSlideIndex;
+      this.swiper.slideToLoop(index);
+    } else {
+      const index = [...this.swiper.slides].indexOf(slide);
+      this.swiper.slideTo(index);
+    }
+
+  }
+
+  getImgInfo(slide) {
+
+    const activeSlide = this.swiper.slides[this.swiper.activeIndex];
+
+    slide = (slide && slide.classList?.contains('swiper-slide')) ? slide : activeSlide;
+
+    const img = slide.querySelector('.demonstrator__img');
+    if (!img) return {};
+
+    return { full: img.dataset.full, alt: img.alt, slide };
+
+  }
+
+}
+
+class ImageZoom {
+
+  constructor(options = {}) {
+
+    this.mode = options.mode ?? 'hover';
+    this.isMobile = window.matchMedia(`(max-width:${options.mobileViewport ?? 768}px)`).matches;
+
+    this.selectOptions(options);
+    this.containers = document.querySelectorAll('[data-zoom]');
+    this.createFullscreen();
+    this.containers.forEach(c => this.initContainer(c));
+
+  }
+
+  selectOptions(options) {
+
+    this.minZoom = options.minZoom ?? 1;
+    this.maxZoom = options.maxZoom ?? 3;
+    this.zoomStep = options.zoomStep ?? 0.15;
+    this.startZoom = options.startZoom ?? 1.6;
+
+    if (!this.isMobile) return;
+
+    let mobile = Object.keys(options.mobile ?? {}).length > 0;
+
+    if (!mobile) return
+
+    this.minZoom = options.mobile.minZoom ?? options.minZoom ?? 1;
+    this.maxZoom = options.mobile.maxZoom ?? options.maxZoom ?? 3;
+    this.zoomStep = options.mobile.zoomStep ?? options.zoomStep ?? 0.15;
+    this.startZoom = options.mobile.startZoom ?? options.startZoom ?? 1.6;
+
+  }
+
+  initContainer(container) {
+
+    const img = container.querySelector('[data-zoom-img]');
+    if (!img) return;
+
+    if (this.isMobile) {
+      container.addEventListener('click', () => this.openFullscreen(img));
+      return;
+    }
+
+    container.style.position = 'relative';
+    container.style.overflow = 'hidden';
+
+    Object.assign(img.style, {
+      position: 'absolute',
+      transformOrigin: '0 0',
+      willChange: 'transform'
+    });
+
+    img.dataset.zoomScale = 1;
+    img.dataset.imgX = 0;
+    img.dataset.imgY = 0;
+
+    this.mode === 'hover'
+      ? this.initHoverZoom(container, img)
+      : this.initClickZoom(container, img);
+
+    container.addEventListener('wheel', e => {
+      e.preventDefault();
+      const { x, y } = this.getCoords(e, container);
+      this.zoomDesktop(img, e.deltaY < 0 ? 1 : -1, x, y, container);
+    }, { passive: false });
+
+    container.addEventListener('dragstart', e => e.preventDefault());
+  }
+
+  initHoverZoom(container, img) {
+
+    let active = false;
+
+    const move = e => {
+      const { x, y } = this.getCoords(e, container);
+
+      if (!active) {
+        img.dataset.zoomScale = this.startZoom;
+        active = true;
+      }
+
+      this.moveDesktop(img, x, y, container);
+    };
+
+    container.addEventListener('mouseenter', () => {
+      container.classList.add('active');
+      container.addEventListener('mousemove', move);
+    });
+
+    container.addEventListener('mouseleave', () => {
+      container.classList.remove('active');
+      container.removeEventListener('mousemove', move);
+      img.dataset.zoomScale = 1;
+      this.applyDesktopTransform(img, 0, 0, container);
+      active = false;
+    });
+  }
+
+  initClickZoom(container, img) {
+
+    let dragging = false;
+    let moved = false;
+    let startX = 0;
+    let startY = 0;
+
+    container.addEventListener('pointerdown', e => {
+      if (+img.dataset.zoomScale === 1) return;
+      dragging = true;
+      moved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      container.setPointerCapture(e.pointerId);
+    });
+
+    container.addEventListener('pointermove', e => {
+      if (!dragging) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
+
+      startX = e.clientX;
+      startY = e.clientY;
+
+      this.applyDesktopTransform(
+        img,
+        (+img.dataset.imgX) + dx,
+        (+img.dataset.imgY) + dy,
+        container
+      );
+    });
+
+    container.addEventListener('pointerup', () => dragging = false);
+
+    container.addEventListener('click', e => {
+
+      if (moved) {
+        moved = false;
+        return;
+      }
+
+      if (+img.dataset.zoomScale === 1) {
+        container.classList.add('active');
+        img.dataset.zoomScale = this.startZoom;
+        const { x, y } = this.getCoords(e, container);
+        this.applyDesktopTransform(
+          img,
+          -x * (this.startZoom - 1),
+          -y * (this.startZoom - 1),
+          container
+        );
+      } else {
+        container.classList.remove('active');
+        img.dataset.zoomScale = 1;
+        this.applyDesktopTransform(img, 0, 0, container);
+      }
+    });
+  }
+
+  zoomDesktop(img, dir, x, y, container) {
+
+    let scale = +img.dataset.zoomScale;
+    scale = Math.min(this.maxZoom, Math.max(this.minZoom, scale + this.zoomStep * dir));
+    img.dataset.zoomScale = scale;
+
+    this.applyDesktopTransform(
+      img,
+      -x * (scale - 1),
+      -y * (scale - 1),
+      container
+    );
+  }
+
+  moveDesktop(img, x, y, container) {
+    if (+img.dataset.zoomScale <= 1) return;
+    this.applyDesktopTransform(
+      img,
+      -x * (+img.dataset.zoomScale - 1),
+      -y * (+img.dataset.zoomScale - 1),
+      container
+    );
+  }
+
+  applyDesktopTransform(img, x, y, container) {
+
+    if (!container) return;
+
+    const scale = +img.dataset.zoomScale;
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
+    const iw = img.offsetWidth * scale;
+    const ih = img.offsetHeight * scale;
+
+    const minX = Math.min(0, cw - iw);
+    const minY = Math.min(0, ch - ih);
+
+    x = Math.min(0, Math.max(minX, x));
+    y = Math.min(0, Math.max(minY, y));
+
+    img.dataset.imgX = x;
+    img.dataset.imgY = y;
+    img.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+  }
+
+  createFullscreen() {
+
+    if (!this.isMobile) return;
+
+    this.fs = document.createElement('div');
+    this.fs.className = 'zoom-fs';
+
+    this.fsImg = document.createElement('img');
+    this.fsImg.classList.add('zoom-fs__img');
+
+    this.closeBtn = document.createElement('button');
+    this.closeBtn.className = 'zoom-fs__close-btn';
+    this.closeBtn.textContent = '✕';
+
+    this.fs.append(this.fsImg, this.closeBtn);
+    document.body.appendChild(this.fs);
+
+    this.initFullscreenGestures();
+
+    this.closeBtn.onclick = () => this.closeFullscreen();
+    this.fs.onclick = e => e.target === this.fs && this.closeFullscreen();
+
+  }
+
+  openFullscreen(sourceImg) {
+
+    this.fsImg.src = sourceImg.src;
+
+    this.scale = 1;
+    this.x = 0;
+    this.y = 0;
+
+    this.applyFullscreenTransform();
+
+    requestAnimationFrame(() => {
+      this.fs.classList.add('active');
+    });
+
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeFullscreen() {
+
+    this.applyFullscreenTransform();
+    this.fs.classList.remove('active');
+    document.body.style.overflow = '';
+
+  }
+
+  initFullscreenGestures() {
+
+    let startDist = 0;
+    let startScale = 1;
+    let startX = 0;
+    let startY = 0;
+    let dragging = false;
+
+    this.fs.addEventListener('touchstart', e => {
+
+      this.fsImg.style.transition = 'none';
+
+      if (e.touches.length === 2) {
+        startDist = this.getDistance(e.touches[0], e.touches[1]);
+        startScale = this.scale;
+      }
+
+      if (e.touches.length === 1 && this.scale > 1) {
+        dragging = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }
+
+    }, { passive: false });
+
+    this.fs.addEventListener('touchmove', e => {
+      e.preventDefault();
+
+      if (e.touches.length === 2) {
+        const dist = this.getDistance(e.touches[0], e.touches[1]);
+        this.scale = Math.min(this.maxZoom, Math.max(this.minZoom, startScale * (dist / startDist)));
+        this.constrainFullscreen();
+        this.applyFullscreenTransform();
+      }
+
+      if (dragging && e.touches.length === 1) {
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        this.x += dx;
+        this.y += dy;
+        this.constrainFullscreen();
+        this.applyFullscreenTransform();
+      }
+
+    }, { passive: false });
+
+    this.fs.addEventListener('touchend', () => dragging = false);
+  }
+
+  constrainFullscreen() {
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const iw = this.fsImg.offsetWidth * this.scale;
+    const ih = this.fsImg.offsetHeight * this.scale;
+
+    const minX = Math.min(0, (vw - iw) / 2);
+    const maxX = Math.max(0, (iw - vw) / 2);
+    const minY = Math.min(0, (vh - ih) / 2);
+    const maxY = Math.max(0, (ih - vh) / 2);
+
+    this.x = Math.min(maxX, Math.max(minX, this.x));
+    this.y = Math.min(maxY, Math.max(minY, this.y));
+  }
+
+  applyFullscreenTransform() {
+    this.fsImg.style.transform = `translate(-50%, -50%) translate(${this.x}px, ${this.y}px) scale(${this.scale})`;
+  }
+
+  getCoords(e, el) {
+    const r = el.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+
+  getDistance(a, b) {
+    return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+  }
+
+}
+
+class ScrollToTop {
+
+  constructor(params) {
+    this.params = params ?? {};
+    this.clientWidth = document.documentElement.clientWidth;
+    this.button = document.querySelector('[data-scroll-top]');
+
+    if (this.button) {
+      this.ownMethodsBinder();
+      this.setEventListeners(); 
+      this.scrollHandler(); 
+    }
+  }
+
+  setEventListeners() {
+    window.addEventListener('scroll', this.scrollHandler);
+    window.addEventListener('resize', this.updateClientWidth);
+    this.button.addEventListener('click', this.moveToTop);
+  }
+
+  moveToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    this.button.blur();
+    this.button.classList.add('off');
+  }
+
+  updateClientWidth() {
+    this.clientWidth = document.documentElement.clientWidth;
+  }
+
+  getActivationCoordinate() {
+    let activationCoordinate;
+    for (let key in this.params) {
+      let [min, max] = key.split('-');
+      min = +min;
+      max = +max;
+      if (this.clientWidth >= min && this.clientWidth <= max) { 
+        activationCoordinate = this.params[key];
+        break;
+      } else {
+        activationCoordinate = this.params.default;
+      }
+    }
+    return activationCoordinate ?? 900;
+  }
+
+  controlButton(state) {
+    if (state) {
+      this.button.classList.add('active');
+    } else {
+      this.button.classList.remove('active');
+      this.button.classList.remove('off');
+    }
+  }
+
+  scrollHandler() {
+    let coordinate = this.getActivationCoordinate();
+    let scrollY = window.pageYOffset;
+    
+    if (scrollY >= coordinate) {
+      this.controlButton(true)
+    } else {
+      this.controlButton(false)
+    }
+  }
+
+}
+
 
 
 
@@ -1088,6 +1740,7 @@ setupMixin(
   ChangeLanguage,
   BurgerMenu,
   UpdatePageTitle,
+  ScrollToTop,
 );
 
 export {
@@ -1097,4 +1750,7 @@ export {
   ChangeLanguage,
   BurgerMenu,
   UpdatePageTitle,
+  Demonstrator,
+  ImageZoom,
+  ScrollToTop,
 }

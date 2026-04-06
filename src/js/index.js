@@ -5,13 +5,17 @@ import {
   ChangeLanguage,
   BurgerMenu,
   UpdatePageTitle,
+  Demonstrator,
+  ImageZoom,
+  ScrollToTop,
 } from './modules.js';
 
-import { titles_dic, elements_dic } from './dictionary.js';
+import { titles_dic, elements_dic, demo_data } from './dictionary.js';
 
 removeMobileBlocks();
 pricesBlockMobile();
 translateMoreBtnOfferBlock();
+
 
 // Plugins
 
@@ -83,6 +87,30 @@ new UpdatePageTitle({
   observer: {
     threshold: 0.3,
   },
+});
+
+new ImageZoom({
+  mode: 'hover',
+  mobileViewport: 768,
+  strictHoverTarget: true,
+
+  startZoom: 1.3, // Вот это для десктопа пишеш
+  minZoom: 1,
+  maxZoom: 1.7,
+  zoomStep: 0.2,
+
+  mobile: { // А вот это для мобилки када сработает брекпоинт
+    // startZoom: 2, Можна не писать тошо всегда с 1 будит начинаться
+    minZoom: 1,
+    maxZoom: 3,
+    zoomStep: 0.2,
+  }
+});
+
+new ScrollToTop({
+  '1024-9999': 950,
+  '300-500': 1400,
+  default: 900,
 });
 
 
@@ -719,16 +747,331 @@ function slidersAutoplayViewportController(except = '.a93fj3fds1') {
 
 }
 
+// AUTOPLAY
+function activateDemonstrators() {
+
+  let demonstrators = Array.from(document.querySelectorAll('.demonstrator'));
+
+  if (!demonstrators.length) return;
+  
+  defineDemoInfoBlockAreas();
+
+  demonstrators.forEach((demo) => {
+
+    new Demonstrator(`#${demo.id}`, {
+
+      mobile: 831,
+
+      lazy: {
+        margin: 700,
+      },
+
+      slider: {
+
+        slidesPerView: 5.375,
+        spaceBetween: 10,
+        speed: 500,
+        simulateTouch: true,
+        direction: 'vertical',
+
+        pagination: {
+          el: `#${demo.id} .slider-pag`,
+          clickable: true,
+          type: 'bullets',
+          renderBullet: customBullets,
+        },
+
+        navigation: {
+          nextEl: `#${demo.id} .slider-control--next`,
+          prevEl: `#${demo.id} .slider-control--prev`,
+        },
+
+        // autoplay: {
+        //   delay: 3000,
+        //   disableOnInteraction: false,
+        //   pauseOnMouseEnter: true,
+        // },
+
+        on: {
+          afterInit: updateDemoInfoBlock,
+          slideChange: updateDemoInfoBlock,
+        }
+
+      }
+
+    });
+
+    addExtraSlidesInToolsSlider(`#${demo.id} .swiper`);
+
+  });
+
+  translateDemoInfoBlock();
+
+  function customBullets(index, className) {
+
+    try {
+
+      let slide = this.slides[index];
+      let square = demo_data[slide.id].square;
+
+      return `<button class="slider-pag__item ${className}">
+                <span class="slider-pag__effect"></span>
+                <span class="slider-pag__text small-text">${square} м²</span>
+              </button>`;
+
+    } catch {
+
+      console.log('Custom bullets error');
+
+      return `<button class="slider-pag__item ${className}">
+                <span class="slider-pag__effect"></span>
+                <span class="slider-pag__text small-text">${index + 1}</span>
+              </button>`;
+
+    }
+
+  }
+
+  function addExtraSlidesInToolsSlider(selector) {
+
+    let slider = document.querySelector(selector);
+
+    if (!slider) return;
+
+    let swiper = slider.swiper;
+    let slidesCount = Math.trunc(+swiper.params.slidesPerView);
+
+    if (slidesCount > 1) {
+
+      for (let i = 1; i <= slidesCount - 1; i++) {
+        swiper.appendSlide(`<div class="swiper-slide" style="visibility: hidden;"></div>`);
+      }
+
+    }
+
+  }
+
+}
+
+function defineDemoInfoBlockAreas() {
+
+  let demoInfoBlock = Array.from(document.querySelectorAll('.demo-info'));
+
+  demoInfoBlock.forEach((demo) => {
+
+    demo._sum = demo.querySelector('[data-info="sum"]');
+    demo._square = demo.querySelector('[data-info="square"]');
+    demo._duration = demo.querySelector('[data-info="duration"]');
+    demo._rooms = demo.querySelector('[data-info="rooms"]');
+    demo._location = demo.querySelector('[data-info="location"]');
+    demo._list = demo.querySelector('[data-info="list"]');
+
+  });
+
+}
+
+function updateDemoInfoBlock(swiper) {
+
+  try {
+    demo_data
+  } catch {
+    console.log('[demo_data] dictionary not found');
+    return;
+  }
+
+  let activeSlide = swiper.slides.at(swiper.realIndex);
+  let data = demo_data[activeSlide.id];
+
+  if (!data) return;
+  
+  let lang = document.documentElement.lang;
+  let demonstrator = activeSlide.closest('.demonstrator');
+  let demoInfoBlock = demonstrator.querySelector('.demo-info');
+  let numberFormatter = new Intl.NumberFormat('ru');
+  
+  demoInfoBlock._sum.textContent = numberFormatter.format(data.sum) + ' грн';
+  demoInfoBlock._square.textContent = data.square + ' м²';
+  demoInfoBlock._rooms.textContent = data.rooms;
+
+  let days = formatDemoInfoDurationField(lang, data.duration);
+  demoInfoBlock._duration.textContent = days;
+
+  demoInfoBlock._location.textContent = data.location[lang];
+
+  demoInfoBlock._list.innerHTML = '';
+
+  data.actions.forEach((action) => {
+
+    let li = document.createElement('li');
+    li.classList.add('desc-list__li', 'small-text');
+
+    li.textContent = action[lang];
+
+    demoInfoBlock._list.append(li);
+
+  });
+
+  try {
+    ChangeLanguage.prototype.updateElements();
+  } catch {
+    console.log('[ChangeLanguage] plugin is not defined');
+  }
+
+}
+
+function formatDemoInfoDurationField(lang, duration) {
+
+  let rules = new Intl.PluralRules( lang === 'ru' ? 'ru-RU' : 'ua-UA' );
+  let pluralForm = rules.select(duration);
+
+  let variant = lang === 'ru' ? 'дней' : 'днів';
+  let forms = {
+    'one': 'день',
+    'few': lang === 'ru' ? 'дня' : 'дні',
+    'many': variant,
+    'other': variant,
+  };
+
+  let end = forms[pluralForm] ?? variant;
+  return `${duration} ${end}`;
+
+}
+
+function translateDemoInfoBlock() {
+
+  document.addEventListener('translated', (event) => {
+
+    let slides = Array.from(document.querySelectorAll('.demonstrator .swiper'));
+    slides.forEach((slide) => updateDemoInfoBlock(slide.swiper));
+
+  });
+
+}
+
+function tabletsHandler() {
+
+  let tabs = Array.from(document.querySelectorAll('[data-tabs]'));
+
+  if (!tabs.length) return;
+
+  let currentTabsBlock;
+  defineElements();
+  selectInitTab();
+
+  document.addEventListener('click', (event) => {
+
+    let trigger = event.target.closest('[data-tab-trig]');
+
+    if (trigger) {
+      showSelectedTab(trigger);
+    }
+
+  });
+
+  function showSelectedTab(trigger) {
+
+    currentTabsBlock = trigger.closest('[data-tabs]');
+
+    let tab = currentTabsBlock.querySelector(`[data-tab="${trigger.dataset.tabTrig}"]`);
+
+    if (!tab || tab.matches('.active')) return;
+
+    currentTabsBlock._tabs.forEach((tab) => {
+      tab.classList.remove('active')
+      demosAutoplayController(tab);
+    });
+
+    currentTabsBlock._triggers.forEach((trig) => trig.classList.remove('active'));
+
+    trigger.classList.add('active');
+    tab.classList.add('active');
+    demosAutoplayController(tab);
+
+  }
+
+  function demosAutoplayController(tab) {
+
+    tab.matches('.active') ? tab._swiper?.autoplay.start() : tab._swiper?.autoplay.stop();
+
+  }
+
+  function selectInitTab() {
+
+    tabs.forEach((item) => {
+      item._triggers[0].classList.add('active');
+      item._tabs[0].classList.add('active');
+    })
+
+  }
+
+  function defineElements() {
+
+    tabs.forEach((item) => {
+
+      item._triggers = Array.from(item.querySelectorAll('[data-tab-trig]'));
+      item._tabs = Array.from(item.querySelectorAll('[data-tab]'));
+      item._tabs.forEach((tab) => tab._swiper = tab.querySelector('.swiper').swiper);
+
+    })
+
+  }
+
+}
+
+function tabsDemosAutoplayInViewport() {
+
+  let demos = Array.from(document.querySelectorAll('.tabs .demonstrator'));
+
+  if (!demos.length) return;
+  if (typeof Swiper === 'undefined') return;
+
+  let area = document.querySelector('.tabs__area');
+
+  demos.forEach((item) => {
+
+    let swiper = item.querySelector('.swiper').swiper;
+    if (swiper) swiper.autoplay.stop();
+
+  });
+
+  let observer = new IntersectionObserver((list, obs) => {
+
+    list.forEach((item) => {
+
+      let swiper = item.target.querySelector('.tabs__tab.active .swiper').swiper;
+
+      if (item.isIntersecting) {
+
+        if (swiper) swiper.autoplay.start();
+
+      } else {
+
+        if (swiper) swiper.autoplay.stop();
+
+      }
+
+    });
+
+  }, { threshold: 0.1 });
+
+  observer.observe(area);
+ 
+}
 
 
 
 
 
-focusStateFix('.noUi-handle');
+
+
+focusStateFix('.noUi-handle', '.agreement__label');
+activateDemonstrators();
 customRange();
 formValidatorEventsHandler();
 langControlsHandler();
 calculatorHandler();
 mobileFixedHeaderEffect();
 showHiddenContent();
-slidersAutoplayViewportController();
+slidersAutoplayViewportController('.demonstrator .swiper');
+tabletsHandler();
+// tabsDemosAutoplayInViewport();
