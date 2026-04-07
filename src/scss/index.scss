@@ -1162,14 +1162,6 @@
     stroke: var.$black;
     fill: transparent;
   }
-
-  &--next {
-    justify-self: end;
-
-    .slider-control__icon {
-      transform: rotate(180deg);
-    }
-  }
 }
 
 .demo-info {
@@ -1187,6 +1179,7 @@
   &__type {
     @include mix.flex(nowrap, 6px);
     align-items: center;
+    color: var.$gray;
 
     &::before {
       content: '';
@@ -1243,6 +1236,18 @@
 
   &__slider-pag {
     grid-column: span 5;
+  }
+
+  &__slider-control {
+
+    &--next {
+      justify-self: end;
+
+      .slider-control__icon {
+        transform: rotate(180deg);
+      }
+    }
+
   }
 
   &__thumbs {
@@ -1314,10 +1319,12 @@
 .tabs {
   @include mix.flex-col(32px);
   align-items: center;
+  width: 100%;
 
   &__controls {
     @include mix.flex(wrap, 6px);
     align-items: center;
+    justify-content: center;
   }
 
   &__trigger {
@@ -1349,6 +1356,7 @@
     transform: scale(0.75);
     opacity: 0;
     visibility: hidden;
+    width: 100%;
 
     &.active {
       transition: all 0.45s;
@@ -1382,6 +1390,7 @@
   transform: rotate(-250deg) scale(0.1);
   visibility: hidden;
   opacity: 0;
+  z-index: 8;
 
   &::before {
     content: '';
@@ -1402,6 +1411,45 @@
     transform: rotate(-250deg) scale(0.1) !important;
   }
 
+}
+
+.zoom-fs {
+  @extend %wh-100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var.$trans-black3;
+  z-index: 11;
+  transition: all 0.2s;
+  visibility: hidden;
+  opacity: 0;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: var.$white;
+    font-size: 29px;
+    line-height: 100%;
+    font-weight: 700;
+    padding: 10px;
+  }
+
+  &__img {
+    @extend %p-cen;
+    will-change: transform;
+    position:absolute;
+    width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+    filter: saturate(1.4);
+  }
 }
 
 
@@ -1470,16 +1518,43 @@
     }
   }
 
+  .demo-info {
+    padding: 30px 20px 45px 20px;
+    box-shadow: 0 0 5px var.$light-silver;
+  }
+
   .demonstrator {
-    grid-template-columns: 55px 114px 447px 328px 55px;
-    grid-template-rows: auto 420px 70px;
+    grid-template-columns: 55px 570px 320px 55px;
+    grid-template-rows: auto 330px 70px;
+    gap: 15px 0;
+
+    &__slider-pag {
+      margin: 0 0 10px 0;
+    }
 
     &__thumbs {
+      width: 100%;
       grid-row: 3 / 4;
+      grid-column: 2 / 3;
+    }
+
+    &__screen {
+      box-shadow: none;
+    }
+
+    &__demo-info {
+      width: calc(100% - 10px);
+      height: 100%;
+      margin: 0 0 0 10px;
+      grid-row: span 2;
     }
   }
 
   .tabs {
+
+    &__trigger {
+      width: 200px;
+    }
 
     &__demonstrator {
       margin: 0;
@@ -1581,16 +1656,24 @@
     }
   }
 
+  .demo-info {
+    padding: 23px 20px 30px 20px;
+
+    &__desc-list {
+      margin: 5px 0 0 23px;
+    }
+  }
+
   .demonstrator {
-    // grid-template-columns: 60px 124px 530px 328px 60px;
-    // grid-template-rows: auto 420px;
+    grid-template-columns: 55px 375px 315px 55px;
+    grid-template-rows: auto 300px 70px;
   }
 
   .tabs {
 
-    // &__demonstrator {
-    //   margin: 0;
-    // }
+    &__trigger {
+      width: 160px;
+    }
   }
 
 }
@@ -1828,6 +1911,96 @@
     }
   }
 
+  .section--works {
+    padding: 30px 0 35px 0;
+  }
+
+  .slider-pag {
+    gap: 15px 22px;
+
+    &__item {
+      gap: 7px;
+    }
+  }
+
+  .demo-info {
+    padding: 0px;
+    box-shadow: none;
+    gap: 8px;
+  }
+
+  .demonstrator {
+    grid-template-columns: 364px 277px;
+    grid-template-rows: auto 259px 60px;
+    gap: 14px 0;
+
+    &__slider-pag {
+      margin: 0 0 34px 0;
+    }
+
+    &__thumbs {
+      grid-row: 3 / 4;
+      grid-column: span 1;
+    }
+
+    &__demo-info {
+      width: calc(100% - 18px);
+      margin: 0px;
+      justify-self: end;
+      grid-row: span 2;
+      grid-column: 2 / 3;
+    }
+
+    &__slider-control {
+      display: none;
+    }
+  }
+
+  .tabs {
+    gap: 21px;
+
+    &__trigger {
+      width: 150px;
+      padding: 14px;
+    }
+
+    &__area {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 8.7%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: calc(100% - 8.8%);
+        background: var.$white;
+        z-index: -1;
+        box-shadow: 0 4px 8px var.$car-silver;
+      }
+
+    }
+
+    &__demonstrator {
+      margin: 0 0 26px 0;
+    }
+
+    &__tab {
+      transition: none;
+      transform: none;
+
+      &.active {
+        transition: none;
+        transform: none;
+      }
+    }
+
+    &__button {
+      margin: 5px 0 0 0;
+    }
+  }
+
 }
 
 @media (max-width: 671px) {
@@ -1908,6 +2081,74 @@
     &__body {
       gap: 15px;
     }
+  }
+
+  .demo-info {
+    padding: 23px 22px;
+    box-shadow: 0 0 5px var.$trans-black2;
+    border-radius: 8px;
+
+    &__desc-list {
+      max-height: 170px;
+    }
+  }
+
+  .demonstrator {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    &__slider-pag {
+      display: none;
+    }
+
+    &__thumbs {
+      width: 470px;
+      height: 60px;
+    }
+
+    &__screen {
+      width: 100%;
+      height: 250px;
+      order: -1;
+    }
+
+    &__demo-info {
+      width: 100%;
+    }
+  }
+
+  .tabs {
+    gap: 26px;
+
+    &__area {
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &__tab {
+      transform: scale(0.85);
+
+      &.active {
+        transition: all 0.45s;
+        transform: scale(1);
+      }
+    }
+
+    &__demonstrator {
+      margin: 0;
+    }
+
+    &__button {
+      margin: 0;
+    }
+  }
+
+  .scroll-top {
+    right: 18px;
   }
 
 }
@@ -2033,6 +2274,37 @@
     &__title {
       font-size: 36px;
       line-height: 40px;
+    }
+  }
+
+  .section--works {
+    padding: 30px 0 33px 0;
+
+    .section__title {
+      font-size: 35px;
+    }
+  }
+
+  .demo-info {
+    padding: 22px 19px 23px 19px;
+  }
+
+  .demonstrator {
+
+    &__thumbs {
+      width: 384px;
+    }
+
+    &__screen {
+      height: 229px;
+    }
+  }
+
+  .tabs {
+    gap: 26px;
+
+    &__button {
+      width: 100%;
     }
   }
 
@@ -2187,6 +2459,29 @@
     &__footer {
       padding: 5px 10px 25px 10px;
     }
+  }
+
+  .demonstrator {
+
+    &__thumbs {
+      width: 300px;
+    }
+
+    &__screen {
+      height: 250px;
+    }
+  }
+
+  .tabs {
+
+    &__trigger {
+      width: 145px;
+    }
+  }
+
+  .scroll-top {
+    right: 10px;
+    bottom: 70px;
   }
 
 }

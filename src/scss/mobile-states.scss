@@ -118,3 +118,41 @@
     text-decoration: underline;
   }
 }
+
+.tabs__trigger {
+  will-change: transform;
+  transition: all 0.15s;
+
+  &:active {
+    background: var.$blue;
+    color: var.$white;
+    transform: scale(0.9);
+  }
+}
+
+.demonstrator .swiper-slide {
+  will-change: transform;
+  transition: all 0.15s;
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.scroll-top {
+
+  &:active {
+    transition: all 0.05s;
+    background: var.$blue;
+    box-shadow: 0 0 5px var.$blue;
+    transform: scale(0.9) !important;
+  }
+}
+
+.zoom-fs__close-btn {
+
+  &:active {
+    transform: scale(0.8);
+    color: var.$red
+  }
+}

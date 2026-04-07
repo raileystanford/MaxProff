@@ -91,25 +91,24 @@ new UpdatePageTitle({
 
 new ImageZoom({
   mode: 'hover',
-  mobileViewport: 768,
+  mobileViewport: 831,
   strictHoverTarget: true,
 
-  startZoom: 1.3, // Вот это для десктопа пишеш
+  startZoom: 1.3,
   minZoom: 1,
   maxZoom: 1.7,
   zoomStep: 0.2,
 
-  mobile: { // А вот это для мобилки када сработает брекпоинт
-    // startZoom: 2, Можна не писать тошо всегда с 1 будит начинаться
+  mobile: {
     minZoom: 1,
-    maxZoom: 3,
+    maxZoom: 4,
     zoomStep: 0.2,
   }
 });
 
 new ScrollToTop({
   '1024-9999': 950,
-  '300-500': 1400,
+  '1-1023': 1500,
   default: 900,
 });
 
@@ -782,8 +781,8 @@ function activateDemonstrators() {
         },
 
         navigation: {
-          nextEl: `#${demo.id} .slider-control--next`,
-          prevEl: `#${demo.id} .slider-control--prev`,
+          nextEl: `#${demo.id} .demonstrator__slider-control--next`,
+          prevEl: `#${demo.id} .demonstrator__slider-control--prev`,
         },
 
         // autoplay: {
@@ -795,6 +794,45 @@ function activateDemonstrators() {
         on: {
           afterInit: updateDemoInfoBlock,
           slideChange: updateDemoInfoBlock,
+        },
+
+        breakpoints: {
+
+          1330: {
+            direction: 'vertical',
+            spaceBetween: 10,
+          },
+
+          1031: {
+            slidesPerView: 5.375,
+            direction: 'horizontal',
+            spaceBetween: 10,
+          },
+
+          831: {
+            slidesPerView: 3.6,
+            direction: 'horizontal',
+            spaceBetween: 10,
+          },
+
+          671: {
+            slidesPerView: 4,
+            spaceBetween: 12,
+            direction: 'horizontal',
+          },
+
+          413: {
+            slidesPerView: 4.318,
+            spaceBetween: 9,
+            direction: 'horizontal',
+          },
+
+          1: {
+            slidesPerView: 3.3,
+            spaceBetween: 10,
+            direction: 'horizontal',
+          }
+
         }
 
       }
