@@ -636,7 +636,7 @@
 
           <div class="offers">
 
-            <article class="offer offers__offer">
+            <article class="offer offers__offer" data-acc="main">
 
               <div class="offer__header">
 
@@ -656,7 +656,7 @@
 
               <em class="offer__description small-text" data-lang="off1-desc">Такой тип ремонта подойдёт для того чтобы «освежить» ремонт в квартире: заменить покрытие стен, пола и потолка без предварительной подготовки.</em>
 
-              <div class="offer__body">
+              <div class="offer__body" data-acc="content">
 
                 <ul class="desc-list">
 
@@ -693,7 +693,7 @@
 
               <div class="offer__footer">
 
-                <button class="offer__trigger mid-text">Список работ</button>
+                <button class="offer__trigger mid-text" data-acc="trigger">Список работ</button>
 
                 <em class="offer__prices">
 
@@ -708,7 +708,7 @@
 
             </article>
         
-            <article class="offer offers__offer">
+            <article class="offer offers__offer" data-acc="main">
 
               <div class="offer__header">
 
@@ -728,7 +728,7 @@
 
               <em class="offer__description small-text" data-lang="off2-desc">Такой тип ремонта подойдет, если требуеться отремонтировать квартиру: выровнять стены, сделать стяжку полов, проложить инженерию и выполнить чистовую отделку.</em>
 
-              <div class="offer__body">
+              <div class="offer__body" data-acc="content">
 
                 <ul class="desc-list">
 
@@ -770,7 +770,7 @@
 
               <div class="offer__footer">
 
-                <button class="offer__trigger mid-text">Список работ</button>
+                <button class="offer__trigger mid-text" data-acc="trigger">Список работ</button>
 
                 <em class="offer__prices">
 
@@ -785,7 +785,7 @@
 
             </article>
 
-            <article class="offer offers__offer">
+            <article class="offer offers__offer" data-acc="main">
 
               <div class="offer__header">
 
@@ -805,7 +805,7 @@
 
               <em class="offer__description small-text" data-lang="off3-desc">Ремонт класса «евро» — капитальный ремонт с новейшими, современными отделочными материалами и стандартами, включающий перепланировку.</em>
 
-              <div class="offer__body">
+              <div class="offer__body" data-acc="content">
 
                 <ul class="desc-list">
 
@@ -849,7 +849,7 @@
 
               <div class="offer__footer">
 
-                <button class="offer__trigger mid-text">Список работ</button>
+                <button class="offer__trigger mid-text" data-acc="trigger">Список работ</button>
 
                 <em class="offer__prices">
 
@@ -864,7 +864,7 @@
 
             </article>
 
-            <article class="offer offers__offer">
+            <article class="offer offers__offer" data-acc="main">
 
               <div class="offer__header">
 
@@ -884,7 +884,7 @@
 
               <em class="offer__description small-text" data-lang="off4-desc">Дизайнерский ремонт ориентирован на настоящих ценителей комфорта, эстетики и внутреннего удобства. Премиальное качество материалов.</em>
 
-              <div class="offer__body">
+              <div class="offer__body" data-acc="content">
 
                 <ul class="desc-list">
 
@@ -931,7 +931,7 @@
 
               <div class="offer__footer">
 
-                <button class="offer__trigger mid-text">Список работ</button>
+                <button class="offer__trigger mid-text" data-acc="trigger">Список работ</button>
 
                 <em class="offer__prices">
 
@@ -1419,6 +1419,142 @@
         </div>
 
       </article>
+
+      <article class="section section--proms" data-title="proms">
+
+        <h2 class="section__title title-text" data-lang="proms-title">Акции</h2>
+
+        <div class="section__content">
+
+          <div class="promotions" data-load-block data-acc="main">
+
+            <div class="promotions__body" data-acc="content">
+
+              <article class="promotion promotions__promotion">
+
+                <div class="promotion__image-wrapper">
+                  <picture>
+                    <source srcset="images/preloader.svg" data-load="./images/pictures/prom1.webp" type="image/webp">
+                    <img src="images/preloader.svg" data-load="./images/pictures/prom1.jpg" alt="Новоселы" data-lang="prom1-img" class="promotion__image">
+                  </picture>
+                </div>
+
+                <div class="promotion__info">
+
+                  <h3 class="promotion__title prom-text" data-lang="prom1-title">Новоселам</h3>
+                  <em class="promotion__text norm-text" data-lang="prom1-text">Специальная скидка для тех кто переехал не более года назад</em>
+                  <button class="button promotion__button mid-text" data-popup="popup--main" data-lang="prom-btn">Получить скидку</button>
+
+                </div>
+
+              </article>
+
+              <article class="promotion promotions__promotion">
+
+                <div class="promotion__image-wrapper">
+                  <picture>
+                    <source srcset="images/preloader.svg" data-load="./images/pictures/prom2.webp" type="image/webp">
+                    <img src="images/preloader.svg" data-load="./images/pictures/prom2.jpg" alt="Молодожены" data-lang="prom2-img" class="promotion__image">
+                  </picture>
+                </div>
+
+                <div class="promotion__info">
+
+                  <h3 class="promotion__title prom-text" data-lang="prom2-title">Молодоженам</h3>
+                  <em class="promotion__text norm-text" data-lang="prom2-text">Специальная скидка если с момента регистрации прошло не более года</em>
+                  <button class="button promotion__button mid-text" data-popup="popup--main" data-lang="prom-btn">Получить скидку</button>
+
+                </div>
+
+              </article>
+
+              <article class="promotion promotions__promotion">
+
+                <div class="promotion__image-wrapper">
+                  <picture>
+                    <source srcset="images/preloader.svg" data-load="./images/pictures/prom3.webp" type="image/webp">
+                    <img src="images/preloader.svg" data-load="./images/pictures/prom3.jpg" alt="Пенсионеры" data-lang="prom3-img" class="promotion__image">
+                  </picture>
+                </div>
+
+                <div class="promotion__info">
+
+                  <h3 class="promotion__title prom-text" data-lang="prom3-title">Пенсионерам</h3>
+                  <em class="promotion__text norm-text" data-lang="prom3-text">Специальная скидка для наших дорогих пенсионеров</em>
+                  <button class="button promotion__button mid-text" data-popup="popup--main" data-lang="prom-btn">Получить скидку</button>
+
+                </div>
+
+              </article>
+
+              <article class="promotion promotions__promotion promotions__promotion--hidden">
+
+                <div class="promotion__image-wrapper">
+                  <picture>
+                    <source srcset="images/preloader.svg" data-load="./images/pictures/prom4.webp" type="image/webp">
+                    <img src="images/preloader.svg" data-load="./images/pictures/prom4.jpg" alt="Госслужащий" data-lang="prom4-img" class="promotion__image">
+                  </picture>
+                </div>
+
+                <div class="promotion__info">
+
+                  <h3 class="promotion__title prom-text" data-lang="prom4-title">Госслужащим</h3>
+                  <em class="promotion__text norm-text" data-lang="prom4-text">Специальная скидка для действующих госслужащих</em>
+                  <button class="button promotion__button mid-text" data-popup="popup--main" data-lang="prom-btn">Получить скидку</button>
+
+                </div>
+
+              </article>
+
+              <article class="promotion promotions__promotion promotions__promotion--hidden">
+
+                <div class="promotion__image-wrapper">
+                  <picture>
+                    <source srcset="images/preloader.svg" data-load="./images/pictures/prom5.webp" type="image/webp">
+                    <img src="images/preloader.svg" data-load="./images/pictures/prom5.jpg" alt="Многодетные" data-lang="prom5-img" class="promotion__image">
+                  </picture>
+                </div>
+
+                <div class="promotion__info">
+
+                  <h3 class="promotion__title prom-text" data-lang="prom5-title">Многодетным</h3>
+                  <em class="promotion__text norm-text" data-lang="prom5-text">Специальная скидка для многодетных семей c тремя и более детьми</em>
+                  <button class="button promotion__button mid-text" data-popup="popup--main" data-lang="prom-btn">Получить скидку</button>
+
+                </div>
+
+              </article>
+
+              <article class="promotion promotions__promotion promotions__promotion--hidden">
+
+                <div class="promotion__image-wrapper">
+                  <picture>
+                    <source srcset="images/preloader.svg" data-load="./images/pictures/prom6.webp" type="image/webp">
+                    <img src="images/preloader.svg" data-load="./images/pictures/prom6.jpg" alt="Студенты" data-lang="prom6-img" class="promotion__image">
+                  </picture>
+                </div>
+
+                <div class="promotion__info">
+
+                  <h3 class="promotion__title prom-text" data-lang="prom6-title">Студентам</h3>
+                  <em class="promotion__text norm-text" data-lang="prom6-text">Специальная скидка для студентов начиная с 3-го курса</em>
+                  <button class="button promotion__button mid-text" data-popup="popup--main" data-lang="prom-btn">Получить скидку</button>
+
+                </div>
+
+              </article>
+
+            </div>
+
+            <button class="outline-btn promotions__outline-btn mid-text" data-acc="trigger" data-lang="prom-more">Все акции</button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      <div style="height: 3000px;"></div>
 
     </main>
 

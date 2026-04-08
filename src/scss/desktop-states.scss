@@ -343,7 +343,7 @@
   &:hover, &:focus {
     text-decoration: underline;
 
-    &:not(:active, .active .offer__trigger) {
+    &:not(:active, .opened .offer__trigger) {
 
       &::after {
         animation: down 0.5s infinite;
@@ -472,5 +472,24 @@
   &:active {
     transition: all 0.06s;
     transform: scale(0.9) !important;
+  }
+}
+
+.promotion {
+  will-change: transform;
+  transition: all 0.25s;
+
+  &__image {
+    will-change: transform;
+    transition: all 0.3s;
+  }
+  
+  &:hover {
+    box-shadow: 0 0 7px var.$black;
+    transform: translateY(4px);
+
+    .promotion__image {
+      transform: scale(1.06);
+    }
   }
 }

@@ -1,4 +1,5 @@
 import {
+  LazyLoad,
   Popup,
   FormValidator,
   DropMenu,
@@ -8,6 +9,7 @@ import {
   Demonstrator,
   ImageZoom,
   ScrollToTop,
+  DropAnswer,
 } from './modules.js';
 
 import { titles_dic, elements_dic, demo_data } from './dictionary.js';
@@ -18,6 +20,10 @@ translateMoreBtnOfferBlock();
 
 
 // Plugins
+
+new LazyLoad({
+  offset: 800,
+});
 
 new Popup({
   backdrop: true,
@@ -110,6 +116,23 @@ new ScrollToTop({
   '1024-9999': 950,
   '1-1023': 1500,
   default: 900,
+});
+
+new DropAnswer({
+  backdropClose: true,
+  multiple: true,
+  escapeClose: true,
+  linkClose: true,
+
+  openCallback: function(block) {
+    changeOfferTriggerText(block);
+    changePromotionsTriggerText(block);
+  },
+
+  closeCallback: function(block) {
+    changeOfferTriggerText(block);
+    changePromotionsTriggerText(block);
+  },
 });
 
 
@@ -549,57 +572,6 @@ function removeMobileBlocks() {
 
     if (header) header.remove();
     if (menu) menu.remove();
-
-  }
-
-}
-
-function showHiddenContent() {
-
-  let blocks = Array.from(document.querySelectorAll('.offer__body'));
-  let trigger = document.querySelector('.offer__trigger');
-
-  if (!blocks.length || !trigger) return;
-
-  defineElements();
-
-  document.addEventListener('click', (event) => {
-
-    let trigger = event.target.closest('.offer__trigger');
-
-    if (trigger) {
-      showHideBlock(trigger);
-    }
-
-  });
-
-  function showHideBlock(trigger) {
-
-    let block = trigger._content;
-    let footer = trigger.parentElement;
-    let lang = document.documentElement.lang;
-
-    if (footer.matches('.active')) {
-      block.style.height = '';
-      footer.classList.remove('active');
-      trigger.textContent = lang === 'ru' ? 'Список работ' : 'Список робіт';
-    } else {
-      block.style.height = block.scrollHeight + 'px';
-      footer.classList.add('active');
-      trigger.textContent = lang === 'ru' ? 'Скрыть' : 'Приховати';
-    }
-
-  }
-
-  function defineElements() {
-
-    blocks.forEach((block) => {
-
-      let parent = block.closest('.offer');
-      block._trigger = parent.querySelector('.offer__trigger');
-      block._trigger._content = block;
-
-    })
 
   }
 
@@ -1096,6 +1068,32 @@ function tabsDemosAutoplayInViewport() {
  
 }
 
+function changeOfferTriggerText(block) {
+
+  let lang = document.documentElement.lang;
+  
+  if (block.matches('.opened')) {
+    block._trigger.textContent = lang === 'ru' ? 'Скрыть' : 'Приховати';
+  } else {
+    block._trigger.textContent = lang === 'ru' ? 'Список работ' : 'Список робіт';
+  }
+
+}
+
+function changePromotionsTriggerText(block) {
+
+  let lang = document.documentElement.lang;
+  
+  if (block.matches('.opened')) {
+    block._trigger.textContent = lang === 'ru' ? 'Скрыть' : 'Приховати';
+  } else {
+    block._trigger.textContent = lang === 'ru' ? 'Все акции' : 'Усі акції';
+  }
+
+}
+
+
+
 
 
 
@@ -1109,7 +1107,6 @@ formValidatorEventsHandler();
 langControlsHandler();
 calculatorHandler();
 mobileFixedHeaderEffect();
-showHiddenContent();
 slidersAutoplayViewportController('.demonstrator .swiper');
 tabletsHandler();
 // tabsDemosAutoplayInViewport();
