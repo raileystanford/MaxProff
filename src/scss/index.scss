@@ -279,6 +279,8 @@
   &__icon {
     width: 60px;
     height: 60px;
+    object-fit: contain;
+    object-position: top;
   }
 
   &__text {
@@ -884,9 +886,23 @@
   width: 100%;
   align-items: center;
 
+  &__header {
+    @include mix.flex-col(14px);
+    align-items: center;
+  }
+
   &__title {
     text-align: center;
     color: var.$black;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  &__subtitle {
+    font-weight: 400;
+    color: var.$black;
+    text-align: center;
+    max-width: 800px;
   }
 
   &__content {
@@ -1599,6 +1615,78 @@
     }
   }
 
+}
+
+.explanator {
+  display: grid;
+  grid-template-columns: repeat(8, 110px);
+  grid-template-rows: auto auto;
+  justify-content: space-between;
+  justify-items: center;
+  gap: 15px 20px;
+  position: relative;
+
+  &__option {
+    will-change: transform;
+    align-items: center;
+    gap: 11px;
+    transition: all 0.2s;
+
+    .option__icon {
+      width: 70px;
+      height: 70px;
+    }
+
+    .option__text {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+    }
+
+    &.active {
+      transform: translateY(-12px);
+    }
+  }
+
+  &__option--cctv {
+
+    .option__icon {
+      width: 60px;
+      height: 70px;
+    }
+  }
+
+  &__point {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var.$dark-white;
+    cursor: pointer;
+    border: 2px solid var.$white;
+    transition: all 0.3s;
+
+    &.active {
+      background: var.$green;
+    }
+  }
+
+  &__line {
+    width: 90%;
+    height: 6px;
+    background: var.$dark-white;
+    position: absolute;
+    bottom: 10px;
+    left: 5%;
+    z-index: -1;
+  }
+
+  &__subline {
+    width: 0px;
+    height: 100%;
+    background: var.$green;
+    transition: all 0.25s;
+  }
 }
 
 

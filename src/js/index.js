@@ -1174,6 +1174,96 @@ function mobilePromotionsBlock() {
 
 }
 
+function explanatorHandler() {
+
+  let media = window.matchMedia('(max-width: 831px)').matches;
+
+  if (media) return;
+
+  let block = document.querySelector('.explanator');
+  let cards = Array.from(document.querySelectorAll('.explanator .option'));
+  let points = Array.from(document.querySelectorAll('.explanator .explanator__point'));
+  let line = document.querySelector('.explanator .explanator__line');
+
+  if (!block || !cards.length || !points.length || !line) return;
+
+  defineElements();
+  let lastPointIndex = 0;
+
+  block.addEventListener('pointerover', (event) => {
+
+    let card = event.target.closest('.option');
+    let point = event.target.closest('.explanator .explanator__point');
+
+    if (card) {
+      movementHandler(card);
+    } else if (point) {
+      movementHandler(point);
+    }
+
+  });
+
+  block.addEventListener('pointerleave', (event) => {
+
+    cards.forEach((card) => card.classList.remove('active'));
+    points.forEach((point) => point.classList.remove('active'));
+    line.firstElementChild.style.width = '0px';
+    lastPointIndex = 0;
+
+  });
+
+  function movementHandler(elem) {
+
+    cards.forEach((card) => card.classList.remove('active'));
+    points.forEach((point, index) => elem._index > index ? point.classList.add('active') : null);
+
+    elem = elem._point ?? elem;
+    elem._card ? elem._card.classList.add('active') : elem.classList.add('active');
+
+    if (elem._index < lastPointIndex ) {
+      points.at(lastPointIndex).classList.remove('active');
+      lastPointIndex = elem._index;
+    } else {
+      elem.classList.add('active');
+      lastPointIndex = elem._index;
+    }
+    
+    let sublineWidth = getSublineLength(elem);
+    line.firstElementChild.style.width = sublineWidth + 'px';
+
+  }
+
+  function getSublineLength(point) {
+
+    if (!point) return;
+
+    let subLine = line.firstElementChild;
+    let startX = subLine._info.x;
+    let pointMidX = point._info.x + (point._info.width / 2);
+    
+    return Math.abs(Math.trunc(pointMidX - startX));
+
+  }
+
+  function defineElements() {
+
+    cards.forEach((card, index) => {
+      card._index = index;
+      card._point = points.at(index);
+    });
+
+    points.forEach((point, index) => {
+      point._index = index;
+      point._card = cards.at(index);
+      point._info = point.getBoundingClientRect();
+    });
+
+    line.firstElementChild._info = line.getBoundingClientRect();
+
+  }
+
+}
+
 
 
 
@@ -1193,3 +1283,4 @@ mobileFixedHeaderEffect();
 // slidersAutoplayViewportController('.demonstrator .swiper');
 tabletsHandler();
 // tabsDemosAutoplayInViewport();
+explanatorHandler();
