@@ -1560,6 +1560,47 @@
   }
 }
 
+.custom-pag {
+  @extend %flex-cen;
+  gap: 15px;
+  bottom: 1px !important;
+
+  .swiper-pagination-bullet {
+    @extend %flex-cen;
+    will-change: transform;
+    opacity: 1;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var.$silver;
+    border-radius: 50%;
+    background: var.$dark-white;
+    transition: all 0.2s;
+    margin: 0 !important;
+
+    &::before {
+      content: '';
+      will-change: transform;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var.$blue;
+      transform: scale(0.1);
+      opacity: 0;
+      transition: all 0.25s;
+    }
+
+    &-active {
+      border-color: var.$blue;
+
+      &::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+}
+
 
 // Media queries
 
@@ -1666,6 +1707,13 @@
 
     &__demonstrator {
       margin: 0;
+    }
+  }
+
+  .promotion {
+
+    &__info {
+      padding: 19px 15px;
     }
   }
 
@@ -1781,6 +1829,17 @@
 
     &__trigger {
       width: 160px;
+    }
+  }
+
+  .promotions {
+
+    &__body {
+      height: 420px;
+    }
+
+    &__promotion {
+      height: 400px;
     }
   }
 
@@ -2109,6 +2168,38 @@
     }
   }
 
+  .promotion {
+
+    &__info {
+      padding: 18px 20px 18px 20px;
+      gap: 9px;
+
+      &::before {
+        height: 150%;
+      }
+    }
+
+    &__title {
+      font-size: 30px;
+      line-height: 35px;
+    }
+  }
+
+  .promotions {
+    padding: 0 0 38.5px 0;
+
+    &__promotion {
+      width: 100%;
+      height: 350px;
+
+      &--hidden {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+    
+  }
+
 }
 
 @media (max-width: 671px) {
@@ -2416,6 +2507,29 @@
     }
   }
 
+  .promotion {
+
+    &__info {
+
+      &::before {
+        height: 200%;
+      }
+    }
+
+    &__title {
+      font-size: 32px;
+      line-height: 38px;
+    }
+  }
+
+  .promotions {
+    width: 354px;
+
+    &__promotion {
+      height: 400px;
+    }
+  }
+
 }
 
 @media (max-width: 413px) {
@@ -2590,6 +2704,10 @@
   .scroll-top {
     right: 10px;
     bottom: 70px;
+  }
+
+  .promotions {
+    width: 300px;
   }
 
 }

@@ -1092,6 +1092,88 @@ function changePromotionsTriggerText(block) {
 
 }
 
+// AUTOPLAY
+function mobilePromotionsBlock() {
+
+  let media = window.matchMedia('(max-width: 831px)').matches;
+  let block = document.querySelector('.promotions');
+
+  if (!media || !block) return;
+
+  let proms = Array.from(block.querySelectorAll('.promotion'));
+
+  createSlider();
+  initSlider();
+
+  function createSlider() {
+
+    block.innerHTML = '';
+    block.classList.add('swiper');
+
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('swiper-wrapper');
+
+    let pag = document.createElement('div');
+    pag.classList.add('swiper-pagination', 'custom-pag');
+
+    proms.forEach((promotion) => {
+
+      let slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+
+      slide.append(promotion);
+      wrapper.append(slide);
+
+    });
+
+    block.append(wrapper, pag);
+
+  }
+
+  function initSlider() {
+
+    new Swiper(block, {
+
+      slidesPerView: 2.531,
+      spaceBetween: 13,
+      speed: 700,
+
+      pagination: {
+        el: '.promotions .swiper-pagination',
+        clickable: true,
+        type: 'bullets',
+      },
+
+      // autoplay: {
+      //   delay: 2500,
+      //   disableOnInteraction: false,
+      //   pauseOnMouseEnter: true,
+      // },
+
+      breakpoints: {
+
+        671: {
+          slidesPerView: 2.531,
+          spaceBetween: 13,
+        },
+
+        501: {
+          slidesPerView: 1.8,
+          spaceBetween: 10,
+        },
+
+        1: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        }
+      }
+
+    });
+
+  }
+
+}
+
 
 
 
@@ -1101,12 +1183,13 @@ function changePromotionsTriggerText(block) {
 
 
 focusStateFix('.noUi-handle', '.agreement__label');
+mobilePromotionsBlock();
 activateDemonstrators();
 customRange();
 formValidatorEventsHandler();
 langControlsHandler();
 calculatorHandler();
 mobileFixedHeaderEffect();
-slidersAutoplayViewportController('.demonstrator .swiper');
+// slidersAutoplayViewportController('.demonstrator .swiper');
 tabletsHandler();
 // tabsDemosAutoplayInViewport();
