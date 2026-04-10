@@ -1931,6 +1931,65 @@
     }
   }
 
+  .explanator {
+    grid-template-columns: 250px 250px;
+    grid-template-rows: auto;
+    justify-items: start;
+    gap: 45px 200px;
+    justify-content: center;
+
+    &__option {
+      flex-direction: row;
+      gap: 15px;
+      position: relative;
+
+      .option__text {
+        text-align: left;
+      }
+
+      &--cctv {
+
+        .option__icon {
+          width: 70px;
+          height: 60px;
+          flex-shrink: 0;
+          object-position: left top;
+        }
+      }
+
+      &::before {
+        content: '';
+        width: 23px;
+        height: 23px;
+        border-radius: 50%;
+        border: 2px solid var.$white;
+        background: var.$dark-white;
+        margin: 0 5px 0 0;
+        flex-shrink: 0;
+      }
+
+      &:nth-child(1), &:nth-child(2) {
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 35px;
+          left: 10px;
+          width: 6px;
+          height: 345px;
+          background: var.$dark-white;
+          border-radius: 3px;
+          z-index: -1;
+        }
+      }
+
+    }
+
+    &__point, &__line {
+      display: none;
+    }
+  }
+
 }
 
 @media (max-width: 831px) {
@@ -2288,6 +2347,10 @@
     
   }
 
+  .explanator {
+    gap: 45px 110px;
+  }
+
 }
 
 @media (max-width: 671px) {
@@ -2438,6 +2501,24 @@
     right: 18px;
   }
 
+  .explanator {
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+
+    &__option {
+      width: fit-content;
+
+      &:nth-child(1), &:nth-child(2) {
+
+        &::after {
+          height: 590px;
+        }
+      }
+
+    }
+  }
+
 }
 
 @media (max-width: 501px) {
@@ -2562,6 +2643,10 @@
       font-size: 36px;
       line-height: 40px;
     }
+
+    &__subtitle {
+      font-size: 17px;
+    }
   }
 
   .section--works {
@@ -2615,6 +2700,26 @@
 
     &__promotion {
       height: 400px;
+    }
+  }
+
+  .explanator {
+
+    &__option {
+
+      .option__icon {
+        width: 46px;
+        height: 46px;
+      }
+
+      &:nth-child(1), &:nth-child(2) {
+
+        &::after {
+          top: 32px;
+          height: 450px;
+        }
+      }
+
     }
   }
 

@@ -1176,7 +1176,7 @@ function mobilePromotionsBlock() {
 
 function explanatorHandler() {
 
-  let media = window.matchMedia('(max-width: 831px)').matches;
+  let media = window.matchMedia('(max-width: 1031px)').matches;
 
   if (media) return;
 
