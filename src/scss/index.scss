@@ -1799,6 +1799,34 @@
 
 }
 
+.advantage {
+  @include mix.flex-col(8.5px);
+
+  &__icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  &__title {
+    color: var.$black;
+    margin: 0 0 6px 0;
+  }
+
+  &__text {
+    color: var.$black;
+  }
+}
+
+.advantages {
+  @include mix.flex(wrap, 20px);
+  align-items: center;
+  justify-content: center;
+
+  &__advantage {
+    width: calc(25% - 15px);
+  }
+}
+
 // Media queries
 
 @media (max-width: 1330px) {
