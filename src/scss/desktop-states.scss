@@ -493,3 +493,32 @@
     }
   }
 }
+
+.review__location {
+  transition: all 0.2s;
+  text-decoration: underline transparent;
+
+  &::before {
+    will-change: transform;
+  }
+
+  &:hover, &:focus {
+    color: var.$light-blue;
+    text-decoration: underline;
+
+    &::before {
+      animation: jump 0.5s;
+    }
+  }
+
+  &:active {
+    transition: all 0.05s;
+    color: var.$green;
+  }
+
+  @keyframes jump {
+    0%{ transform: translateY(0px); }
+    35%{ transform: translateY(-6px) scaleX(0.87); }
+    100%{ transform: translateY(0px); }
+  }
+}

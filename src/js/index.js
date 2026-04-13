@@ -16,6 +16,7 @@ import { titles_dic, elements_dic, demo_data } from './dictionary.js';
 
 removeMobileBlocks();
 pricesBlockMobile();
+reviewsMobileBlock();
 translateMoreBtnOfferBlock();
 
 
@@ -1259,6 +1260,70 @@ function explanatorHandler() {
     });
 
     line.firstElementChild._info = line.getBoundingClientRect();
+
+  }
+
+}
+
+// AUTOPLAY
+function reviewsMobileBlock() {
+
+  let block = document.querySelector('.reviews');
+  let media = window.matchMedia('(max-width: 831px)').matches;
+
+  if (!block || !media) return;
+  if (typeof Swiper === 'undefined') return;
+
+  let slides = Array.from(block.querySelectorAll('.review'));
+
+  createSliderStructure();
+  initSwiperSlider();
+
+  function createSliderStructure() {
+
+    let pagination = document.createElement('div');
+    pagination.classList.add('swiper-pagination', 'custom-pag');
+
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('swiper-wrapper');
+
+    slides.forEach((slide) => {
+
+      let slideEl = document.createElement('div');
+      slideEl.classList.add('swiper-slide');
+
+      slideEl.append(slide);
+      wrapper.append(slideEl);
+
+    });
+
+    block.classList.add('swiper');
+    block.innerHTML = '';
+    block.append(wrapper, pagination);
+
+  }
+
+  function initSwiperSlider() {
+
+    new Swiper(block, {
+
+      slidesPerView: 1,
+      spaceBetween: 0,
+      speed: 700,
+
+      pagination: {
+        el: '.reviews .swiper-pagination',
+        clickable: true,
+        type: 'bullets',
+      },
+
+      // autoplay: {
+      //   delay: 3000,
+      //   disableOnInteraction: true,
+      //   pauseOnMouseEnter: true,
+      // },
+
+    });
 
   }
 

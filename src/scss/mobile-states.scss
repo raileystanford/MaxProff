@@ -156,3 +156,11 @@
     color: var.$red
   }
 }
+
+.review__location {
+
+  &:active {
+    color: var.$light-blue;
+    text-decoration: underline;
+  }
+}
