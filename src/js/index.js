@@ -136,6 +136,35 @@ new DropAnswer({
   },
 });
 
+// AUTOPLAY
+new Swiper('#working_slider', {
+
+  slidesPerView: 3,
+  spaceBetween: 165,
+  speed: 600,
+  loop: true,
+  centeredSlides: true,
+  initialSlide: 1, 
+
+  pagination: {
+    el: '.working-slider .swiper-pagination',
+    clickable: true,
+    type: 'bullets',
+  },
+
+  navigation: {
+    nextEl: '.working-slider .working-slider__slider-control--next',
+    prevEl: '.working-slider .working-slider__slider-control--prev',
+  },
+
+  // autoplay: {
+  //   delay: 2000,
+  //   disableOnInteraction: false,
+  //   pauseOnMouseEnter: true,
+  // },
+
+});
+
 
 // Other functions
 

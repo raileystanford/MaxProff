@@ -50,6 +50,11 @@ let titles_dic = {
     'ua': 'MaxProff - Наша команда',
   },
 
+  'working': {
+    'ru': 'MaxProff - Мастера в работе',
+    'ua': 'MaxProff - Майстри у роботі',
+  },
+
 }
 
 let demo_data = {
@@ -1966,6 +1971,11 @@ let elements_dic = {
   'ts-slide8': {
     'ru': 'Владислав Миронов',
     'ua': 'Владислав Міронов',
+  },
+
+  'working-title': {
+    'ru': 'Наши мастера в работе',
+    'ua': 'Наші майстри у роботі',
   },
 }
 

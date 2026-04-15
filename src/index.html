@@ -1910,62 +1910,62 @@
               </svg>
             </button>
 
-            <div class="team-slider__screen swiper">
+            <div class="team-slider__screen swiper" data-load-block>
               <div class="swiper-wrapper">
 
                 <div class="swiper-slide" data-team="team1">
                   <picture>
-                    <source srcset="./images/pictures/team1.webp" type="image/webp">
-                    <img src="./images/pictures/team1.jpg" alt="Аркадий Иванович" data-lang="ts-slide1" class="team-slider__slide">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/team1.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/team1.jpg" alt="Аркадий Иванович" data-lang="ts-slide1" class="team-slider__slide">
                   </picture>
                 </div>
 
                 <div class="swiper-slide" data-team="team2">
                   <picture>
-                    <source srcset="./images/pictures/team4.webp" type="image/webp">
-                    <img src="./images/pictures/team4.jpg" alt="Константин Викторович" data-lang="ts-slide2" class="team-slider__slide">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/team4.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/team4.jpg" alt="Константин Викторович" data-lang="ts-slide2" class="team-slider__slide">
                   </picture>
                 </div>
 
                 <div class="swiper-slide" data-team="team3">
                   <picture>
-                    <source srcset="./images/pictures/team2.webp" type="image/webp">
-                    <img src="./images/pictures/team2.jpg" alt="Владимир Андреевич" data-lang="ts-slide3" class="team-slider__slide">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/team2.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/team2.jpg" alt="Владимир Андреевич" data-lang="ts-slide3" class="team-slider__slide">
                   </picture>
                 </div>
 
                 <div class="swiper-slide" data-team="team4">
                   <picture>
-                    <source srcset="./images/pictures/team3.webp" type="image/webp">
-                    <img src="./images/pictures/team3.jpg" alt="Дмитрий Романович" data-lang="ts-slide4" class="team-slider__slide">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/team3.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/team3.jpg" alt="Дмитрий Романович" data-lang="ts-slide4" class="team-slider__slide">
                   </picture>
                 </div>
 
                 <div class="swiper-slide" data-team="team5">
                   <picture>
-                    <source srcset="./images/pictures/team8.jpeg" type="image/webp">
-                    <img src="./images/pictures/team8.jpeg" alt="Владислав Миронов" data-lang="ts-slide8" class="team-slider__slide">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/team8.jpeg" type="image/jpeg">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/team8.jpeg" alt="Владислав Миронов" data-lang="ts-slide8" class="team-slider__slide">
                   </picture>
                 </div>
 
                 <div class="swiper-slide" data-team="team6">
                   <picture>
-                    <source srcset="./images/pictures/team5.webp" type="image/webp">
-                    <img src="./images/pictures/team5.jpg" alt="Антон Марченко" data-lang="ts-slide6" class="team-slider__slide">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/team5.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/team5.jpg" alt="Антон Марченко" data-lang="ts-slide6" class="team-slider__slide">
                   </picture>
                 </div>
 
                 <div class="swiper-slide" data-team="team7">
                   <picture>
-                    <source srcset="./images/pictures/team7.jpeg" type="image/webp">
-                    <img src="./images/pictures/team7.jpeg" alt="Анатолий Дмитриевич" data-lang="ts-slide7" class="team-slider__slide">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/team7.jpeg" type="image/jpeg">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/team7.jpeg" alt="Анатолий Дмитриевич" data-lang="ts-slide7" class="team-slider__slide">
                   </picture>
                 </div>  
 
                 <div class="swiper-slide" data-team="team8">
                   <picture>
-                    <source srcset="./images/pictures/team6.jpeg" type="image/webp">
-                    <img src="./images/pictures/team6.jpeg" alt="Валерий Смирнов" data-lang="ts-slide5" class="team-slider__slide">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/team6.jpeg" type="image/jpeg">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/team6.jpeg" alt="Валерий Смирнов" data-lang="ts-slide5" class="team-slider__slide">
                   </picture>
                 </div>
 
@@ -1997,6 +1997,97 @@
             <div class="swiper-pagination custom-pag team-slider__custom-pag"></div>
 
           </div>
+
+        </div>
+
+      </article>
+
+      <article class="section section--working colored-bg" data-title="working">
+
+        <h2 class="section__title title-text" data-lang="working-title">Наши мастера в работе</h2>
+
+        <div class="section__content">
+
+          <div class="working-slider">
+
+            <button class="slider-control working-slider__slider-control working-slider__slider-control--prev">
+              <svg class="slider-control__icon">
+                <use xlink:href="./images/sprite.svg#arrow2"></use>
+              </svg>
+            </button>
+
+            <div class="working-slider__main swiper" id="working_slider" data-load-block>
+              <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                  <picture class="working-slider__pic">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/working1.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/working1.jpg" alt="Аркадий Иванович" data-lang="ts-slide1" class="working-slider__slide">
+                  </picture>
+                </div>
+
+                <div class="swiper-slide">
+                  <picture class="working-slider__pic">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/working7.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/working7.jpg" alt="Анатолий Дмитриевич" data-lang="ts-slide7" class="working-slider__slide">
+                  </picture>
+                </div>
+
+                <div class="swiper-slide">
+                  <picture class="working-slider__pic">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/working8.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/working8.jpg" alt="Владислав Миронов" data-lang="ts-slide8" class="working-slider__slide">
+                  </picture>
+                </div>
+
+                <div class="swiper-slide">
+                  <picture class="working-slider__pic">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/working5.jpeg" type="image/jpeg">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/working5.jpeg" alt="Валерий Смирнов" data-lang="ts-slide5" class="working-slider__slide">
+                  </picture>
+                </div>
+
+                <div class="swiper-slide">
+                  <picture class="working-slider__pic">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/working2.jpeg" type="image/jpeg">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/working2.jpeg" alt="Константин Викторович" data-lang="ts-slide2" class="working-slider__slide">
+                  </picture>
+                </div>
+
+                <div class="swiper-slide">
+                  <picture class="working-slider__pic">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/working3.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/working3.jpg" alt="Владимир Андреевич" data-lang="ts-slide3" class="working-slider__slide">
+                  </picture>
+                </div>
+
+                <div class="swiper-slide">
+                  <picture class="working-slider__pic">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/working4.webp" type="image/webp">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/working4.jpg" alt="Дмитрий Романович" data-lang="ts-slide4" class="working-slider__slide">
+                  </picture>
+                </div>
+
+                <div class="swiper-slide">
+                  <picture class="working-slider__pic">
+                    <source srcset="./images/preloader.svg" data-load="./images/pictures/working6.jpeg" type="image/jpeg">
+                    <img src="./images/preloader.svg" data-load="./images/pictures/working6.jpeg" alt="Антон Марченко" data-lang="ts-slide6" class="working-slider__slide">
+                  </picture>
+                </div>
+
+              </div>
+            </div>
+
+            <button class="slider-control working-slider__slider-control working-slider__slider-control--next">
+              <svg class="slider-control__icon">
+                <use xlink:href="./images/sprite.svg#arrow2"></use>
+              </svg>
+            </button>
+
+            <div class="swiper-pagination custom-pag working-slider__custom-pag"></div>
+
+          </div>
+          
 
         </div>
 
