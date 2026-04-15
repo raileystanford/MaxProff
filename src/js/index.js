@@ -12,7 +12,7 @@ import {
   DropAnswer,
 } from './modules.js';
 
-import { titles_dic, elements_dic, demo_data } from './dictionary.js';
+import { titles_dic, elements_dic, demo_data, team_data } from './dictionary.js';
 
 removeMobileBlocks();
 pricesBlockMobile();
@@ -1329,6 +1329,196 @@ function reviewsMobileBlock() {
 
 }
 
+// AUTOPLAY
+function teamSlider() {
+
+  let block = document.querySelector('.team-slider');
+
+  if (!block) return;
+  if (typeof Swiper === 'undefined') return;
+
+  let slider = block.querySelector('.swiper');
+  let buttons = Array.from(block.querySelectorAll('.team-slider__button'));
+  let points = Array.from(block.querySelectorAll('.team-slider__point'));
+  let infoBlock = block.querySelector('.team-info');
+  let line = block.querySelector('.team-slider__nav-line');
+  let swiper, timer;
+
+  defineElementsData();
+  initSwiper();
+  setNavConnectLineWidth();  
+
+  document.addEventListener('translated', (event) => {
+
+    switchActiveButtonPoint(swiper.realIndex, swiper);
+    setNavConnectLineWidth();
+
+  });
+
+  block.addEventListener('click', (event) => {
+
+    let navButton = event.target.closest('.team-slider__point, .team-slider__button');
+
+    if (navButton) {
+      if (swiper.realIndex !== navButton._index) swiper.slideToLoop(navButton._index);
+    }
+
+  });
+
+  // block.addEventListener('pointerenter', (event) => {
+  //   swiper.autoplay.stop();
+  // });
+
+  // block.addEventListener('pointerleave', (event) => {
+  //   swiper.autoplay.start();
+  // });
+
+  function initSwiper() {
+
+    swiper = new Swiper(slider, {
+
+      slidesPerView: 1,
+      spaceBetween: 30,
+      speed: 600,
+      direction: 'vertical',
+      loop: true,
+
+      pagination: {
+        el: '.team-slider .swiper-pagination',
+        clickable: true,
+        type: 'bullets',
+      },
+
+      navigation: {
+        nextEl: '.team-slider .team-slider__slider-control--next',
+        prevEl: '.team-slider .team-slider__slider-control--prev',
+      },
+
+      // autoplay: {
+      //   delay: 3000,
+      //   disableOnInteraction: false,
+      //   pauseOnMouseEnter: true,
+      // },
+
+      breakpoints: {
+
+        831: {
+          direction: 'vertical',
+        },
+
+        1: {
+          direction: 'horizontal',
+        },
+
+      },
+
+      on: {
+
+        afterInit: function(plugin) {
+
+          let index = plugin.realIndex;
+
+          switchActiveButtonPoint(index, plugin, true);
+
+        },
+
+        slideChange: function(plugin) {
+
+          let index = plugin.realIndex;
+
+          switchActiveButtonPoint(index, plugin);
+
+        }
+
+      }
+
+    })
+
+  }
+
+  function switchActiveButtonPoint(index, plugin, init) {
+
+    buttons.forEach((button) => button.classList.remove('active'));
+    points.forEach((point) => point.classList.remove('active'));
+
+    setTimeout(() => {
+
+      let activeSlide = block.querySelector('.swiper-slide-active');
+      let key = activeSlide.dataset.team;
+      
+      if (init) {
+        setWorkerData(key);
+      } else {
+        infoBlock.classList.add('active');
+        clearTimeout(timer);
+        timer = setTimeout(() => setWorkerData(key), 300);
+      }
+
+    });
+    
+    buttons.at(index).classList.add('active');
+    points.at(index).classList.add('active');
+
+  }
+
+  function defineElementsData() {
+
+    buttons.forEach((btn, index) => {
+      btn._index = index;
+      points.at(index)._index = index;
+    });
+
+    infoBlock._name = infoBlock.querySelector('.team-info__name');
+    infoBlock._job = infoBlock.querySelector('.team-info__job');
+    infoBlock._sub = infoBlock.querySelector('.team-info__sub');
+    infoBlock._list = infoBlock.querySelector('.team-info__desc-list');
+
+  }
+
+  function setWorkerData(key) {
+  
+    if (!team_data || !key) return;
+
+    let lang = document.documentElement.lang;
+
+    infoBlock._name.textContent = team_data[key].name[lang];
+    infoBlock._job.textContent = team_data[key].job[lang];
+    infoBlock._sub.textContent = team_data[key].sub[lang];
+
+    infoBlock._list.innerHTML = '';
+
+    team_data[key].actions.forEach((action) => {
+
+      let li = document.createElement('li');
+      li.classList.add('desc-list__li', 'small-text');
+
+      li.textContent = action[lang];
+
+      infoBlock._list.append(li);
+
+    });
+
+    infoBlock.classList.remove('active');
+
+  }
+
+  function setNavConnectLineWidth() {
+
+    if (!line) return;
+
+    let containerInfo = line.parentElement.getBoundingClientRect();
+    let firstPointInfo = points.at(0).getBoundingClientRect();
+    let lastPointInfo = points.at(-1).getBoundingClientRect();
+
+    let x = Math.round((firstPointInfo.x + firstPointInfo.width / 2) - containerInfo.x);
+    let width = Math.round((lastPointInfo.x + lastPointInfo.width / 2) - (firstPointInfo.x + firstPointInfo.width / 2));
+
+    line.style.cssText = `left: ${x}px; width: ${width}px`;
+
+  }
+
+}
+
 
 
 
@@ -1349,3 +1539,4 @@ mobileFixedHeaderEffect();
 tabletsHandler();
 // tabsDemosAutoplayInViewport();
 explanatorHandler();
+teamSlider();

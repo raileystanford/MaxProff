@@ -164,3 +164,28 @@
     text-decoration: underline;
   }
 }
+
+.team-slider__button {
+
+  &:active {
+    transform: scale(0.86) !important;
+  }
+}
+
+.slider-control {
+  will-change: transform;
+  transition: all 0.25s;
+
+  &__icon {
+    transition: all 0.25s;
+  }
+
+  &:active {
+    transform: scale(0.85);
+    background: var.$green;
+
+    .slider-control__icon {
+      stroke: var.$white;
+    }
+  }
+}
