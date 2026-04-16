@@ -163,6 +163,69 @@ new Swiper('#working_slider', {
   //   pauseOnMouseEnter: true,
   // },
 
+  breakpoints: {
+
+    1031: {
+      slidesPerView: 3,
+      spaceBetween: 165,
+      centeredSlides: true,
+      initialSlide: 1, 
+    },
+
+    831: {
+      spaceBetween: 10,
+      slidesPerView: 1.32,
+      centeredSlides: false,
+      initialSlide: 0, 
+
+      // autoplay: {
+      //   delay: 2000,
+      //   disableOnInteraction: false,
+      //   pauseOnMouseEnter: true,
+      // },
+    },
+
+    671: {
+      spaceBetween: 10,
+      slidesPerView: 1.406,
+      centeredSlides: false,
+      initialSlide: 0,
+
+      // autoplay: {
+      //   delay: 2000,
+      //   disableOnInteraction: true,
+      //   pauseOnMouseEnter: true,
+      // },
+    },
+
+    501: {
+      spaceBetween: 10,
+      slidesPerView: 1.2,
+      centeredSlides: false,
+      initialSlide: 0,
+      
+      // autoplay: {
+      //   delay: 2000,
+      //   disableOnInteraction: true,
+      //   pauseOnMouseEnter: true,
+      // },
+    },
+
+    1: {
+      spaceBetween: 20,
+      slidesPerView: 1,
+      centeredSlides: false,
+      initialSlide: 0, 
+
+      // autoplay: {
+      //   delay: 2000,
+      //   disableOnInteraction: true,
+      //   pauseOnMouseEnter: true,
+      // },
+    },
+
+  },
+
 });
 
 
