@@ -3320,6 +3320,13 @@
     gap: 30px;
   }
 
+  .qa-block {
+
+    &__desc-list {
+      margin: 0;
+    }
+  }
+
 }
 
 @media (max-width: 671px) {
@@ -3611,6 +3618,13 @@
   .suply {
     grid-template-columns: repeat(3, fit-content(30%));
     gap: 30px 20px;
+  }
+
+  .qa-block {
+
+    &__inner {
+      padding: 20px;
+    }
   }
 
 }
@@ -3918,6 +3932,45 @@
       justify-self: center;
       align-self: center;
       width: 130px;
+    }
+  }
+
+  .qa-block {
+
+    &__header {
+      padding: 12px;
+      gap: 15px;
+    }
+
+    &__inner {
+      padding: 12px;
+    }
+
+    &__title {
+      font-size: 22px;
+      line-height: 25px;
+    }
+
+    &__icon {
+      width: 25px;
+      height: 25px;
+    }
+
+    &__text {
+      font-size: 17px;
+      line-height: 22px;
+    }
+
+    &__desc-list {
+
+      .desc-list__li {
+        font-size: 17px;
+        line-height: 21px;
+
+        &::before {
+          margin: 6px 0 0 0;
+        }
+      }
     }
   }
 

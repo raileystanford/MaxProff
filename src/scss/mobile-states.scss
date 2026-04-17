@@ -198,3 +198,7 @@
     transform: scale(0.85);
   }
 }
+
+.qa-block__header, .qa-block__title, .qa-block__icon {
+  transition: all 0.2s;
+}
