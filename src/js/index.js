@@ -128,6 +128,7 @@ new DropAnswer({
   openCallback: function(block) {
     changeOfferTriggerText(block);
     changePromotionsTriggerText(block);
+    closeOtherQaBlocks(block);
   },
 
   closeCallback: function(block) {
@@ -1165,9 +1166,9 @@ function changeOfferTriggerText(block) {
 
   let lang = document.documentElement.lang;
   
-  if (block.matches('.opened')) {
+  if (block.matches('.offer.opened')) {
     block._trigger.textContent = lang === 'ru' ? 'Скрыть' : 'Приховати';
-  } else {
+  } else if (block.matches('.offer')) {
     block._trigger.textContent = lang === 'ru' ? 'Список работ' : 'Список робіт';
   }
 
@@ -1177,9 +1178,9 @@ function changePromotionsTriggerText(block) {
 
   let lang = document.documentElement.lang;
   
-  if (block.matches('.opened')) {
+  if (block.matches('.promotions.opened')) {
     block._trigger.textContent = lang === 'ru' ? 'Скрыть' : 'Приховати';
-  } else {
+  } else if (block.matches('.promotions')) {
     block._trigger.textContent = lang === 'ru' ? 'Все акции' : 'Усі акції';
   }
 
@@ -1608,6 +1609,25 @@ function teamSlider() {
     line.style.cssText = `left: ${x}px; width: ${width}px`;
 
   }
+
+}
+
+function closeOtherQaBlocks(block) {
+
+  if (!block.matches('.qa-block')) return;
+
+  let blocks = Array.from(document.querySelectorAll('.qa-block[data-acc="main"]'));
+
+  blocks.forEach((item) => {
+
+    let body = item.querySelector('[data-acc="content"]');
+
+    if (item !== block) {
+      item.classList.remove('opened');
+      body.style.height = '';
+    }
+
+  });
 
 }
 

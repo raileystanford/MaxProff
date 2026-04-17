@@ -593,3 +593,24 @@
     transform: scale(0.9);
   }
 }
+
+.qa-block__header {
+  transition: all 0.2s;
+
+  .qa-block__title, .qa-block__icon {
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    background: var.$green;
+    
+
+    .qa-block__title {
+      color: var.$white;
+    }
+
+    .qa-block__icon {
+      fill: var.$white;
+    }
+  }
+}
