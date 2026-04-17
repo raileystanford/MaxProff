@@ -551,3 +551,45 @@
     background: var.$silver;
   }
 }
+
+.blog-card__link {
+  transition: all 0.2s;
+  text-decoration: underline transparent;
+
+  &-icon {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+    color: var.$light-blue;
+    text-decoration: underline;
+
+    .blog-card__link-icon {
+      fill: var.$light-blue;
+    }
+  }
+
+  &:active {
+    transition: all 0.05s;
+    color: var.$green;
+
+    .blog-card__link-icon {
+      transition: all 0.05s;
+      fill: var.$green;
+    }
+  }
+}
+
+.brand {
+  will-change: transform;
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    transform: scale(1.08);
+  }
+
+  &:active {
+    transition: all 0.05s;
+    transform: scale(0.9);
+  }
+}

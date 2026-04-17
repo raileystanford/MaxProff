@@ -92,7 +92,7 @@ new BurgerMenu({
 new UpdatePageTitle({
   dictionary: titles_dic,
   observer: {
-    threshold: 0.3,
+    threshold: 0.4,
   },
 });
 
