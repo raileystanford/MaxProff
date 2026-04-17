@@ -2154,7 +2154,7 @@
   align-items: center;
   justify-content: center;
   justify-items: center;
-  padding: 28px 20px 28px 20px;
+  padding: 28px 20px;
   box-shadow: 0 0 8px var.$silver;
   border-radius: 8px;
   background: var.$white;
@@ -2201,7 +2201,6 @@
     grid-row: span 2;
   }
 }
-
 
 
 // Media queries
@@ -2661,6 +2660,30 @@
     }
   }
 
+  .section--supliers {
+    gap: 48px;
+  }
+
+  .sup-offer {
+    grid-template-columns: 37% fit-content(200px) 1fr;
+    grid-template-rows: auto;
+
+    &__button {
+      grid-column: span 1;
+      justify-self: end;
+    }
+  }
+
+  .suply {
+    grid-template-columns: repeat(3, fit-content(23%));
+    justify-content: space-between;
+
+    &__sup-offer {
+      grid-row: span 1;
+      grid-column: span 3;
+    }
+  }
+
 }
 
 @media (max-width: 831px) {
@@ -2896,7 +2919,7 @@
     }
   }
 
-  .section--works, .section--reviews, .section--working {
+  .section--works, .section--reviews, .section--working, .section--supliers {
     padding: 30px 0 35px 0;
   }
 
@@ -3181,6 +3204,30 @@
     }
   }
 
+  .section--supliers {
+
+    &.colored-bg::before {
+      background: var.$gradient-white -340px 0 / 240% 100% no-repeat,
+                  url(../images/backgrounds/interior.jpg) left center / cover no-repeat;
+    }
+
+  }
+
+  .sup-offer {
+    grid-template-columns: 31% fit-content(200px) 1fr;
+    padding: 13px;
+    gap: 15px;
+
+    &__text-bg {
+      font-size: 44px;
+      line-height: 52px;
+    }
+  }
+
+  .suply {
+    gap: 30px;
+  }
+
 }
 
 @media (max-width: 671px) {
@@ -3442,6 +3489,36 @@
     &__video {
       min-height: 300px;
     }
+  }
+
+  .section--supliers {
+
+    .section__header {
+      align-items: center;
+    }
+
+    .section__title, .section__subtitle {
+      text-align: center;
+    }
+  }
+
+  .sup-offer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__button {
+      width: 100%;
+    }
+
+    &__text {
+      text-align: center;
+    }
+  }
+
+  .suply {
+    grid-template-columns: repeat(3, fit-content(30%));
+    gap: 30px 20px;
   }
 
 }
@@ -3718,6 +3795,37 @@
 
     &__desc-list {
       margin: 0;
+    }
+  }
+
+  .section--supliers {
+
+    &.colored-bg::before {
+      background: var.$gradient-white -130px 0 / 250% 100% no-repeat,
+                  url(../images/backgrounds/interior.jpg) -220px center / cover no-repeat;
+    }
+  }
+
+  .sup-offer {
+    padding: 13px 15px;
+
+    &__button {
+      margin: 10px 0 0 0;
+    }
+  }
+
+  .suply {
+    grid-template-columns: repeat(2, calc(50% - 10px));
+    gap: 30px 20px;
+
+    &__sup-offer {
+      grid-column: span 2;
+    }
+
+    &__brand {
+      justify-self: center;
+      align-self: center;
+      width: 130px;
     }
   }
 
