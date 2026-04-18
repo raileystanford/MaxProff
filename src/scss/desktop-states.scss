@@ -566,6 +566,7 @@
 
     .blog-card__link-icon {
       fill: var.$light-blue;
+      animation: shift 0.45s;
     }
   }
 
@@ -577,6 +578,12 @@
       transition: all 0.05s;
       fill: var.$green;
     }
+  }
+
+  @keyframes shift {
+    0%{ transform: translate(0 , 0); }
+    50%{ transform: translate(4px , -4px); }
+    100%{ transform: translate(0 , 0); }
   }
 }
 
@@ -612,5 +619,112 @@
     .qa-block__icon {
       fill: var.$white;
     }
+  }
+}
+
+.disclaimer__outline-btn {
+
+  &:hover, &:focus {
+    background: var.$white;
+    color: var.$green;
+  }
+}
+
+.named-list__link {
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    color: var.$white;
+  }
+
+  &:active {
+    transition: all 0.05s;
+    text-decoration: underline;
+  }
+}
+
+.nav-list__link {
+  will-change: transform;
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    color: var.$green;
+  }
+
+  &:active {
+    transition: all 0.05s;
+    transform: scale(0.95);
+  }
+}
+
+.footer-nav__tel-block .tel-block__link {
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: var.$green;
+  }
+}
+
+.cont-link {
+  transition: all 0.2s;
+  text-decoration: underline transparent;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+
+    &::before {
+      content: '';
+      will-change: transform;
+      animation: link-jump 0.4s;
+    }
+  }
+
+  &:active {
+    transition: all 0.05s;
+    color: var.$green;
+  }
+
+  @keyframes link-jump {
+    0%{ transform: translateY(0) scale(1); }
+    50%{ transform: translateY(-5px) scale(1.1); }
+    100%{ transform: translateY(0) scale(1); }
+  }
+}
+
+.address__link {
+  transition: all 0.2s;
+
+  &:hover, &:focus {
+    color: var.$green;
+    text-decoration: underline;
+  }
+
+  &:active {
+    transition: all 0.05s;
+    color: var.$light-blue;
+  }
+}
+
+.soc-links__link {
+  will-change: transform;
+  transition: all 0.2s;
+
+  .soc-links__icon {
+    transition: all 0.2s;
+  }
+
+  &:hover, &:focus {
+
+    .soc-links__icon {
+      fill: var.$green;
+    }
+  }
+
+  &:active {
+    transition: all 0.05s;
+    transform: scale(0.85);
   }
 }
