@@ -84,9 +84,7 @@ new BurgerMenu({
   activationBreakpoint: 671,
   needOverlay: false,
   closeByClickOutOfMenu: true,
-  exceptBtns: '[data-lang-var], .button', // Кроме button с указаными селекторами. При клике на такие кнопки меню не закроется
-  openCallback: function(info) {},
-  closeCallback: function(info) {},
+  exceptBtns: '[data-lang-var]',
 });
 
 new UpdatePageTitle({

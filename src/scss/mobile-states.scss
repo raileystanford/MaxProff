@@ -202,3 +202,52 @@
 .qa-block__header, .qa-block__title, .qa-block__icon {
   transition: all 0.2s;
 }
+
+.cont-link {
+
+  &:active {
+    text-decoration: underline;
+  }
+}
+
+.named-list__link {
+
+  &:active {
+    color: var.$white;
+    text-decoration: underline;
+  }
+}
+
+.nav-list__link {
+
+  &:active {
+    color: var.$green;
+  }
+}
+
+.soc-links__link {
+
+  &:active {
+    transform: scale(0.8);
+
+    .soc-links__icon {
+      fill: var.$green;
+    }
+  }
+}
+
+.address__link {
+
+  &:active {
+    text-decoration: underline;
+    color: var.$green;
+  }
+}
+
+.disclaimer__outline-btn {
+
+  &:active {
+    background: var.$white;
+    color: var.$green;
+  }
+}
